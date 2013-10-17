@@ -1,0 +1,16 @@
+--- configure.orig	2013-10-08 16:45:01.838146716 -0500
++++ configure	2013-10-08 16:46:04.577142886 -0500
+@@ -21375,11 +21375,11 @@
+     CFLAGS="$CFLAGS -Qunused-arguments"
+ fi
+ 
+-# libstdc++ is at the moment the only option as the C++ standard library when compiling with Clang.
++# libc++ is at the moment the only option as the C++ standard library when compiling with Clang.
+ # -Wno-c++11-extensions, currently only usable with Clang, suppresses warnings of C++11 extensions in use.
+ # Suppress unused arguments warnings for C++ files as well.
+ if test "$cxx_compiler" = "clang++"; then
+-    CXXFLAGS="$CXXFLAGS -stdlib=libstdc++ -Wno-c++11-extensions -Qunused-arguments"
++    CXXFLAGS="$CXXFLAGS -stdlib=libc++ -Wno-c++11-extensions -Qunused-arguments"
+ fi
+ 
+ if test "$c_compiler" = "gcc"; then

@@ -1,0 +1,29 @@
+--- GNUmakefile.in.orig	2013-10-08 16:43:23.718154544 -0500
++++ GNUmakefile.in	2013-10-08 16:44:24.825149610 -0500
+@@ -21353,7 +21353,7 @@
+ 	-fno-exceptions -DBUILDING_CAIRO__ -DBUILDING_GTK__ \
+ 	$(am__append_1) $(am__append_2)
+ global_cflags := 
+-global_cxxflags := -fno-rtti
++global_cxxflags := -stdlib=libc++
+ 
+ # gtest source files that we don't compile directly.  They are
+ # #included by gtest-all.cc.
+@@ -21759,7 +21759,7 @@
+ 	$(WINMM_LIBS) \
+ 	-lm \
+ 	-lpthread \
+-	-lstdc++
++	-lc++
+ 
+ Programs_minidom_LDFLAGS = \
+ 	-no-install \
+@@ -21783,7 +21783,7 @@
+ 	$(WINMM_LIBS) \
+ 	-lm \
+ 	-lpthread \
+-	-lstdc++
++	-lc++
+ 
+ Programs_LLIntOffsetsExtractor_LDFLAGS = \
+ 	-no-install \
