@@ -1,0 +1,91 @@
+--- bin/distro-install-desktop-integration.orig	2013-10-11 10:51:29.767754354 -0500
++++ bin/distro-install-desktop-integration	2013-10-11 10:56:32.321733429 -0500
+@@ -7,14 +7,14 @@
+ 
+ PRODUCTVERSION_NODOT=`echo $PRODUCTVERSION | sed -e "s/\.//"`
+ 
+-mkdir -p $DESTDIR$PREFIXDIR/bin
++mkdir -p $DESTDIR/$PREFIXDIR/bin
+ 
+ 
+ create_wrapper()
+ {
+     echo "Install $PREFIXDIR/bin/$1"
+ 
+-    if test -L "$DESTDIR$PREFIXDIR/bin/$1" ; then
++    if test -L "$DESTDIR/$PREFIXDIR/bin/$1" ; then
+         # do not overwrite $PREFIXDIR/bin/libreoffice symlink created by create_tree.sh
+         # the symlink is necessary by java UNO components to find
+         # the UNO installation using $PATH; this function used to be provided
+@@ -26,12 +26,12 @@
+         #	and update it in %post and %postun
+         echo "     skip already existing symlink $PREFIXDIR/bin/$1"
+     else
+-        mkdir -p $DESTDIR$PREFIXDIR/bin
+-        cat <<EOT >$DESTDIR$PREFIXDIR/bin/$1
++        mkdir -p $DESTDIR/$PREFIXDIR/bin
++        cat <<EOT >$DESTDIR/$PREFIXDIR/bin/$1
+ #!/bin/sh
+ $INSTALLDIR/program/$2 $3 "\$@"
+ EOT
+-        chmod 755 $DESTDIR$PREFIXDIR/bin/$1
++        chmod 755 $DESTDIR/$PREFIXDIR/bin/$1
+     fi
+     # put into file list
+     test -f "$DESTDIR/$4" && echo "$PREFIXDIR/bin/$1" >>$DESTDIR/$4
+@@ -94,13 +94,13 @@
+ }
+ 
+ # install desktop integration from plain packages
+-sysui_temp=`mktemp -t -d distro-pack-desktop-integration-XXXXXX`
+-cp -a workdir/unxlng*/CustomTarget/sysui/share/libreoffice/* "$sysui_temp"
++sysui_temp=`mktemp -t -d /tmp/distro-pack-desktop-integration-XXXXXX`
++cp -a workdir/unx*/CustomTarget/sysui/share/libreoffice/* "$sysui_temp"
+ cp -a sysui/desktop/share/create_tree.sh "$sysui_temp"
+ builddir=`pwd`
+ cd $sysui_temp
+ # we want non-versioned stuff in the distro packages
+-sed -i \
++sed -i ""  \
+     -e "s/\($INSTALLDIRNAME\)$PRODUCTVERSION_NODOT/\1/" \
+     -e "s/\($INSTALLDIRNAME\)$PRODUCTVERSION/\1/" \
+     -e "s/\($PRODUCTNAME\) $PRODUCTVERSION/\1/" \
+@@ -112,17 +112,18 @@
+     export ICON_PREFIX=$INSTALLDIRNAME
+     export ICON_SOURCE_DIR=$builddir/sysui/desktop/icons
+     export PRODUCTVERSION=
++    export PREFIXDIR=$PREFIXDIR
+     export KDEMAINDIR=$PREFIXDIR
+     export GNOMEDIR=$PREFIXDIR
+     export GNOME_MIME_THEME=hicolor
+-    /bin/bash ./create_tree.sh
++    bash ./create_tree.sh
+ )
+ cd -
+ rm -rf $sysui_temp
+ 
+ # we do not want some stuff from the plain packages
+ rm -f $DESTDIR/$PREFIXDIR/bin/$INSTALLDIRNAME-printeradmin
+-rm -f $DESTDIR$PREFIXDIR/share/applications/libreoffice-printeradmin.desktop
++rm -f $DESTDIR/$PREFIXDIR/share/applications/libreoffice-printeradmin.desktop
+ if test -d $DESTDIR/opt ; then
+     rm -f $DESTDIR/opt/$INSTALLDIRNAME
+     rmdir --ignore-fail-on-non-empty $DESTDIR/opt
+@@ -131,7 +132,7 @@
+ # we want non-versioned desktop files
+ cd $DESTDIR/$INSTALLDIR/share/xdg
+ # we want non-versioned stuff in the distro packages
+-sed -i \
++sed -i "" \
+     -e "s/\($INSTALLDIRNAME\)$PRODUCTVERSION_NODOT/\1/" \
+     -e "s/\($INSTALLDIRNAME\)$PRODUCTVERSION/\1/" \
+     -e "s/\($PRODUCTNAME\) $PRODUCTVERSION/\1/" \
+@@ -174,7 +175,7 @@
+ #       you cannot include this link directly into the package
+ #       For example, the Novell package mark this symlink as %ghost
+ #	and update it in %post and %postun
+-ln -sf $INSTALLDIR/program/soffice $DESTDIR$PREFIXDIR/bin/soffice
++ln -sf $INSTALLDIR/program/soffice $DESTDIR/$PREFIXDIR/bin/soffice
+ test -f $DESTDIR/gid_Module_Root_Brand && echo "$PREFIXDIR/bin/soffice" >>$DESTDIR/gid_Module_Root_Brand
+ 
+ # create bash completion

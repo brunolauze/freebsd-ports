@@ -1,0 +1,14 @@
+The OpenCA PKI Project is a collaborative effort to develop a robust, full-featured 
+and Open Source out-of-the-box Certification Authority implementing the most used 
+protocols with full-strength cryptography world-wide. OpenCA is based on many 
+Open-Source Projects. Among the required software there are OpenLDAP, OpenSSL, 
+Apache Project, Apache mod_ssl.
+
+The project development is divided in two main tasks: studying and refining the 
+security scheme that guarantees the best model to be used in a CA and developing 
+software to easily setup and manage a Certification Authority.
+
+The OpenCA Tools package is a pre-requisite for OpenCA PKI. Please install this 
+package before installing the OpenCA one.
+
+

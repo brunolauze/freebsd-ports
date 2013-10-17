@@ -1,0 +1,12 @@
+--- configure.orig	2013-10-07 09:34:32.714767239 -0500
++++ configure	2013-10-07 09:34:45.652765918 -0500
+@@ -7737,6 +7737,9 @@
+ ac_compiler_gnu=$ac_cv_c_compiler_gnu
+ 
+ fi
++
++use_cxx=yes
++
+  if test "$use_cxx" != "no"; then
+   ENABLE_CXX_TRUE=
+   ENABLE_CXX_FALSE='#'
