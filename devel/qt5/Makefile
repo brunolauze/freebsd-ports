@@ -5,7 +5,7 @@ PORTNAME=	qt5
 DISTVERSION=	5.1.1
 CATEGORIES=	devel
 DIST_SUBDIR=	KDE
-MASTER_SITES=	http://download.qt-project.org/official_releases/qt/5.1/5.1.1/single/
+MASTER_SITES=	http://mirrors.neusoft.edu.cn/qt/official_releases/qt/5.1/5.1.1/single/
 
 DISTNAME=	qt-everywhere-opensource-src-5.1.1
 
