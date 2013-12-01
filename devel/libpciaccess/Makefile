@@ -1,0 +1,18 @@
+# $FreeBSD: head/devel/libpciaccess/Makefile 321224 2013-06-18 23:36:00Z jkim $
+
+PORTNAME=	libpciaccess
+PORTVERSION=	0.13.2
+CATEGORIES=	devel
+
+MAINTAINER=	x11@FreeBSD.org
+COMMENT=	Generic PCI access library
+
+BUILD_DEPENDS=	${LOCALBASE}/share/pciids/pci.ids:${PORTSDIR}/misc/pciids
+RUN_DEPENDS=	${LOCALBASE}/share/pciids/pci.ids:${PORTSDIR}/misc/pciids
+
+CONFIGURE_ARGS+=	--with-pciids-path=${LOCALBASE}/share/pciids
+
+XORG_CAT=	lib
+
+NO_STAGE=	yes
+.include <bsd.port.mk>

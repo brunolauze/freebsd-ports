@@ -10,9 +10,10 @@ MAINTAINER=	mono@FreeBSD.org
 COMMENT=	An open source implementation of .NET Development Framework
 
 BUILD_DEPENDS=	p5-XML-Parser>=0:${PORTSDIR}/textproc/p5-XML-Parser \
-    		bash:${PORTSDIR}/shells/bash
+    		bash:${PORTSDIR}/shells/bash \
+		git:${PORTSDIR}/devel/git \
+		llvm-config34:${PORTSDIR}/devel/llvm-mono
 
-#USE_BZIP2=	yes
 USES=		bison gettext gmake pathfix perl5
 USE_GNOME=	glib20
 USE_PERL5=	build

@@ -1,0 +1,11 @@
+--- configure.orig	2013-11-23 15:53:07.188247934 -0600
++++ configure	2013-11-23 15:53:30.647593812 -0600
+@@ -14712,7 +14712,7 @@
+ 
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking for libraries required to link against libpython" >&5
+ $as_echo_n "checking for libraries required to link against libpython... " >&6; }
+-if test "x$PYTHON_LIBS" = x; then
++if test "x$PYTHON_LIBS" == x; then
+ 	PYTHON_LIBS=`$PYTHON-config --ldflags --libs`
+ fi
+ 

@@ -48,8 +48,8 @@ DRI_DRIVERS=	${ALL_DRI_DRIVERS}
 
 .if defined(WITH_NEW_XORG)
 . if defined(WITH_GALLIUM) && (${ARCH} == i386 || ${ARCH} == amd64)
-BUILD_DEPENDS+=	llvm-config:${PORTSDIR}/devel/llvm
-RUN_DEPENDS+=	llvm-config:${PORTSDIR}/devel/llvm
+#BUILD_DEPENDS+=	llvm-config:${PORTSDIR}/devel/llvm
+#RUN_DEPENDS+=	llvm-config:${PORTSDIR}/devel/llvm
 CONFIGURE_ENV+=	LLVM_CONFIG=${LOCALBASE}/bin/llvm-config
 
 CONFIGURE_ARGS+=--enable-gallium-llvm --disable-gallium-egl 
@@ -103,10 +103,10 @@ do-install:
 .if !defined(WITH_NEW_XORG)
 	cd ${WRKSRC}/src/mesa; ${GMAKE} install-dri
 .else
-	cd ${WRKSRC}/src/mesa/libdricore; ${GMAKE} install
+#	cd ${WRKSRC}/src/mesa/libdricore; ${GMAKE} install
 	cd ${WRKSRC}/src/mesa/drivers/dri; ${GMAKE} install
 . if defined(WITH_GALLIUM) && (${ARCH} == i386 || ${ARCH} == amd64)
-	cd ${WRKSRC}/src/gallium/drivers/radeon; ${GMAKE} install
+#	cd ${WRKSRC}/src/gallium/drivers/radeon; ${GMAKE} install
 	cd ${WRKSRC}/src/gallium/targets; ${GMAKE} install
 . endif
 .endif

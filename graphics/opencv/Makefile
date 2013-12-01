@@ -2,25 +2,19 @@
 # $FreeBSD: graphics/opencv/Makefile 327733 2013-09-20 18:35:44Z bapt $
 
 PORTNAME?=	opencv
-PORTVERSION=	2.4.6
-PORTREVISION=	7
+PORTVERSION=	2.4.7
+PORTREVISION=	1
 CATEGORIES=	graphics
-MASTER_SITES=	SF/${PORTNAME}library/${PORTNAME}-unix/${PORTVERSION}.1
-DISTNAME=	opencv-${DISTVERSION}.1
+MASTER_SITES=	SF/${PORTNAME}library/${PORTNAME}-unix/${PORTVERSION}
+DISTNAME=	opencv-${DISTVERSION}
 
 MAINTAINER=	jhale@FreeBSD.org
 COMMENT=	Open Source Computer Vision library from Intel
 
-#LICENSE=	BSD
-#LICENSE_FILE=	${WRKSRC}/doc/license.txt
-
 WANT_GSTREAMER=	yes
 MAKE_JOBS_UNSAFE=	yes
-#USE_BZIP2=	yes
 USES=		cmake pkgconfig
 USE_LDCONFIG=	yes
-
-#WRKSRC=		${WRKDIR}/OpenCV-${DISTVERSION}.1
 
 NOT_FOR_ARCHS=	sparc64
 NOT_FOR_ARCHS_REASON_sparc64=	does not compile on sparc64
@@ -230,13 +224,6 @@ post-patch:
 		-e 's|    set(root_files README)||g' \
 		-e 's|    install(CODE "exec_program.*||g' \
 		${WRKSRC}/CMakeLists.txt
-#	@${SED} -E -e \
-#		's|    set\(OPENCV_LIB_COMPONENTS .*|    set\(OPENCV_LIB_COMPONENTS opencv_core opencv_imgproc opencv_video opencv_ml opencv_flann\)|g' \
-#		${WRKSRC}/OpenCVConfig.cmake.in > ${WRKSRC}/OpenCVConfig-core.cmake.in
-#	@${LN} -sf OpenCVConfig-version.cmake.in ${WRKSRC}/OpenCVConfig-core-version.cmake.in
-
-#${WRKSRC}/opencv.pc.cmake.in > ${WRKSRC}/opencv-core.pc.cmake.in
-
 .endif
 .if ! ${PORT_OPTIONS:MDOCS} || defined(_BUILDING_OPENCV_CORE) || defined(_BUILDING_OPENCV_PYTHON)
 	@${REINPLACE_CMD} -e '/add_subdirectory(doc)/ d' \

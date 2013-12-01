@@ -1,5 +1,5 @@
 # Created by: lesi@FreeBSD.org
-# $FreeBSD: graphics/libdrm/Makefile 328711 2013-09-29 17:01:41Z zeising $
+# $FreeBSD$
 
 PORTNAME=	libdrm
 PORTVERSION=	${LIBDRM_VERSION}
@@ -57,13 +57,14 @@ MAN7=		drm-gem.7 \
 CONFIGURE_ARGS+=--disable-manpages
 .endif
 
-LIBDRM_VERSION=	2.4.46
+LIBDRM_VERSION=	2.4.47
 LIBDRM_REVISION=0
 PLIST_SUB+=	OLD="@comment " NEW=""
 EXTRA_PATCHES+=	${FILESDIR}/extra-configure \
 		${FILESDIR}/extra-tests_modetest_Makefile.in \
 		${FILESDIR}/extra-tests_modetest_modetest.c \
-		${FILESDIR}/extra-tests_modetest_strchrnul.c
+		${FILESDIR}/extra-tests_modetest_strchrnul.c \
+		${FILESDIR}/extra-tests__radeon__radeon_ttm.c
 CONFIGURE_ARGS+=--disable-vmwgfx
 .else
 CONFIGURE_ARGS=	--enable-nouveau-experimental-api

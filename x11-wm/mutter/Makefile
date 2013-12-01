@@ -3,7 +3,7 @@
 #   $MCom: ports/trunk/x11-wm/mutter/Makefile 18577 2013-06-21 18:20:24Z kwm $
 
 PORTNAME=	mutter
-PORTVERSION=	3.9.92
+PORTVERSION=	3.11.2
 CATEGORIES=	x11-wm
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome3

@@ -17,7 +17,7 @@ MESAVERSION=	${MESABASEVERSION}${MESASUBVERSION:C/^(.)/.\1/}
 MESADISTVERSION=${MESABASEVERSION}${MESASUBVERSION:C/^(.)/-\1/}
 
 .if defined(WITH_NEW_XORG)
-MESABASEVERSION=	9.2.1
+MESABASEVERSION=	10.1.0
 # if there is a subversion, include the '-' between 7.11-rc2 for example.
 MESASUBVERSION=		
 PLIST_SUB+=	OLD="@comment " NEW=""
@@ -52,7 +52,7 @@ CONFIGURE_ENV+=ac_cv_prog_LEX=${LOCALBASE}/bin/flex
 .if defined(WITH_NEW_XORG)
 USE_AUTOTOOLS=	autoconf:env automake:env libtool:env
 # probably be shared lib, and in it own port.
-CONFIGURE_ARGS+=        --enable-shared-glapi=no --enable-glx-tls
+CONFIGURE_ARGS+=        --enable-shared-glapi=no --enable-glx-tls --enable-xa --enable-dri3=no
 # we need to reapply these patches because we doing wierd stuff with autogen
 REAPPLY_PATCHES= \
 		${PATCHDIR}/patch-src_egl_main_Makefile.in \
@@ -60,8 +60,8 @@ REAPPLY_PATCHES= \
 		${PATCHDIR}/patch-src_mapi_es2api_Makefile.in \
 		${PATCHDIR}/patch-src_mapi_shared-glapi_Makefile.in \
 		${PATCHDIR}/patch-src_mesa_drivers_dri_common_Makefile.in \
-		${PATCHDIR}/patch-src_mesa_drivers_dri_common_xmlpool_Makefile.in \
-		${PATCHDIR}/patch-src_mesa_libdricore_Makefile.in
+		${PATCHDIR}/patch-src_mesa_drivers_dri_common_xmlpool_Makefile.in 
+#		${PATCHDIR}/patch-src_mesa_libdricore_Makefile.in
 
 #                ${PATCHDIR}/patch-configure \
 
@@ -128,8 +128,8 @@ post-patch:
 		${WRKSRC}/src/mesa/drivers/dri/Makefile
 .else
 	@${REINPLACE_CMD} -e 's|#!/use/bin/python|#!${LOCALBASE}/bin/python2|g' \
-		${WRKSRC}/src/mesa/drivers/dri/common/xmlpool/gen_xmlpool.py \
-		${WRKSRC}/src/glsl/builtins/tools/*.py
+		${WRKSRC}/src/mesa/drivers/dri/common/xmlpool/gen_xmlpool.py 
+#		${WRKSRC}/src/glsl/builtins/tools/*.py
 	@${REINPLACE_CMD} -e 's|!/use/bin/python2|!${LOCALBASE}/bin/python2|g' \
 		${WRKSRC}/src/mesa/main/get_hash_generator.py \
 		${WRKSRC}/src/mapi/glapi/gen/gl_enums.py \
