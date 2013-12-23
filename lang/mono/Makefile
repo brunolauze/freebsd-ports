@@ -2,7 +2,7 @@
 # $FreeBSD: lang/mono/Makefile 327741 2013-09-20 19:53:09Z bapt $
 
 PORTNAME=	mono
-PORTVERSION=	3.2.1
+PORTVERSION=	3.2.7
 CATEGORIES=	lang
 MASTER_SITES=	http://download.mono-project.com/sources/${PORTNAME}/
 
@@ -21,7 +21,7 @@ GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 MAKE_JOBS_UNSAFE=yes
 
-FETCH_CMD=	git clone https://github.com/mono/mono mono-3.2.1 && tar pczf mono-3.2.1.tar.gz mono-3.2.1 && rm -rf mono-3.2.1 && echo
+FETCH_CMD=	git clone https://github.com/mono/mono ${PORTNAME}-${PORTVERSION} && tar pczf ${PORTNAME}-${PORTVERSION}.tar.gz ${PORTNAME}-${PORTVERSION} && rm -rf ${PORTNAME}-${PORTVERSION} && echo
 
 # Moonlight is installed as part of www/moonlight
 CONFIGURE_ARGS=	--with-moonlight=no --disable-dtrace --with-tls=__thread --with-sgen=yes --enable-llvm --enable-loadedllvm --enable-parallel-mark
