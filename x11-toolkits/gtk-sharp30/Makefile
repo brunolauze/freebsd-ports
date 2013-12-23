@@ -2,7 +2,7 @@
 # $FreeBSD: x11-toolkits/gtk-sharp30/Makefile 327785 2013-09-20 23:57:47Z bapt $
 
 PORTNAME=       gtk-sharp3
-PORTVERSION=    2.99.2
+PORTVERSION=    2.99.3
 PORTREVISION=	1
 CATEGORIES=	x11-toolkits
 MASTER_SITES=	GNOME
@@ -32,4 +32,4 @@ post-patch:
 .include <bsd.port.mk>
 CONFIGURE_SCRIPT=autogen.sh
 CONFIGURE_ARGS+=  --program-prefix= --enable-program-transform-name=
-FETCH_CMD=git clone https://github.com/mono/gtk-sharp gtk-sharp3-2.99.2 && tar pczf gtk-sharp3-2.99.2.tar.gz gtk-sharp3-2.99.2 && rm -rf gtk-sharp3-2.99.2 && echo 
+FETCH_CMD=git clone https://github.com/mono/gtk-sharp ${PORTNAME}-${PORTVERSION} && tar pczf ${PORTNAME}-${PORTVERSION}.tar.gz ${PORTNAME}-${PORTVERSION} && rm -rf ${PORTNAME}-${PORTVERSION} && echo 
