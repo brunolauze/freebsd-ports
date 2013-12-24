@@ -109,6 +109,7 @@ include/glib-2.0/gio/gnetworkaddress.h
 include/glib-2.0/gio/gnetworking.h
 include/glib-2.0/gio/gnetworkmonitor.h
 include/glib-2.0/gio/gnetworkservice.h
+include/glib-2.0/gio/gnotification.h
 include/glib-2.0/gio/goutputstream.h
 include/glib-2.0/gio/gpermission.h
 include/glib-2.0/gio/gpollableinputstream.h
