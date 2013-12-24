@@ -1,5 +1,5 @@
---- configure.orig	2013-09-26 18:07:07.000000000 +0200
-+++ configure	2013-09-26 18:08:15.000000000 +0200
+--- configure.orig	2013-12-24 10:17:05.499342758 -0600
++++ configure	2013-12-24 10:22:04.988574658 -0600
 @@ -603,6 +603,9 @@
  #ifdef HAVE_SYS_TYPES_H
  # include <sys/types.h>
@@ -10,7 +10,7 @@
  #ifdef HAVE_SYS_STAT_H
  # include <sys/stat.h>
  #endif
-@@ -5977,7 +5980,7 @@
+@@ -5966,7 +5969,7 @@
  fi
  
  GLIB_RUNTIME_LIBDIR="$with_runtime_libdir"
@@ -19,13 +19,13 @@
  
  
   if test "x$with_runtime_libdir" != "x"; then
-@@ -7643,13 +7646,12 @@
- 
-       ;;
-     native)
--      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for iconv_open in -liconv" >&5
+@@ -7540,13 +7543,12 @@
+       fi
+       # Check if we have a iconv in -liconv, possibly from vendor
+       if test $found_iconv = "no"; then
+-	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for iconv_open in -liconv" >&5
 -$as_echo_n "checking for iconv_open in -liconv... " >&6; }
-+      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for iconv_open" >&5
++	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for iconv_open" >&5
 +$as_echo_n "checking for iconv_open... " >&6; }
  if ${ac_cv_lib_iconv_iconv_open+:} false; then :
    $as_echo_n "(cached) " >&6
@@ -35,7 +35,7 @@
  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  
-@@ -8684,6 +8686,7 @@
+@@ -8673,6 +8675,7 @@
      ;;
    native)
  
@@ -43,16 +43,16 @@
  $as_echo "#define USE_LIBICONV_NATIVE 1" >>confdefs.h
  
      ;;
-@@ -23369,7 +23372,7 @@
+@@ -23255,7 +23258,7 @@
  fi
  done
  
--for ac_func in chown lchmod lchown fchmod fchown link utimes getgrgid getpwuid getresuid
-+for ac_func in chown lchmod lchown fchmod fchown link utimes getgrgid getpwuid getresuid sysctlbyname
+-for ac_func in lchmod lchown fchmod fchown utimes getresuid
++for ac_func in lchmod lchown fchmod fchown utimes getresuid sysctlbyname
  do :
    as_ac_var=`$as_echo "ac_cv_func_$ac_func" | $as_tr_sh`
  ac_fn_c_check_func "$LINENO" "$ac_func" "$as_ac_var"
-@@ -27013,10 +27016,10 @@
+@@ -26760,10 +26763,10 @@
    *android*)
      G_THREAD_LIBS_FOR_GTHREAD="$G_THREAD_LIBS"
      ;;
