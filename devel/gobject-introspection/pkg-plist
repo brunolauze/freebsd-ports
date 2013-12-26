@@ -1,4 +1,4 @@
-bin/g-ir-annotation-tool
+in/g-ir-annotation-tool
 bin/g-ir-compiler
 bin/g-ir-generate
 bin/g-ir-scanner
@@ -59,6 +59,15 @@ lib/gobject-introspection/giscanner/cachestore.pyo
 lib/gobject-introspection/giscanner/codegen.py
 lib/gobject-introspection/giscanner/codegen.pyc
 lib/gobject-introspection/giscanner/codegen.pyo
+lib/gobject-introspection/giscanner/collections/__init__.py
+lib/gobject-introspection/giscanner/collections/__init__.pyc
+lib/gobject-introspection/giscanner/collections/__init__.pyo
+lib/gobject-introspection/giscanner/collections/counter.py
+lib/gobject-introspection/giscanner/collections/counter.pyc
+lib/gobject-introspection/giscanner/collections/counter.pyo
+lib/gobject-introspection/giscanner/collections/ordereddict.py
+lib/gobject-introspection/giscanner/collections/ordereddict.pyc
+lib/gobject-introspection/giscanner/collections/ordereddict.pyo
 lib/gobject-introspection/giscanner/docmain.py
 lib/gobject-introspection/giscanner/docmain.pyc
 lib/gobject-introspection/giscanner/docmain.pyo
@@ -125,9 +134,6 @@ lib/gobject-introspection/giscanner/maintransformer.pyo
 lib/gobject-introspection/giscanner/message.py
 lib/gobject-introspection/giscanner/message.pyc
 lib/gobject-introspection/giscanner/message.pyo
-lib/gobject-introspection/giscanner/odict.py
-lib/gobject-introspection/giscanner/odict.pyc
-lib/gobject-introspection/giscanner/odict.pyo
 lib/gobject-introspection/giscanner/scannermain.py
 lib/gobject-introspection/giscanner/scannermain.pyc
 lib/gobject-introspection/giscanner/scannermain.pyo
