@@ -48,11 +48,14 @@ DRI_DRIVERS=	${ALL_DRI_DRIVERS}
 
 .if defined(WITH_NEW_XORG)
 . if defined(WITH_GALLIUM) && (${ARCH} == i386 || ${ARCH} == amd64)
-#BUILD_DEPENDS+=	llvm-config:${PORTSDIR}/devel/llvm
-#RUN_DEPENDS+=	llvm-config:${PORTSDIR}/devel/llvm
+BUILD_DEPENDS+=	llvm-config:${PORTSDIR}/devel/llvm-mono
+RUN_DEPENDS+=	llvm-config:${PORTSDIR}/devel/llvm-mono
 CONFIGURE_ENV+=	LLVM_CONFIG=${LOCALBASE}/bin/llvm-config
 
 CONFIGURE_ARGS+=--enable-gallium-llvm --disable-gallium-egl 
+
+CPPFLAGS+=      -I${LOCALBASE}/llvm34/include
+LDFLAGS+=       -L${LOCALBASE}/llvm34/lib
 
 #CONFIGURE_ARGS+=--with-gallium-drivers=r300,r600,radeonsi,
 CONFIGURE_ARGS+=--with-gallium-drivers=svga,swrast
