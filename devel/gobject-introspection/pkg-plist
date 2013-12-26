@@ -1,4 +1,4 @@
-in/g-ir-annotation-tool
+bin/g-ir-annotation-tool
 bin/g-ir-compiler
 bin/g-ir-generate
 bin/g-ir-scanner
