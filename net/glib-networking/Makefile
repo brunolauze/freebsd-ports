@@ -12,9 +12,9 @@ MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	Network-related giomodules for glib
 
 BUILD_DEPENDS=	${LOCALBASE}/share/certs/ca-root-nss.crt:${PORTSDIR}/security/ca_root_nss \
-		gsettings-desktop-schemas>=0:${PORTSDIR}/devel/gsettings-desktop-schemas
-LIB_DEPENDS=	gnutls3>=3.0:${PORTSDIR}/security/gnutls3 \
-		libgcrypt.so:${PORTSDIR}/security/libgcrypt \
+		gsettings-desktop-schemas>=0:${PORTSDIR}/devel/gsettings-desktop-schemas \
+		gnutls3>=3.0:${PORTSDIR}/security/gnutls3
+LIB_DEPENDS=	libgcrypt.so:${PORTSDIR}/security/libgcrypt \
 		libdbus-1.so:${PORTSDIR}/devel/dbus \
 		libproxy.so:${PORTSDIR}/net/libproxy
 RUN_DEPENDS=	${LOCALBASE}/share/certs/ca-root-nss.crt:${PORTSDIR}/security/ca_root_nss \
@@ -31,7 +31,7 @@ LDFLAGS+=	-L${LOCALBASE}/lib
 post-patch:
 	@${REINPLACE_CMD} -e' s|-Wmissing-include-dirs||g' ${WRKSRC}/configure
 
-post-install:
-	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gio/modules/lib*.so
+#post-install:
+#	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gio/modules/lib*.so
 
 .include <bsd.port.mk>
