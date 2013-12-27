@@ -1,5 +1,5 @@
---- ./buildtools/wafsamba/samba_install.py.orig	2012-11-13 08:03:38.000000000 +0000
-+++ ./buildtools/wafsamba/samba_install.py	2013-01-27 01:44:15.919866417 +0000
+--- buildtools/wafsamba/samba_install.py.orig	2013-12-27 10:45:14.417609255 -0600
++++ buildtools/wafsamba/samba_install.py	2013-12-27 10:45:28.650031102 -0600
 @@ -111,7 +111,7 @@
              inst_name    = bld.make_libname(t.target)
      elif self.vnum:

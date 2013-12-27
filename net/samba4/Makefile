@@ -18,7 +18,7 @@ CONFLICTS?=		*samba3[2-6]-3.*
 
 SAMBA4_BASENAME=	samba
 SAMBA4_PORTNAME=	${SAMBA4_BASENAME}4
-SAMBA4_VERSION=		4.0.13
+SAMBA4_VERSION=		4.1.3
 SAMBA4_DISTNAME=	${SAMBA4_BASENAME}-${SAMBA4_VERSION:S|.p|pre|:S|.r|rc|:S|.t|tp|:S|.a|alpha|}
 
 WRKSRC?=		${WRKDIR}/${DISTNAME}
@@ -88,7 +88,7 @@ LIB_DEPENDS+=		libinotify.so:${PORTSDIR}/devel/libinotify
 LIB_DEPENDS+=		libsasl2.so:${PORTSDIR}/security/cyrus-sasl2
 # GNUTLS
 LIB_DEPENDS+=		libgcrypt.so:${PORTSDIR}/security/libgcrypt
-LIB_DEPENDS+=		gnutls3>=3.0:${PORTSDIR}/security/gnutls3
+BUILD_DEPENDS+=		gnutls3>=3.0:${PORTSDIR}/security/gnutls3
 # NFS4 ACL glue
 LIB_DEPENDS+=		libsunacl.so:${PORTSDIR}/sysutils/libsunacl
 # External Samba dependencies
@@ -467,8 +467,7 @@ post-patch:
 			@${REINPLACE_CMD} -e 's|%%GDB_CMD%%|${GDB_CMD}|g' \
 				${PATCH_WRKSRC}/buildtools/scripts/abi_gen.sh
 			@${REINPLACE_CMD} -e 's|%%SAMBA4_CONFIG%%|${SAMBA4_CONFIG}|g' \
-				${PATCH_WRKSRC}/dynconfig/wscript \
-				${PATCH_WRKSRC}/dynconfig/config.m4
+				${PATCH_WRKSRC}/dynconfig/wscript
 # Make sure that the right version of Python is used by the tools
 # https://bugzilla.samba.org/show_bug.cgi?id=7305
 			@for f in ${PATCH_WRKSRC}/source4/scripting/bin/* ${WRKSRC}/${WAF_TOOL}; do \
