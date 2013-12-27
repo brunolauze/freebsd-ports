@@ -1,0 +1,157 @@
+--- configure.orig	2013-12-27 08:19:24.991153943 -0600
++++ configure	2013-12-27 08:21:36.321665185 -0600
+@@ -191,7 +191,7 @@
+   --disable-bzlib          disable bzlib [autodetect]
+   --enable-fontconfig      enable fontconfig
+   --enable-frei0r          enable frei0r video filtering
+-  --enable-gnutls          enable gnutls [no]
++  --enable-gnutls3         enable gnutls [no]
+   --disable-iconv          disable iconv [autodetect]
+   --enable-ladspa          enable LADSPA audio filtering
+   --enable-libaacplus      enable AAC+ encoding via libaacplus [no]
+@@ -1163,7 +1163,7 @@
+     crystalhd
+     fontconfig
+     frei0r
+-    gnutls
++    gnutls3
+     iconv
+     ladspa
+     libaacplus
+@@ -2185,7 +2185,7 @@
+ sctp_protocol_select="network"
+ srtp_protocol_select="rtp_protocol"
+ tcp_protocol_select="network"
+-tls_protocol_deps_any="openssl gnutls"
++tls_protocol_deps_any="openssl gnutls3"
+ tls_protocol_select="tcp_protocol"
+ udp_protocol_select="network"
+ unix_protocol_deps="sys_un_h"
+@@ -2316,7 +2316,7 @@
+ nogas=":"
+ 
+ # machine
+-arch_default=$(uname -m)
++arch_default=$(uname -p)
+ cpu="generic"
+ 
+ # OS
+@@ -4054,8 +4054,8 @@
+ 
+ if check_func dlopen; then
+     ldl=
+-elif check_func dlopen -ldl; then
+-    ldl=-ldl
++elif check_func dlopen ; then
++    ldl=
+ fi
+ 
+ if ! disabled network; then
+@@ -4224,11 +4224,11 @@
+ 
+ # these are off by default, so fail if requested and not available
+ enabled avisynth          && { { check_lib2 "windows.h" LoadLibrary; } ||
+-                               { check_lib2 "dlfcn.h" dlopen -ldl; } ||
++                               { check_lib2 "dlfcn.h" dlopen ; } ||
+                                die "ERROR: LoadLibrary/dlopen not found for avisynth"; }
+ enabled fontconfig        && require_pkg_config fontconfig "fontconfig/fontconfig.h" FcInit
+ enabled frei0r            && { check_header frei0r.h || die "ERROR: frei0r.h header not found"; }
+-enabled gnutls            && require_pkg_config gnutls gnutls/gnutls.h gnutls_global_init
++enabled gnutls3           && require_pkg_config gnutls3 gnutls3/gnutls/gnutls.h gnutls_global_init
+ enabled ladspa            && { check_header ladspa.h || die "ERROR: ladspa.h header not found"; }
+ enabled libiec61883       && require libiec61883 libiec61883/iec61883.h iec61883_cmp_connect -lraw1394 -lavc1394 -lrom1394 -liec61883
+ enabled libaacplus        && require "libaacplus >= 2.0.0" aacplus.h aacplusEncOpen -laacplus
+@@ -4242,9 +4242,9 @@
+ enabled libfdk_aac        && require libfdk_aac fdk-aac/aacenc_lib.h aacEncOpen -lfdk-aac
+ flite_libs="-lflite_cmu_time_awb -lflite_cmu_us_awb -lflite_cmu_us_kal -lflite_cmu_us_kal16 -lflite_cmu_us_rms -lflite_cmu_us_slt -lflite_usenglish -lflite_cmulex -lflite"
+ enabled libflite          && require2 libflite "flite/flite.h" flite_init $flite_libs
+-enabled libfreetype       && require_pkg_config freetype2 "ft2build.h freetype/freetype.h" FT_Init_FreeType
++enabled libfreetype       && require_pkg_config freetype2 "ft2build.h freetype.h" FT_Init_FreeType
+ enabled libgme            && require  libgme gme/gme.h gme_new_emu -lgme -lstdc++
+-enabled libgsm            && { for gsm_hdr in "gsm.h" "gsm/gsm.h"; do
++enabled libgsm            && { for gsm_hdr in "gsm.h" "gsm.h"; do
+                                    check_lib "${gsm_hdr}" gsm_create -lgsm && break;
+                                done || die "ERROR: libgsm not found"; }
+ enabled libilbc           && require libilbc ilbc.h WebRtcIlbcfix_InitDecode -lilbc
+@@ -4253,7 +4253,7 @@
+ enabled libnut            && require libnut libnut.h nut_demuxer_init -lnut
+ enabled libopencore_amrnb && require libopencore_amrnb opencore-amrnb/interf_dec.h Decoder_Interface_init -lopencore-amrnb
+ enabled libopencore_amrwb && require libopencore_amrwb opencore-amrwb/dec_if.h D_IF_init -lopencore-amrwb
+-enabled libopencv         && require_pkg_config opencv opencv/cxcore.h cvCreateImageHeader
++enabled libopencv         && require_pkg_config opencv-core opencv2/core/core_c.h cvCreateImageHeader
+ enabled libopenjpeg       && { check_lib openjpeg-1.5/openjpeg.h opj_version -lopenjpeg ||
+                                check_lib openjpeg.h opj_version -lopenjpeg ||
+                                die "ERROR: libopenjpeg not found"; }
+@@ -4312,7 +4312,7 @@
+                                check_lib openssl/ssl.h SSL_library_init -lssl -lcrypto -lws2_32 -lgdi32 ||
+                                die "ERROR: openssl not found"; }
+ 
+-if enabled gnutls; then
++if enabled gnutls3; then
+     { check_lib nettle/bignum.h nettle_mpz_get_str_256 -lnettle -lhogweed -lgmp && enable nettle; } ||
+     { check_lib gcrypt.h gcry_mpi_new -lgcrypt && enable gcrypt; }
+ fi
+@@ -4326,7 +4326,7 @@
+     die "ERROR: No version of libdc1394 found "
+ fi
+ 
+-SDL_CONFIG="${cross_prefix}sdl-config"
++SDL_CONFIG="${cross_prefix}/usr/local/bin/sdl-config"
+ if check_pkg_config sdl SDL_events.h SDL_PollEvent; then
+     check_cpp_condition SDL.h "(SDL_MAJOR_VERSION<<16 | SDL_MINOR_VERSION<<8 | SDL_PATCHLEVEL) >= 0x010201" $sdl_cflags &&
+     check_cpp_condition SDL.h "(SDL_MAJOR_VERSION<<16 | SDL_MINOR_VERSION<<8 | SDL_PATCHLEVEL) < 0x010300" $sdl_cflags &&
+@@ -4349,10 +4349,10 @@
+ pod2man --help > /dev/null 2>&1 && enable pod2man || disable pod2man
+ rsync --help 2> /dev/null | grep -q 'contimeout' && enable rsync_contimeout || disable rsync_contimeout
+ 
+-check_header linux/fb.h
+-check_header linux/videodev.h
+-check_header linux/videodev2.h
+-check_code cc linux/videodev2.h "struct v4l2_frmsizeenum vfse; vfse.discrete.width = 0;" && enable_safe struct_v4l2_frmivalenum_discrete
++#check_header linux/fb.h
++#check_header linux/videodev.h
++#check_header linux/videodev2.h
++#check_code cc linux/videodev2.h "struct v4l2_frmsizeenum vfse; vfse.discrete.width = 0;" && enable_safe struct_v4l2_frmivalenum_discrete
+ 
+ check_header sys/videoio.h
+ 
+@@ -4753,7 +4753,7 @@
+ SRC_PATH:=\$(SRC_PATH:.%=..%)
+ endif
+ CC_IDENT=$cc_ident
+-ARCH=$arch
++FFMPEG_ARCH=$arch
+ CC=$cc
+ CXX=$cxx
+ AS=$as
+@@ -4828,7 +4828,7 @@
+ CFLAGS-ffplay=$sdl_cflags
+ ZLIB=$($ldflags_filter -lz)
+ LIB_INSTALL_EXTRA_CMD=$LIB_INSTALL_EXTRA_CMD
+-EXTRALIBS=$extralibs
++EXTRALIBS=-L/usr/local/lib $extralibs
+ COMPAT_OBJS=$compat_objs
+ EXEOBJS=$exeobjs
+ INSTALL=$install
+@@ -4941,7 +4941,7 @@
+ libdir=$libdir
+ includedir=$incdir
+ 
+-Name: $name
++Name: ${name}${build_suffix}
+ Description: $comment
+ Version: $version
+ Requires: $(enabled shared || echo $requires)
+@@ -4955,10 +4955,10 @@
+ mkdir -p doc/examples/pc-uninstalled
+ includedir=${source_path}
+ [ "$includedir" = . ] && includedir="\${pcfiledir}/../../.."
+-    cat <<EOF > doc/examples/pc-uninstalled/$name.pc
++    cat <<EOF > doc/examples/pc-uninstalled/${name}${build_suffix}.pc
+ prefix=
+ exec_prefix=
+-libdir=\${pcfiledir}/../../../$name
++libdir=\${pcfiledir}/../../../${name}${build_suffix}
+ includedir=${includedir}
+ 
+ Name: $name
