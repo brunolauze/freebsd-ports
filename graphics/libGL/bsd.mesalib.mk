@@ -33,7 +33,8 @@ MAINTAINER?=	x11@FreeBSD.org
 
 BUILD_DEPENDS+=	makedepend:${PORTSDIR}/devel/makedepend \
 		python2:${PORTSDIR}/lang/python2 \
-		${PYTHON_SITELIBDIR}/libxml2.py:${PORTSDIR}/textproc/py-libxml2
+		${PYTHON_SITELIBDIR}/libxml2.py:${PORTSDIR}/textproc/py-libxml2 \
+		libxshmfence.so:${PORTSDIR}/devel/libxshmfence
 
 USES=		bison gmake pathfix pkgconfig shebangfix
 USE_PYTHON_BUILD=-2.7
@@ -52,7 +53,7 @@ CONFIGURE_ENV+=ac_cv_prog_LEX=${LOCALBASE}/bin/flex
 .if defined(WITH_NEW_XORG)
 USE_AUTOTOOLS=	autoconf:env automake:env libtool:env
 # probably be shared lib, and in it own port.
-CONFIGURE_ARGS+=        --enable-shared-glapi=no --enable-glx-tls --enable-xa --enable-dri3=no
+CONFIGURE_ARGS+=        --enable-shared-glapi=no --enable-glx-tls --enable-xa --enable-dri3=yes
 # we need to reapply these patches because we doing wierd stuff with autogen
 REAPPLY_PATCHES= \
 		${PATCHDIR}/patch-src_egl_main_Makefile.in \

@@ -13,7 +13,8 @@ DISTNAME=	xorg-server-${PORTVERSION}
 MAINTAINER=	x11@FreeBSD.org
 COMMENT?=	X.Org X server and related programs
 
-LIB_DEPENDS=	libdrm.so:${PORTSDIR}/graphics/libdrm
+LIB_DEPENDS=	libdrm.so:${PORTSDIR}/graphics/libdrm \
+		libxshmfence.so:${PORTSDIR}/devel/libxshmfence
 RUN_DEPENDS=	xkeyboard-config>=2.5:${PORTSDIR}/x11/xkeyboard-config \
 		xkbcomp:${PORTSDIR}/x11/xkbcomp
 
@@ -34,7 +35,7 @@ OPTIONS_EXCLUDE_sparc64=	HAL
 .include <bsd.port.options.mk>
 
 .if defined(WITH_NEW_XORG)
-XORG_VERSION=	1.14.5
+XORG_VERSION=	1.15.0
 XORG_REVISION=	0
 PLIST_SUB+=	OLD="@comment " NEW=""
 EXTRA_PATCHES+=	${FILESDIR}/extra-hw_xfree86_loader_loadmod.c
@@ -68,7 +69,7 @@ USE_OPENSSL=	yes
 CONFIGURE_ARGS?=--disable-dmx --disable-xvfb --disable-xnest \
 		--without-xmlto --disable-docs --disable-devel-docs \
 		--localstatedir=/var --without-dtrace --disable-xephyr \
-		--enable-record=yes --enable-dri --enable-dri2 --enable-dri3=no
+		--enable-record=yes --enable-dri --enable-dri2 --enable-dri3=yes
 
 .if ${SLAVE_PORT} == "no"
 SUB_FILES=	pkg-install pkg-deinstall
