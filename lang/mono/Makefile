@@ -11,6 +11,7 @@ COMMENT=	An open source implementation of .NET Development Framework
 
 BUILD_DEPENDS=	p5-XML-Parser>=0:${PORTSDIR}/textproc/p5-XML-Parser \
     		bash:${PORTSDIR}/shells/bash \
+    		wget:${PORTSDIR}/ftp/wget \
 		git:${PORTSDIR}/devel/git \
 		llvm-config34:${PORTSDIR}/devel/llvm-mono
 
