@@ -15,6 +15,10 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 
 CONFLICTS=	clutter-1.6.[0-9]*
 
+BUILD_DEPENDS+= gstreamer1:${PORTSDIR}/multimedia/gstreamer1 \
+		gstreamer1-plugins:${PORTSDIR}/multimedia/gstreamer1-plugins
+
+
 NO_STAGE=	yes
 USES=		gettext gmake pathfix pkgconfig
 USE_XZ=		yes
