@@ -1,0 +1,11 @@
+--- configure.in.orig	2013-12-30 07:59:45.581343558 -0600
++++ configure.in	2013-12-30 08:00:03.743204720 -0600
+@@ -2427,7 +2427,7 @@
+    else
+       LLVM_LIBS=`$LLVM_CONFIG --libs core bitwriter jit mcjit $llvm_codegen`
+    fi
+-   LLVM_LIBS="$LLVM_LDFLAGS $LLVM_LIBS -lstdc++"
++   LLVM_LIBS="$LLVM_LDFLAGS $LLVM_LIBS -lc++"
+ 
+    expected_llvm_version="3.4svn-mono-mono/e656cac"
+ 

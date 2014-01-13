@@ -99,7 +99,7 @@ FREI0R_CONFIGURE_ENABLE=	frei0r
 # gnutls
 GNUTLS_BUILD_DEPENDS=	 	gnutls3>=3.0:${PORTSDIR}/security/gnutls3
 GNUTLS_CONFIGURE_ENABLE=	gnutls3
-
+CONFIGURE_ARGS+=		--enable-gnutls3
 # gsm
 GSM_LIB_DEPENDS=	libgsm.so:${PORTSDIR}/audio/gsm
 GSM_CONFIGURE_ENABLE=	libgsm
@@ -253,7 +253,7 @@ CONFIGURE_ARGS+=--prefix="${PREFIX}" \
 		--disable-libutvideo \
 		--disable-libsoxr \
 		--cc="${CC}" \
-		--extra-cflags="${FFMPEG_CFLAGS} -I${LOCALBASE}/include" \
+		--extra-cflags="${FFMPEG_CFLAGS} -I${LOCALBASE}/include -DCONFIG_GNUTLS" \
 		--extra-ldflags="-L${LOCALBASE}/lib ${FFMPEG_LDFLAGS}" \
 		--extra-libs="${PTHREAD_LIBS}"
 

@@ -202,6 +202,7 @@ include/gtk-3.0/gtk/gtkfilechooserdialog.h
 include/gtk-3.0/gtk/gtkfilechooserwidget.h
 include/gtk-3.0/gtk/gtkfilefilter.h
 include/gtk-3.0/gtk/gtkfixed.h
+include/gtk-3.0/gtk/gtkflowbox.h
 include/gtk-3.0/gtk/gtkfontbutton.h
 include/gtk-3.0/gtk/gtkfontchooser.h
 include/gtk-3.0/gtk/gtkfontchooserdialog.h

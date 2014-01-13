@@ -19,17 +19,18 @@ LIB_DEPENDS=	tiff.4:${PORTSDIR}/graphics/tiff \
 USE_GITHUB=	yes
 GH_ACCOUNT=	mono
 GH_PROJECT=	libgdiplus
-GH_TAGNAME=	5c1b4ee3ec
+GH_TAGNAME=	5c1b4ee
 GH_COMMIT=	${GH_TAGNAME}
 
 GNU_CONFIGURE=	yes
 USES=		gmake pkgconfig
+USE_AUTOTOOLS=	autoconf automake libtool
 USE_GNOME=	gnomehack glib20
 USE_LDCONFIG=	yes
 USE_XORG=	x11
 CPPFLAGS+=	-I${LOCALBASE}/include -I${LOCALBASE}/include/libpng15
 LDFLAGS+=	-L${LOCALBASE}/lib
-
+CONFIGURE_SCRIPT=autogen.sh
 PLIST_FILES=	lib/libgdiplus.a \
 		lib/libgdiplus.la \
 		lib/libgdiplus.so \

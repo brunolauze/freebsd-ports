@@ -37,8 +37,8 @@ CONFIGURE_ARGS+=	--enable-shared
 MAKE_ARGS+=		REQUIRES_RTTI=1
 LIBNAME=		libLLVM-${DISTVERSION:C/\rc[0-9]//}.so
 
-CONFIGURE_ARGS+=	--enable-bindings=none
-CONFIGURE_ARGS+=	--enable-optimized
+CONFIGURE_ARGS+=	--enable-bindings=none --enable-libcpp --enable-cxx11
+CONFIGURE_ARGS+=	--enable-optimized --enable-profiling
 
 OPTIONS_DEFINE=	ASSERTS CMAKE DOCS LIT LTOPLUGIN MANPAGES
 
