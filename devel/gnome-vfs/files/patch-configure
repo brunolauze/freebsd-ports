@@ -1,5 +1,5 @@
---- configure.orig	2010-09-29 07:03:15.000000000 +0000
-+++ configure	2010-09-29 07:09:42.000000000 +0000
+--- configure.orig	2014-01-13 10:43:18.931331087 -0600
++++ configure	2014-01-13 10:45:21.938008106 -0600
 @@ -8424,7 +8424,7 @@
  
  # On IRIX 5.3, sys/types and inttypes.h are conflicting.
@@ -17,6 +17,45 @@
   have_ngettext=yes
  else
    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for ngettext in -lintl" >&5
+@@ -17484,13 +17485,13 @@
+ 	LDFLAGS_save="$LDFLAGS"
+ 
+ 	LDFLAGS="$LDFLAGS -L$with_samba_libs"
+-	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for smbc_new_context in -lsmbclient" >&5
+-$as_echo_n "checking for smbc_new_context in -lsmbclient... " >&6; }
++	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for smbc_new_context in -lsmbclient-raw" >&5
++$as_echo_n "checking for smbc_new_context in -lsmbclient-raw... " >&6; }
+ if test "${ac_cv_lib_smbclient_smbc_new_context+set}" = set; then :
+   $as_echo_n "(cached) " >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lsmbclient  $LIBS"
++LIBS="-lsmbclient-raw  $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -17533,17 +17534,17 @@
+ 
+ 		msg_samba="yes"
+                 if test x$with_samba_libs != x/usr/lib; then
+-                        SAMBA_LIBS="-L$with_samba_libs -lsmbclient"
++                        SAMBA_LIBS="-L$with_samba_libs -lsmbclient-raw"
+                 else
+-                	SAMBA_LIBS="-lsmbclient"
++                	SAMBA_LIBS="-lsmbclient-raw"
+                 fi
+ 	else
+ 		SAMBA_CFLAGS=""
+ 		SAMBA_LIBS=""
+ 	fi
+   fi
+-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for Samba 3.0 libraries" >&5
+-$as_echo_n "checking for Samba 3.0 libraries... " >&6; }
++  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for Samba 4.0 libraries" >&5
++$as_echo_n "checking for Samba 4.0 libraries... " >&6; }
+   { $as_echo "$as_me:${as_lineno-$LINENO}: result: $msg_samba" >&5
+ $as_echo "$msg_samba" >&6; }
+ fi
 @@ -17694,7 +17695,7 @@
    $as_echo_n "(cached) " >&6
  else
@@ -34,4 +73,48 @@
 +		LDFLAGS="$LDFLAGS -L$with_openssl_libs -lssl -lcrypto"
  		cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
+ 
+@@ -19684,13 +19685,13 @@
+   ACL_LIBS="$ACL_LIBS -lattr"
+ fi
+ 
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for acl_get_file in -lacl" >&5
+-$as_echo_n "checking for acl_get_file in -lacl... " >&6; }
++{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for acl_get_file in " >&5
++$as_echo_n "checking for acl_get_file in ... " >&6; }
+ if test "${ac_cv_lib_acl_acl_get_file+set}" = set; then :
+   $as_echo_n "(cached) " >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lacl  $LIBS"
++LIBS="  $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -19721,7 +19722,7 @@
+ { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_acl_acl_get_file" >&5
+ $as_echo "$ac_cv_lib_acl_acl_get_file" >&6; }
+ if test "x$ac_cv_lib_acl_acl_get_file" = x""yes; then :
+-  ACL_LIBS="$ACL_LIBS -lacl"
++  ACL_LIBS="$ACL_LIBS "
+ fi
+ 
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking for acl in -lsec" >&5
+@@ -19804,7 +19805,7 @@
+ else
+ 
+ 		acl_LIBS=$LIBS
+-		LIBS="$LIBS -lacl"
++		LIBS="$LIBS "
+ 		cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ #include <sys/types.h>
+@@ -20043,7 +20044,7 @@
+ #define HAVE_SYS_INOTIFY_H 1
+ _ACEOF
+ 
+-		 inotify_support=yes
++		 inotify_support=no
+ 
+ fi
  
