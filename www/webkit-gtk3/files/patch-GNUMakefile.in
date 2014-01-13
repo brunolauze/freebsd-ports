@@ -1,15 +1,15 @@
---- GNUmakefile.in.orig	2013-10-08 16:43:23.718154544 -0500
-+++ GNUmakefile.in	2013-10-08 16:44:24.825149610 -0500
-@@ -21353,7 +21353,7 @@
+--- GNUmakefile.in.orig	2014-01-13 10:26:50.277948709 -0600
++++ GNUmakefile.in	2014-01-13 10:27:42.387761734 -0600
+@@ -22836,7 +22836,7 @@
  	-fno-exceptions -DBUILDING_CAIRO__ -DBUILDING_GTK__ \
  	$(am__append_1) $(am__append_2)
  global_cflags := 
 -global_cxxflags := -fno-rtti
 +global_cxxflags := -stdlib=libc++
- 
- # gtest source files that we don't compile directly.  They are
- # #included by gtest-all.cc.
-@@ -21759,7 +21759,7 @@
+ EXTRA_DIST := $(srcdir)/Source/autotools/symbols.filter \
+ 	$(srcdir)/Source/WebKit/LICENSE Source/JavaScriptCore/AUTHORS \
+ 	Source/JavaScriptCore/ChangeLog \
+@@ -23224,7 +23224,7 @@
  	$(WINMM_LIBS) \
  	-lm \
  	-lpthread \
@@ -17,8 +17,8 @@
 +	-lc++
  
  Programs_minidom_LDFLAGS = \
- 	-no-install \
-@@ -21783,7 +21783,7 @@
+ 	-no-install
+@@ -23247,7 +23247,7 @@
  	$(WINMM_LIBS) \
  	-lm \
  	-lpthread \
@@ -26,4 +26,4 @@
 +	-lc++
  
  Programs_LLIntOffsetsExtractor_LDFLAGS = \
- 	-no-install \
+ 	-no-install

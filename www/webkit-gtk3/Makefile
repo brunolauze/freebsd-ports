@@ -3,7 +3,7 @@
 #   $MCom: ports/trunk/www/webkit-gtk3/Makefile 18629 2013-07-19 20:42:52Z kwm $
 
 PORTNAME=	webkit
-PORTVERSION=	2.2.0
+PORTVERSION=	2.3.4
 CATEGORIES=	www
 MASTER_SITES=	http://webkitgtk.org/releases/
 PKGNAMESUFFIX=	-gtk3
@@ -14,14 +14,16 @@ COMMENT=	Opensource browser engine using the GTK+ 3 toolkit
 NO_STAGE=	yes
 BUILD_DEPENDS=	${LOCALBASE}/bin/flex:${PORTSDIR}/textproc/flex \
 		${LOCALBASE}/bin/gperf:${PORTSDIR}/devel/gperf \
-		gtkdoc-rebase:${PORTSDIR}/textproc/gtk-doc
+		gtkdoc-rebase:${PORTSDIR}/textproc/gtk-doc \
+		mutter:${PORTSDIR}/x11-wm/mutter
 LIB_DEPENDS=	libenchant.so:${PORTSDIR}/textproc/enchant \
 		libsecret-1.so:${PORTSDIR}/security/libsecret \
 		libicutu.so:${PORTSDIR}/devel/icu \
 		libharfbuzz.so:${PORTSDIR}/print/harfbuzz \
 		libwebp.so:${PORTSDIR}/graphics/webp \
 		libcurl.so:${PORTSDIR}/ftp/curl \
-		libsoup-2.4.so:${PORTSDIR}/devel/libsoup
+		libsoup-2.4.so:${PORTSDIR}/devel/libsoup \
+		libupower-glib.so:${PORTSDIR}/sysutils/upower
 
 LATEST_LINK=	${PORTNAME}${PKGNAMESUFFIX}
 
@@ -47,8 +49,9 @@ CPPFLAGS+=	-I${LOCALBASE}/include -I/usr/include/c++/v1
 LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS=	--with-gtk=3.0 \
 		--enable-svg-fonts \
-		--enable-geolocation \
+		--disable-geolocation \
 		--enable-introspection \
+		--enable-developer-mode \
 		--with-wayland-target=no
 MAKEFILE=	GNUmakefile
 
@@ -62,14 +65,12 @@ SHEBANG_FILES=	\
 	Source/JavaScriptCore/create_hash_table \
 	Source/WebCore/css/*.pl \
 	Source/WebCore/dom/*.pl \
-	Source/WebCore/inspector/xxd.pl \
 	Source/WebCore/make-hash-tools.pl \
 	Source/WebCore/page/make_settings.pl \
 	Source/WebCore/platform/text/mac/make-charset-table.pl \
 	Source/WebKit2/Scripts/generate-forwarding-headers.pl \
 	Source/WebCore/bindings/scripts/*.p[lm] \
-	Source/JavaScriptCore/create_hash_table \
-	Tools/Scripts/webkit-build-directory
+	Source/JavaScriptCore/create_hash_table
 
 BROWSER_PLUGINS_DIR?=	${LOCALBASE}/lib/browser_plugins/symlinks/webkit-gtk3
 #_BROWSER_PLUGINS_DIR=	${BROWSER_PLUGINS_DIR:S|^/|"|:S|/|", "|g}",
