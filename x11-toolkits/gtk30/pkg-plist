@@ -209,6 +209,7 @@ include/gtk-3.0/gtk/gtkfontchooserdialog.h
 include/gtk-3.0/gtk/gtkfontchooserwidget.h
 include/gtk-3.0/gtk/gtkframe.h
 include/gtk-3.0/gtk/gtkgrid.h
+include/gtk-3.0/gtk/gtkheaderbar.h
 include/gtk-3.0/gtk/gtkiconfactory.h
 include/gtk-3.0/gtk/gtkicontheme.h
 include/gtk-3.0/gtk/gtkiconview.h

@@ -116,7 +116,7 @@ SAMBA4_BUNDLED_LIBS+=	com_err
 # Options
 OPTIONS_DEFINE=		ACL_SUPPORT ADS AIO_SUPPORT CUPS DEBUG \
 			DNSUPDATE FAM_SUPPORT LDAP PAM_SMBPASS \
-			PTHREADPOOL QUOTAS SWAT SYSLOG UTMP WINBIND
+			PTHREADPOOL QUOTAS SYSLOG UTMP WINBIND
 
 OPTIONS_DEFAULT:=	${OPTIONS_DEFINE}
 
@@ -130,7 +130,6 @@ DEBUG_DESC=		With debug information in the binaries
 PAM_SMBPASS_DESC=	PAM authentication via passdb backends
 PTHREADPOOL_DESC=	Pthread pool
 QUOTAS_DESC=		Disk quota support
-SWAT_DESC=		SWAT WebGUI
 UTMP_DESC=		UTMP accounting support
 WINBIND_DESC=		WinBIND support
 ##############################################################################
@@ -327,14 +326,6 @@ CONFIGURE_ARGS+=	--with-syslog
 CONFIGURE_ARGS+=	--without-syslog
 .endif
 
-.if ${PORT_OPTIONS:MSWAT}
-CONFIGURE_ARGS+=	--with-swat
-PLIST_SUB+=		SWAT=""
-.else
-CONFIGURE_ARGS+=	--without-swat
-PLIST_SUB+=		SWAT="@comment "
-.endif
-
 .if ${PORT_OPTIONS:MUTMP}
 CONFIGURE_ARGS+=	--with-utmp
 .else
@@ -426,7 +417,7 @@ SAMBA_MAN8+=		eventlogadm.8 idmap_ad.8 idmap_autorid.8 idmap_hash.8 \
 			idmap_ldap.8 idmap_nss.8 idmap_rid.8 idmap_tdb.8 \
 			idmap_tdb2.8 net.8 nmbd.8 pam_winbind.8 pdbedit.8 \
 			samba-tool.8 samba.8 smbd.8 smbpasswd.8 smbspool.8 \
-			smbta-util.8 swat.8 vfs_acl_tdb.8 vfs_acl_xattr.8 \
+			smbta-util.8 vfs_acl_tdb.8 vfs_acl_xattr.8 \
 			vfs_aio_fork.8 vfs_aio_linux.8 vfs_aio_pthread.8 \
 			vfs_audit.8 vfs_cacheprime.8 vfs_cap.8 vfs_catia.8 \
 			vfs_commit.8 vfs_crossrename.8 vfs_default_quota.8 \
