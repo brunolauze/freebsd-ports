@@ -16,6 +16,8 @@ USE_BZIP2=	yes
 
 .if !defined(REFERENCE_PORT)
 
+
+LIB_DEPENDS+=	libfam.so:${PORTSDIR}/devel/gamin
 RUN_DEPENDS=	${LOCALBASE}/share/mime/magic:${PORTSDIR}/misc/shared-mime-info
 
 USES=		pathfix gettext gmake pkgconfig
@@ -63,7 +65,7 @@ CONFIGURE_ARGS+=--disable-hal
 .endif
 
 .if ${PORT_OPTIONS:MSAMBA}
-LIB_DEPENDS+=	smbclient-raw:${PORTSDIR}/net/samba4
+LIB_DEPENDS+=	smbclient-raw:${PORTSDIR}/net/samba41
 PLIST_SUB+=	SAMBA=""
 .else
 PLIST_SUB+=	SAMBA="@comment "

@@ -48,7 +48,7 @@ PLIST_SUB+=	FUSE="@comment "
 .endif
 
 .if ${PORT_OPTIONS:MSAMBA}
-LIB_DEPENDS+=	smbclient-raw:${PORTSDIR}/net/samba4
+LIB_DEPENDS+=	smbclient-raw:${PORTSDIR}/net/samba41
 GLIB_SCHEMAS+=	org.gnome.system.smb.gschema.xml
 PLIST_SUB+=	SMB=""
 .else
