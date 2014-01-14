@@ -64,7 +64,6 @@ USE_GL=		gl glu
 USE_OPENLDAP=	yes
 USE_PERL5=	build
 USE_PYTHON=	yes
-USE_QT4=	# empty but required
 USE_XORG=	xaw xrandr
 USE_XZ=		yes
 USES=		bison gmake perl5 pkgconfig
