@@ -115,6 +115,7 @@ include/gtk-3.0/gtk/deprecated/gtkhscale.h
 include/gtk-3.0/gtk/deprecated/gtkhscrollbar.h
 include/gtk-3.0/gtk/deprecated/gtkhseparator.h
 include/gtk-3.0/gtk/deprecated/gtkhsv.h
+include/gtk-3.0/gtk/deprecated/gtkiconfactory.h
 include/gtk-3.0/gtk/deprecated/gtkrc.h
 include/gtk-3.0/gtk/deprecated/gtkstyle.h
 include/gtk-3.0/gtk/deprecated/gtksymboliccolor.h
@@ -133,10 +134,10 @@ include/gtk-3.0/gtk/gtkaccelgroup.h
 include/gtk-3.0/gtk/gtkaccellabel.h
 include/gtk-3.0/gtk/gtkaccelmap.h
 include/gtk-3.0/gtk/gtkaccessible.h
-include/gtk-3.0/gtk/gtkaction.h
+include/gtk-3.0/gtk/deprecated/gtkaction.h
 include/gtk-3.0/gtk/gtkactionable.h
-include/gtk-3.0/gtk/gtkactiongroup.h
-include/gtk-3.0/gtk/gtkactivatable.h
+include/gtk-3.0/gtk/deprecated/gtkactiongroup.h
+include/gtk-3.0/gtk/deprecated/gtkactivatable.h
 include/gtk-3.0/gtk/gtkadjustment.h
 include/gtk-3.0/gtk/gtkalignment.h
 include/gtk-3.0/gtk/gtkappchooser.h
@@ -210,11 +211,10 @@ include/gtk-3.0/gtk/gtkfontchooserwidget.h
 include/gtk-3.0/gtk/gtkframe.h
 include/gtk-3.0/gtk/gtkgrid.h
 include/gtk-3.0/gtk/gtkheaderbar.h
-include/gtk-3.0/gtk/gtkiconfactory.h
 include/gtk-3.0/gtk/gtkicontheme.h
 include/gtk-3.0/gtk/gtkiconview.h
 include/gtk-3.0/gtk/gtkimage.h
-include/gtk-3.0/gtk/gtkimagemenuitem.h
+include/gtk-3.0/gtk/deprecated/gtkimagemenuitem.h
 include/gtk-3.0/gtk/gtkimcontext.h
 include/gtk-3.0/gtk/gtkimcontextinfo.h
 include/gtk-3.0/gtk/gtkimcontextsimple.h
@@ -253,12 +253,12 @@ include/gtk-3.0/gtk/gtkprintoperation.h
 include/gtk-3.0/gtk/gtkprintoperationpreview.h
 include/gtk-3.0/gtk/gtkprintsettings.h
 include/gtk-3.0/gtk/gtkprogressbar.h
-include/gtk-3.0/gtk/gtkradioaction.h
+include/gtk-3.0/gtk/deprecated/gtkradioaction.h
 include/gtk-3.0/gtk/gtkradiobutton.h
 include/gtk-3.0/gtk/gtkradiomenuitem.h
 include/gtk-3.0/gtk/gtkradiotoolbutton.h
 include/gtk-3.0/gtk/gtkrange.h
-include/gtk-3.0/gtk/gtkrecentaction.h
+include/gtk-3.0/gtk/deprecated/gtkrecentaction.h
 include/gtk-3.0/gtk/gtkrecentchooser.h
 include/gtk-3.0/gtk/gtkrecentchooserdialog.h
 include/gtk-3.0/gtk/gtkrecentchoosermenu.h
@@ -284,7 +284,7 @@ include/gtk-3.0/gtk/gtkspinbutton.h
 include/gtk-3.0/gtk/gtkspinner.h
 include/gtk-3.0/gtk/gtkstatusbar.h
 include/gtk-3.0/gtk/gtkstatusicon.h
-include/gtk-3.0/gtk/gtkstock.h
+include/gtk-3.0/gtk/deprecated/gtkstock.h
 include/gtk-3.0/gtk/gtkstylecontext.h
 include/gtk-3.0/gtk/gtkstyleproperties.h
 include/gtk-3.0/gtk/gtkstyleprovider.h
@@ -302,7 +302,7 @@ include/gtk-3.0/gtk/gtktexttag.h
 include/gtk-3.0/gtk/gtktexttagtable.h
 include/gtk-3.0/gtk/gtktextview.h
 include/gtk-3.0/gtk/gtkthemingengine.h
-include/gtk-3.0/gtk/gtktoggleaction.h
+include/gtk-3.0/gtk/deprecated/gtktoggleaction.h
 include/gtk-3.0/gtk/gtktogglebutton.h
 include/gtk-3.0/gtk/gtktoggletoolbutton.h
 include/gtk-3.0/gtk/gtktoolbar.h
@@ -323,7 +323,7 @@ include/gtk-3.0/gtk/gtktreeview.h
 include/gtk-3.0/gtk/gtktreeviewcolumn.h
 include/gtk-3.0/gtk/gtktypebuiltins.h
 include/gtk-3.0/gtk/gtktypes.h
-include/gtk-3.0/gtk/gtkuimanager.h
+include/gtk-3.0/gtk/deprecated/gtkuimanager.h
 include/gtk-3.0/gtk/gtkversion.h
 include/gtk-3.0/gtk/gtkviewport.h
 include/gtk-3.0/gtk/gtkvolumebutton.h
