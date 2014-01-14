@@ -20,7 +20,7 @@ NO_STAGE=	yes
 USES=		gettext gmake pathfix pkgconfig
 USE_XZ=		yes
 USE_AUTOTOOLS=	libtool
-USE_GNOME=	gdkpixbuf2 ltverhack gnomeprefix atk pango \
+USE_GNOME=	gdkpixbuf2 ltverhack gnomeprefix gtk20 gtk30 atk pango \
 		introspection:build
 USE_GL=		gl
 USE_XORG=	glproto x11 xfixes xdamage xcomposite xi
