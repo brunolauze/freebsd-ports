@@ -226,6 +226,7 @@ include/gtk-3.0/gtk/gtklabel.h
 include/gtk-3.0/gtk/gtklayout.h
 include/gtk-3.0/gtk/gtklevelbar.h
 include/gtk-3.0/gtk/gtklinkbutton.h
+include/gtk-3.0/gtk/gtklistbox.h
 include/gtk-3.0/gtk/gtkliststore.h
 include/gtk-3.0/gtk/gtklockbutton.h
 include/gtk-3.0/gtk/gtkmain.h
