@@ -287,6 +287,7 @@ CONFIGURE_ARGS+=	--without-dnsupdate
 
 # https://bugzilla.samba.org/show_bug.cgi?id=9545
 .if ${PORT_OPTIONS:MFAM_SUPPORT}
+LIB_DEPENDS+=		libfam.so:${PORTSDIR}/devel/gamin
 USE_FAM=		yes
 CONFIGURE_ARGS+=	--with-fam
 WANT_EXP_MODULES+=	vfs_notify_fam
