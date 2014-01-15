@@ -131,7 +131,7 @@ CONFIGURE_ARGS+=	--with-printcap=${PREFIX}/etc/printcap
 .if ${PORT_OPTIONS:MGNUTLS}
 CONFIGURE_ARGS+=	--disable-openssl --enable-gnutls
 LIB_DEPENDS+=		gcrypt:${PORTSDIR}/security/libgcrypt
-LIB_DEPENDS+=		gnutls3:${PORTSDIR}/security/gnutls3
+BUILD_DEPENDS+=		gnutls3>=3.0:${PORTSDIR}/security/gnutls3
 USES+=		pkgconfig
 .else
 CONFIGURE_ARGS+=	--disable-gnutls --enable-openssl

@@ -1,5 +1,5 @@
---- configure.orig	2012-07-27 22:57:23.000000000 +0200
-+++ configure	2012-11-05 20:13:13.000000000 +0100
+--- configure.orig	2012-07-25 15:43:58.000000000 -0500
++++ configure	2014-01-14 20:35:31.765506462 -0600
 @@ -566,6 +566,7 @@
  # Factoring default headers for most tests.
  ac_includes_default="\
@@ -8,7 +8,7 @@
  #ifdef HAVE_SYS_TYPES_H
  # include <sys/types.h>
  #endif
-@@ -5660,7 +5661,7 @@
+@@ -5595,7 +5596,7 @@
  		CFLAGS="$CFLAGS `$PKGCONFIG --cflags dbus-1` -DDBUS_API_SUBJECT_TO_CHANGE"
  		SERVERLIBS="$SERVERLIBS `$PKGCONFIG --libs dbus-1`"
  		DBUS_NOTIFIER="dbus"
@@ -17,7 +17,7 @@
  		SAVELIBS="$LIBS"
  		LIBS="$LIBS $DBUS_NOTIFIERLIBS"
  		ac_fn_c_check_func "$LINENO" "dbus_message_iter_init_append" "ac_cv_func_dbus_message_iter_init_append"
-@@ -8302,7 +8303,7 @@
+@@ -9364,7 +9365,7 @@
  
  
  	if test x$ac_cv_header_pthread_h = xyes; then
@@ -26,3 +26,35 @@
          		{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for pthread_create using $flag" >&5
  $as_echo_n "checking for pthread_create using $flag... " >&6; }
  			SAVELIBS="$LIBS"
+@@ -9651,10 +9652,10 @@
+ fi
+ 
+ 
+-	if $PKGCONFIG --exists gnutls; then
++	if $PKGCONFIG --exists gnutls3; then
+ 	    have_ssl=1
+-	    SSLLIBS=`$PKGCONFIG --libs gnutls`
+-	    SSLFLAGS=`$PKGCONFIG --cflags gnutls`
++	    SSLLIBS=`$PKGCONFIG --libs gnutls3`
++	    SSLFLAGS=`$PKGCONFIG --cflags gnutls3`
+ 	    $as_echo "#define HAVE_SSL 1" >>confdefs.h
+ 
+ 	    $as_echo "#define HAVE_GNUTLS 1" >>confdefs.h
+@@ -10008,7 +10009,7 @@
+ 		fi
+ 
+ 		# Find the PAM configuration directory, if any...
+-		for dir in /private/etc/pam.d /etc/pam.d; do
++		for dir in /usr/local/etc/pam.d /etc/pam.d; do
+ 			if test -d $dir; then
+ 				PAMDIR=$dir
+ 				break;
+@@ -10259,7 +10260,7 @@
+ 
+ LARGEFILE=""
+ if test x$enable_largefile != xno; then
+-	LARGEFILE="-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE"
++	LARGEFILE="-D_LARGEFILE_SOURCE "
+ 
+ 	if test x$ac_cv_sys_large_files = x1; then
+ 		LARGEFILE="$LARGEFILE -D_LARGE_FILES"

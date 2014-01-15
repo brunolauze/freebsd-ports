@@ -22,6 +22,7 @@ CONFLICTS_INSTALL=	kBuild-devel-[0-9]*
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${DISTVERSION}
 
+KBUILD_TARGET=  ${OPSYS:tl}
 KBUILD_VERSION=	0.1.9998
 KBUILD_ARCH=	${MACHINE_ARCH:S/i386/x86/}
 KBUILD_ENV=	ACLOCAL=${ACLOCAL} \
@@ -64,14 +65,14 @@ do-build:
 
 do-install:
 .for bin in ${KBUILD_BINS}
-	${INSTALL_PROGRAM} ${WRKSRC}/out/freebsd.${KBUILD_ARCH}/release/stage${PREFIX}/bin/${bin} ${PREFIX}/bin
+	${INSTALL_PROGRAM} ${WRKSRC}/out/${KBUILD_TARGET}.${KBUILD_ARCH}/release/stage${PREFIX}/bin/${bin} ${PREFIX}/bin
 .endfor
 	${MKDIR} ${DATADIR}
-	(cd ${WRKSRC}/out/freebsd.${KBUILD_ARCH}/release/stage${PREFIX}/share/kBuild && ${COPYTREE_SHARE} \* ${DATADIR})
+	(cd ${WRKSRC}/out/${KBUILD_TARGET}.${KBUILD_ARCH}/release/stage${PREFIX}/share/kBuild && ${COPYTREE_SHARE} \* ${DATADIR})
 .if !defined(NOPORTDOCS)
 	${MKDIR} ${DOCSDIR}
 .for doc in ${PORTDOCS}
-	${INSTALL_DATA} ${WRKSRC}/out/freebsd.${KBUILD_ARCH}/release/stage${PREFIX}/share/doc/${PORTNAME}-${KBUILD_VERSION}/${doc} ${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/out/${KBUILD_TARGET}.${KBUILD_ARCH}/release/stage${PREFIX}/share/doc/${PORTNAME}-${KBUILD_VERSION}/${doc} ${DOCSDIR}
 .endfor
 .endif
 

@@ -68,6 +68,8 @@ USE_XORG=	xaw xrandr
 USE_XZ=		yes
 USES=		bison gmake perl5 pkgconfig
 WANT_GNOME=	yes
+OPENSSL_LIBS="-L/usr/lib -ssl -crypto"
+OPENSSL_CFLAGS="-I/usr/include"
 
 DISTFILES+=	${PORTNAME}-${LOVERSION}${EXTRACT_SUFX}
 DISTFILES+=	${PORTNAME}-help-${LOVERSION}${EXTRACT_SUFX}
@@ -107,7 +109,9 @@ CONFIGURE_ENV=		DMAKE=${LOCALBASE}/bin/dmake \
 			PYTHON_LIBS="`${PYTHON_VERSION}-config --libs`" \
 			TMPDIR=${WRKDIR} \
 			DO_FETCH_TARBALLS=yes \
-			WGET=wget
+			WGET=wget \
+			OPENSSL_LIBS="-L/usr/lib -ssl -crypto" \
+			OPENSSL_CFLAGS="-I/usr/include"
 
 CONFIGURE_ARGS+=	--disable-dependency-tracking \
 			--disable-fetch-external \
