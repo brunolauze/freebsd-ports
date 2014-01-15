@@ -1,12 +1,12 @@
 # Created by: Stijn Hoop <stijn@win.tue.nl>
-# $FreeBSD: x11/nvidia-driver/Makefile 337471 2013-12-26 06:42:43Z danfe $
+# $FreeBSD: head/x11/nvidia-driver/Makefile 337471 2013-12-26 06:42:43Z danfe $
 
 PORTNAME=	nvidia-driver
 DISTVERSION?=	331.38
 # Always try to set PORTREVISION as it can be overridden by the slave ports
 PORTREVISION?=	0
 CATEGORIES=	x11
-MASTER_SITES=	http://us.download.nvidia.com/${MASTER_SITE_SUBDIR}/
+MASTER_SITES=	${MASTER_SITE_NVIDIA}
 # MASTER_SITE_SUBDIR has to be set later because it depends on NVVERSION
 DISTNAME=	NVIDIA-FreeBSD-x86${ARCH_SUFX}-${DISTVERSION}
 

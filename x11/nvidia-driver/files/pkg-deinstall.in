@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $FreeBSD: x11/nvidia-driver/files/pkg-deinstall.in 304737 2012-09-23 12:37:34Z danfe $
+# $FreeBSD: head/x11/nvidia-driver/files/pkg-deinstall.in 304737 2012-09-23 12:37:34Z danfe $
 #
 
 PREFIX=${PKG_PREFIX-/usr/local}
