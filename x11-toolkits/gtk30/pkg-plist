@@ -248,6 +248,7 @@ include/gtk-3.0/gtk/gtkoverlay.h
 include/gtk-3.0/gtk/gtkpagesetup.h
 include/gtk-3.0/gtk/gtkpaned.h
 include/gtk-3.0/gtk/gtkpapersize.h
+include/gtk-3.0/gtk/gtkplacessidebar.h
 include/gtk-3.0/gtk/gtkplug.h
 include/gtk-3.0/gtk/gtkprintcontext.h
 include/gtk-3.0/gtk/gtkprintoperation.h
