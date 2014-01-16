@@ -24,14 +24,17 @@ GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 MAKE_JOBS_UNSAFE=yes
 
+PTHREAD_LDFLAGS= -pthread -lpthread
+PTHREAD_LIBS= -pthread -lpthread
+
 
 MONOLITE_DISTFILE=monolite-111-latest.tar.gz
 
-FETCH_CMD=	fetch http://storage.bos.xamarin.com/mono-dist-master/latest/${MONOLITE_DISTFILE} && git clone https://github.com/mono/mono ${PORTNAME}-${PORTVERSION} && tar pczf ${PORTNAME}-${PORTVERSION}.tar.gz ${PORTNAME}-${PORTVERSION} && rm -rf ${PORTNAME}-${PORTVERSION} && echo
+FETCH_CMD=	fetch http://storage.bos.xamarin.com/mono-dist-master/latest/${MONOLITE_DISTFILE} && git clone https://github.com/mono/mono ${PORTNAME}-${PORTVERSION} && cd ${PORTNAME}-${PORTVERSION} && git submodule update --init --recursive && cd .. && tar pczf ${PORTNAME}-${PORTVERSION}.tar.gz ${PORTNAME}-${PORTVERSION} && rm -rf ${PORTNAME}-${PORTVERSION} && echo
 
 # Moonlight is installed as part of www/moonlight
 CONFIGURE_ARGS+= --with-moonlight=no --disable-dtrace --with-tls=__thread --with-sgen=yes 
-CONFIGURE_ARGS+= --enable-llvm --enable-loadedllvm --enable-parallel-mark --enable-native-types --enable-gsharing
+CONFIGURE_ARGS+= --enable-llvm --enable-loadedllvm --enable-parallel-mark PTHREAD_LDFLAGS="${PTHREAD_LDFLAGS}" PTHREAD_LIBS="${PTHREAD_LIBS}"
 
 CONFIGURE_ENV=	ac_cv_header_sys_inotify_h=no
 
@@ -42,7 +45,8 @@ MONO_SHARED_DIR=${WRKDIR}
 # other languages.  This has shown itself in build fails and possibly other
 # strange crashes.
 MAKE_ENV=	MONO_SHARED_DIR="${MONO_SHARED_DIR}" \
-		LC_ALL=C EXTERNAL_MCS="./mcs/class/lib/monolite/gmcs.exe"
+		LC_ALL=C EXTERNAL_MCS="./mcs/class/lib/monolite/gmcs.exe" \
+		PTHREAD_LDFLAGS="${PTHREAD_LDFLAGS}" PTHREAD_LIBS="${PTHREAD_LIBS}"
 
 ONLY_FOR_ARCHS=	i386 amd64 powerpc
 
