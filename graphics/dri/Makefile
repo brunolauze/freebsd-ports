@@ -9,6 +9,9 @@ CATEGORIES=	graphics
 
 COMMENT=	OpenGL hardware acceleration drivers for the DRI
 
+
+BUILD_DEPENDS=	llvm-config:${PORTSDIR}/devel/llvm-mono
+
 LIB_DEPENDS=	libdrm.so:${PORTSDIR}/graphics/libdrm \
 		libexpat.so:${PORTSDIR}/textproc/expat2
 
@@ -54,10 +57,9 @@ CONFIGURE_ENV+=	LLVM_CONFIG=${LOCALBASE}/bin/llvm-config
 
 CONFIGURE_ARGS+=--enable-gallium-llvm --disable-gallium-egl 
 
-CPPFLAGS+=      -I${LOCALBASE}/llvm34/include
-LDFLAGS+=       -L${LOCALBASE}/llvm34/lib
+CPPFLAGS+=      -I${LOCALBASE}/include -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS
+LDFLAGS+=       -L${LOCALBASE}/lib
 
-#CONFIGURE_ARGS+=--with-gallium-drivers=r300,r600,radeonsi,
 CONFIGURE_ARGS+=--with-gallium-drivers=svga,swrast
 PLIST_SUB+=	GALLIUM=""
 . else

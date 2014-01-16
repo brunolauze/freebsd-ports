@@ -104,7 +104,7 @@ CONFIGURE_ARGS+=	--enable-egl
 
 .if ${COMPONENT:Mdri} == ""
 CONFIGURE_ARGS+=--with-dri-drivers=no
-CONFIGURE_ARGS+=--enable-gallium-llvm=no --without-gallium-drivers
+CONFIGURE_ARGS+=--enable-gallium-llvm=yes --without-gallium-drivers
 .else
 # done in the dri port
 .endif

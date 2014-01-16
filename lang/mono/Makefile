@@ -12,20 +12,26 @@ COMMENT=	An open source implementation of .NET Development Framework
 BUILD_DEPENDS=	p5-XML-Parser>=0:${PORTSDIR}/textproc/p5-XML-Parser \
     		bash:${PORTSDIR}/shells/bash \
     		wget:${PORTSDIR}/ftp/wget \
+		curl:${PORTSDIR}/ftp/curl \
 		git:${PORTSDIR}/devel/git \
-		llvm-config34:${PORTSDIR}/devel/llvm-mono
+		llvm-config:${PORTSDIR}/devel/llvm-mono
 
 USES=		bison gettext gmake pathfix perl5
+USE_AUTOTOOLS=	aclocal libtool
 USE_GNOME=	glib20
 USE_PERL5=	build
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 MAKE_JOBS_UNSAFE=yes
 
-FETCH_CMD=	git clone https://github.com/mono/mono ${PORTNAME}-${PORTVERSION} && tar pczf ${PORTNAME}-${PORTVERSION}.tar.gz ${PORTNAME}-${PORTVERSION} && rm -rf ${PORTNAME}-${PORTVERSION} && echo
+
+MONOLITE_DISTFILE=monolite-111-latest.tar.gz
+
+FETCH_CMD=	fetch http://storage.bos.xamarin.com/mono-dist-master/latest/${MONOLITE_DISTFILE} && git clone https://github.com/mono/mono ${PORTNAME}-${PORTVERSION} && tar pczf ${PORTNAME}-${PORTVERSION}.tar.gz ${PORTNAME}-${PORTVERSION} && rm -rf ${PORTNAME}-${PORTVERSION} && echo
 
 # Moonlight is installed as part of www/moonlight
-CONFIGURE_ARGS=	--with-moonlight=no --disable-dtrace --with-tls=__thread --with-sgen=yes --enable-llvm --enable-loadedllvm --enable-parallel-mark
+CONFIGURE_ARGS+= --with-moonlight=no --disable-dtrace --with-tls=__thread --with-sgen=yes 
+CONFIGURE_ARGS+= --enable-llvm --enable-loadedllvm --enable-parallel-mark --enable-native-types --enable-gsharing
 
 CONFIGURE_ENV=	ac_cv_header_sys_inotify_h=no
 
@@ -78,7 +84,7 @@ CONFIGURE_SCRIPT=autogen.sh
 post-configure:
 	@${REINPLACE_CMD} -e 's|share\/man|man|g' \
 		${WRKSRC}/mcs/jay/Makefile
-	@(cd ${WRKSRC} && ${GMAKE} get-monolite-latest)
+	@(cd ${WRKSRC} && ${GMAKE} monolite_url=file://${PORTSDIR}/distfiles/${MONOLITE_DISTFILE} get-monolite-latest)
 
 .include "${PORTSDIR}/lang/mono/bsd.mono.mk"
 .include <bsd.port.post.mk>
