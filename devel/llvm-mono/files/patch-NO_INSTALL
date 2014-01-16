@@ -1,0 +1,82 @@
+--- utils/PerfectShuffle/Makefile.orig	2014-01-15 21:52:52.378661493 -0600
++++ utils/PerfectShuffle/Makefile	2014-01-15 21:53:04.596935494 -0600
+@@ -9,7 +9,6 @@
+ 
+ LEVEL = ../..
+ TOOLNAME = llvm-PerfectShuffle
+-NO_INSTALL = 1
+ 
+ # This tool has no plugins, optimize startup time.
+ TOOL_NO_EXPORTS = 1
+--- tools/obj2yaml/Makefile.orig	2014-01-15 21:54:12.407090000 -0600
++++ tools/obj2yaml/Makefile	2014-01-15 21:54:22.206736464 -0600
+@@ -14,7 +14,4 @@
+ # This tool has no plugins, optimize startup time.
+ TOOL_NO_EXPORTS = 1
+ 
+-# Don't install this utility
+-NO_INSTALL = 1
+-
+ include $(LEVEL)/Makefile.common
+--- tools/llvm-lto/Makefile.orig	2014-01-15 21:55:10.166711398 -0600
++++ tools/llvm-lto/Makefile	2014-01-15 21:55:18.176739251 -0600
+@@ -14,6 +14,4 @@
+ # This tool has no plugins, optimize startup time.
+ TOOL_NO_EXPORTS := 1
+ 
+-NO_INSTALL := 1
+-
+ include $(LEVEL)/Makefile.common
+--- tools/llvm-c-test/Makefile.orig	2014-01-15 21:56:15.528297479 -0600
++++ tools/llvm-c-test/Makefile	2014-01-15 21:56:29.076689102 -0600
+@@ -11,8 +11,6 @@
+ TOOLNAME = llvm-c-test
+ 
+ TOOL_NO_EXPORTS = 1
+-NO_INSTALL = 1
+-
+ 
+ # If there is no shared lib, link all components...
+ ifneq ($(ENABLE_SHARED),1)
+--- tools/yaml2obj/Makefile.orig	2014-01-15 21:57:06.217384826 -0600
++++ tools/yaml2obj/Makefile	2014-01-15 21:57:13.696741046 -0600
+@@ -14,7 +14,4 @@
+ # This tool has no plugins, optimize startup time.
+ TOOL_NO_EXPORTS = 1
+ 
+-# Don't install this utility
+-NO_INSTALL = 1
+-
+ include $(LEVEL)/Makefile.common
+--- utils/yaml-bench/Makefile.orig	2014-01-15 21:57:50.166710896 -0600
++++ utils/yaml-bench/Makefile	2014-01-15 21:57:57.896676643 -0600
+@@ -14,7 +14,4 @@
+ # This tool has no plugins, optimize startup time.
+ TOOL_NO_EXPORTS = 1
+ 
+-# Don't install this utility
+-NO_INSTALL = 1
+-
+ include $(LEVEL)/Makefile.common
+--- utils/FileUpdate/Makefile.orig	2014-01-15 22:00:04.056951481 -0600
++++ utils/FileUpdate/Makefile	2014-01-15 22:00:11.417395615 -0600
+@@ -14,8 +14,5 @@
+ # This tool has no plugins, optimize startup time.
+ TOOL_NO_EXPORTS = 1
+ 
+-# Don't install this utility
+-NO_INSTALL = 1
+-
+ include $(LEVEL)/Makefile.common
+ 
+--- utils/FileCheck/Makefile.orig	2014-01-15 22:01:20.246821665 -0600
++++ utils/FileCheck/Makefile	2014-01-15 22:01:27.957949906 -0600
+@@ -14,8 +14,5 @@
+ # This tool has no plugins, optimize startup time.
+ TOOL_NO_EXPORTS = 1
+ 
+-# Don't install this utility
+-NO_INSTALL = 1
+-
+ include $(LEVEL)/Makefile.common
+ 

@@ -8,10 +8,13 @@ CATEGORIES=	devel lang
 MAINTAINER=	brooks@FreeBSD.org
 COMMENT=	Low Level Virtual Machine
 
-LIB_DEPENDS=	execinfo:${PORTSDIR}/devel/libexecinfo
+LIB_DEPENDS=	execinfo:${PORTSDIR}/devel/libexecinfo \
+		libffi.so:${PORTSDIR}/devel/libffi
 
-LLVM_SUFFIX=	${PORTVERSION:S/.//g}
-LLVM_PREFIX=	${PREFIX}/llvm${LLVM_SUFFIX}
+LLVM_SUFFIX=	
+#${PORTVERSION:S/.//g}
+LLVM_PREFIX=	${PREFIX}
+#/llvm${LLVM_SUFFIX}
 DOCSDIR=	${PREFIX}/share/doc/${PORTNAME}${LLVM_SUFFIX}
 DATADIR=	${PREFIX}/share/${PORTNAME}${LLVM_SUFFIX}
 UNIQUENAME=	${PORTNAME}${LLVM_SUFFIX}
@@ -32,20 +35,24 @@ USE_LDCONFIG=	${LLVM_PREFIX}/lib
 SUB_FILES=	llvm-wrapper.sh
 SUB_LIST=	LLVM_PREFIX="${LLVM_PREFIX}" LLVM_SUFFIX="${LLVM_SUFFIX}"
 
+
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+
 # Suggested tweaks from http://llvm.org/docs/Packaging.html
 CONFIGURE_ARGS+=	--enable-shared
 MAKE_ARGS+=		REQUIRES_RTTI=1
 LIBNAME=		libLLVM-${DISTVERSION:C/\rc[0-9]//}.so
 
-CONFIGURE_ARGS+=	--enable-bindings=none --enable-libcpp --enable-cxx11
+CONFIGURE_ARGS+=	--enable-ltdl-install --enable-libffi --enable-libcpp --enable-cxx11
 CONFIGURE_ARGS+=	--enable-optimized --enable-profiling
 
 OPTIONS_DEFINE=	ASSERTS CMAKE DOCS LIT LTOPLUGIN MANPAGES
 
 ASSERTS_DESC=	Enable assertions (thread unsafe)
 CMAKE_DESC=	Build cmake support files
-LIT_DESC=	Install lit and FileCheck test tools (requires python)
-LTOPLUGIN_DESC=	Build LTO plugin (requires gold)
+LIT_DESC=	Install lit test tools (requires python)
+LTOPLUGIN_DESC=	Install lit gold
 
 OPTIONS_DEFAULT=	CMAKE LIT MANPAGES
 OPTIONS_SUB=	yes
@@ -69,7 +76,6 @@ COMMANDS=	bugpoint \
 		llvm-mcmarkup \
 		llvm-nm \
 		llvm-objdump \
-		llvm-prof \
 		llvm-ranlib \
 		llvm-readobj \
 		llvm-rtdyld \
@@ -117,7 +123,8 @@ CONFIGURE_ARGS+=	--disable-docs
 .if ${PORT_OPTIONS:MLIT}
 MAN1SRCS+=		lit.1
 USE_PYTHON=		yes
-LIT_COMMANDS=		lit llvm-lit FileCheck
+LIT_COMMANDS=		lit llvm-lit
+#FileCheck
 .else
 USE_PYTHON_BUILD=	yes
 .endif
@@ -126,7 +133,7 @@ USE_PYTHON_BUILD=	yes
 BUILD_DEPENDS+=		ld.gold:${PORTSDIR}/devel/binutils
 RUN_DEPENDS+=		ld.gold:${PORTSDIR}/devel/binutils
 CONFIGURE_ARGS+=	--with-binutils-include=${LOCALBASE}/include
-PLIST_FILES+=		llvm${LLVM_SUFFIX}/lib/LLVMgold.so
+PLIST_FILES+=		lib/LLVMgold.so
 .endif
 
 .if ${PORT_OPTIONS:MMANPAGES}
@@ -189,12 +196,12 @@ post-install:
 	${STRIP_CMD} ${STRIP_LIBS:S|^|${STAGEDIR}${LLVM_PREFIX}/lib/|}
 	${INSTALL_SCRIPT} ${WRKDIR}/llvm-wrapper.sh \
 	    ${STAGEDIR}${PREFIX}/bin/${FIRST_COMMAND}${LLVM_SUFFIX}
-.for command in ${COMMANDS:C/^/XXXX/1:NXXXX*}
-	test -e ${STAGEDIR}${LLVM_PREFIX}/bin/${command}
-	${LN} -f ${STAGEDIR}${PREFIX}/bin/${FIRST_COMMAND}${LLVM_SUFFIX} \
-	    ${STAGEDIR}${PREFIX}/bin/${command}${LLVM_SUFFIX}
-.endfor
-	${LN} -sf ${STAGEDIR}${LLVM_PREFIX}/bin/llvm-config${LLVM_SUFFIX} ${STAGEDIR}${LOCALBASE}/bin/llvm-config
+#.for command in ${COMMANDS:C/^/XXXX/1:NXXXX*}
+#	test -e ${STAGEDIR}${LLVM_PREFIX}/bin/${command}
+#	${LN} -f ${STAGEDIR}${PREFIX}/bin/${FIRST_COMMAND}${LLVM_SUFFIX} \
+#	    ${STAGEDIR}${PREFIX}/bin/${command}${LLVM_SUFFIX}
+#.endfor
+#	${LN} -sf ${STAGEDIR}${LLVM_PREFIX}/bin/llvm-config${LLVM_SUFFIX} ${STAGEDIR}${PREFIX}/bin/llvm-config
 .if ${PORT_OPTIONS:MCMAKE}
 	${MKDIR} ${STAGEDIR}${DATADIR}/cmake
 	${INSTALL_DATA} ${WRKSRC}/cmake/modules/*.cmake \
@@ -209,19 +216,15 @@ post-install:
 .if ${PORT_OPTIONS:MLIT}
 	${INSTALL_SCRIPT} ${WRKSRC}/utils/lit/lit.py \
 	    ${STAGEDIR}${LLVM_PREFIX}/bin/lit
-	${LN} -f ${STAGEDIR}${LLVM_PREFIX}/bin/lit \
-	    ${STAGEDIR}${LLVM_PREFIX}/bin/llvm-lit
-	${LN} -f ${STAGEDIR}${LLVM_PREFIX}/bin/lit \
-	    ${STAGEDIR}${PREFIX}/bin/lit${LLVM_SUFFIX}
-	${LN} -f ${STAGEDIR}${LLVM_PREFIX}/bin/lit \
-	    ${STAGEDIR}${PREFIX}/bin/llvm-lit${LLVM_SUFFIX}
+#	${LN} -f ${STAGEDIR}${LLVM_PREFIX}/bin/lit \
+#	    ${STAGEDIR}${LLVM_PREFIX}/bin/llvm-lit
+#	${LN} -f ${STAGEDIR}${LLVM_PREFIX}/bin/lit \
+#	    ${STAGEDIR}${PREFIX}/bin/lit${LLVM_SUFFIX}
+#	${LN} -f ${STAGEDIR}${LLVM_PREFIX}/bin/lit \
+#	    ${STAGEDIR}${PREFIX}/bin/llvm-lit${LLVM_SUFFIX}
 	${MKDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}/lit${LLVM_SUFFIX}
 	${INSTALL_DATA} ${WRKSRC}/utils/lit/lit/*.py \
 	    ${STAGEDIR}${PYTHON_SITELIBDIR}/lit${LLVM_SUFFIX}
-	${INSTALL_PROGRAM} ${WRKSRC}/${RELEASE_TYPE}/bin/FileCheck \
-	    ${STAGEDIR}${LLVM_PREFIX}/bin/
-	${LN} -f ${STAGEDIR}${LLVM_PREFIX}/bin/FileCheck \
-	    ${STAGEDIR}${PREFIX}/bin/FileCheck${LLVM_SUFFIX}
 .endif
 .if ${PORT_OPTIONS:MMANPAGES}
 	for man in ${MAN1SRCS}; do \
