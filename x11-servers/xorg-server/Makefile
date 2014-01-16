@@ -18,6 +18,8 @@ LIB_DEPENDS=	libdrm.so:${PORTSDIR}/graphics/libdrm \
 RUN_DEPENDS=	xkeyboard-config>=2.5:${PORTSDIR}/x11/xkeyboard-config \
 		xkbcomp:${PORTSDIR}/x11/xkbcomp
 
+LIB_PC_DEPENDS= ${LOCALBASE}/libdata/pkgconfig/xtrans.pc:${PORTSDIR}/x11/xtrans
+
 XORG_CAT=	xserver
 SLAVE_PORT?=	no
 
@@ -62,14 +64,15 @@ USE_XORG?=	xf86driproto glproto xdmcp x11 xkbfile xxf86misc xxf86vm xaw7 \
 		xf86vidmodeproto xf86bigfontproto scrnsaverproto bigreqsproto \
 		resourceproto fontsproto inputproto xf86dgaproto \
 		videoproto compositeproto trapproto recordproto xineramaproto \
-		xinerama evieproto xfont fontenc xkbui pixman pciaccess
+		xinerama evieproto xfont fontenc xkbui pixman pciaccess presentproto
 
 MAKE_JOBS_UNSAFE=	yes
 USE_OPENSSL=	yes
 CONFIGURE_ARGS?=--disable-dmx --disable-xvfb --disable-xnest \
 		--without-xmlto --disable-docs --disable-devel-docs \
 		--localstatedir=/var --without-dtrace --disable-xephyr \
-		--enable-record=yes --enable-dri --enable-dri2 --enable-dri3=yes
+		--enable-record=yes --enable-dri --enable-dri2 --enable-dri3=yes \
+		--enable-unix-transport --enable-xtrans-send-fds
 
 .if ${SLAVE_PORT} == "no"
 SUB_FILES=	pkg-install pkg-deinstall

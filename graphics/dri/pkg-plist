@@ -1,4 +1,3 @@
-%%NEW%%%%I965_DRIVER%%etc/drirc
 include/GL/internal/dri_interface.h
 %%OLD%%%%I810_DRIVER%%lib/dri/i810_dri.so
 %%NEW%%%%I915_DRIVER%%lib/dri/i915_dri.la
@@ -28,9 +27,6 @@ include/GL/internal/dri_interface.h
 %%OLD%%%%UNICHROME_DRIVER%%lib/dri/unichrome_dri.so
 %%NEW%%%%GALLIUM%%lib/dri/vmwgfx_dri.la
 %%NEW%%%%GALLIUM%%lib/dri/vmwgfx_dri.so
-%%NEW%%lib/libdricore%%VERSION%%.la
-%%NEW%%lib/libdricore%%VERSION%%.so
-%%NEW%%lib/libdricore%%VERSION%%.so.1
 %%NEW%%%%GALLIUM%%lib/libllvmradeon%%VERSION%%.la
 %%NEW%%%%GALLIUM%%lib/libllvmradeon%%VERSION%%.so
 libdata/pkgconfig/dri.pc
