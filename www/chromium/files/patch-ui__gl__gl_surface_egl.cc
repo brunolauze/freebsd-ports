@@ -5,7 +5,7 @@
      DCHECK(window_);
      XWindowAttributes win_attribs;
 -    if (!XGetWindowAttributes(GetNativeDisplay(), window_, &win_attribs)) {
-+    if (!XGetWindowAttributes(reinterpret_cast<Display>(GetNativeDisplay()), window_, &win_attribs)) {
++    if (!XGetWindowAttributes(base::MessagePumpForUI::GetDefaultXDisplay(), window_, &win_attribs)) {
        return NULL;
      }
  

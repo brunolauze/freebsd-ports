@@ -4,18 +4,9 @@
 #TODO eadler: s/python/python2/g on a number of files, chromium does not build with python3
 
 PORTNAME=	chromium
-#DISTVERSIONPREFIX=	courgette-redacted-
-#DISTVERSION=	31.0.1650.63
 DISTVERSION=	34.0.1782.2
 CATEGORIES=	www
 MASTER_SITES=	http://commondatastorage.googleapis.com/chromium-browser-official/:browser
-
-#:testdata \
-#		http://download.goodking.org/downloads/:browser \
-#		ftp://rene-ladan.nl/pub/distfiles/:browser \
-#		${MASTER_SITE_LOCAL}:browser \
-#		http://files.etoilebsd.net/goodking/:browser
-#MASTER_SITE_SUBDIR=rene
 
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}:browser
 
@@ -45,7 +36,9 @@ LIB_DEPENDS=	libcairo.so:${PORTSDIR}/graphics/cairo \
 		libcups.so:${PORTSDIR}/print/cups-client \
 		libevent-1.4.so:${PORTSDIR}/devel/libevent \
 		libgcrypt.so:${PORTSDIR}/security/libgcrypt \
-		libpci.so:${PORTSDIR}/devel/libpci
+		libpci.so:${PORTSDIR}/devel/libpci \
+                libffi.so:${PORTSDIR}/devel/libffi
+
 
 RUN_DEPENDS=	${LOCALBASE}/lib/alsa-lib/libasound_module_pcm_oss.so:${PORTSDIR}/audio/alsa-plugins \
 		${LOCALBASE}/lib/X11/fonts/Droid/fonts.dir:${PORTSDIR}/x11-fonts/droid-fonts-ttf
@@ -79,6 +72,8 @@ GYP_DEFINES+=	use_cups=1 \
 		disable_nacl=1 \
 		enable_webrtc=1 \
 		enable_openmax=1 \
+		use_openssl=0 \
+		use_nss=1 \
 		enable_one_click_signin=1 \
 		werror= \
 		no_gc_sections=1 \
@@ -127,13 +122,6 @@ GYP_DEFINES+=	use_pulseaudio=0
 
 .if ! ${MACHINE_CPU:Msse2}
 GYP_DEFINES+=	disable_sse2=1
-.endif
-
-.if ${OSVERSION} >= 1000052 && !exists(${LOCALBASE}/include/execinfo.h)
-EXTRA_PATCHES+=	${FILESDIR}/extra-patch-fixup-execinfo
-.endif
-.if ${OSVERSION} < 1000052
-LIB_DEPENDS+=	libexecinfo.so:${PORTSDIR}/devel/libexecinfo
 .endif
 
 .if ${PORT_OPTIONS:MTEST}

@@ -10,6 +10,7 @@ MAINTAINER=	mono@FreeBSD.org
 COMMENT=	An open source implementation of .NET Development Framework
 
 BUILD_DEPENDS=	p5-XML-Parser>=0:${PORTSDIR}/textproc/p5-XML-Parser \
+		aclocal:${PORTSDIR}/devel/automake-wrapper \
     		bash:${PORTSDIR}/shells/bash \
     		wget:${PORTSDIR}/ftp/wget \
 		curl:${PORTSDIR}/ftp/curl \
@@ -17,8 +18,9 @@ BUILD_DEPENDS=	p5-XML-Parser>=0:${PORTSDIR}/textproc/p5-XML-Parser \
 		llvm-config:${PORTSDIR}/devel/llvm-mono
 
 USES=		bison gettext gmake pathfix perl5
-USE_AUTOTOOLS=	aclocal libtool
+USE_AUTOTOOLS=	libtool
 USE_GNOME=	glib20
+USE_GMAKE=	yes
 USE_PERL5=	build
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
@@ -34,9 +36,9 @@ FETCH_CMD=	fetch http://storage.bos.xamarin.com/mono-dist-master/latest/${MONOLI
 
 # Moonlight is installed as part of www/moonlight
 CONFIGURE_ARGS+= --with-moonlight=no --disable-dtrace --with-tls=__thread --with-sgen=yes 
-CONFIGURE_ARGS+= --enable-llvm --enable-loadedllvm --enable-parallel-mark PTHREAD_LDFLAGS="${PTHREAD_LDFLAGS}" PTHREAD_LIBS="${PTHREAD_LIBS}"
+CONFIGURE_ARGS+= --enable-llvm --enable-loadedllvm --enable-parallel-mark PTHREAD_LDFLAGS="${PTHREAD_LDFLAGS}" PTHREAD_LIBS="${PTHREAD_LIBS}" MAKE=${GMAKE}
 
-CONFIGURE_ENV=	ac_cv_header_sys_inotify_h=no
+CONFIGURE_ENV=	ac_cv_header_sys_inotify_h=no MAKE=${GMAKE}
 
 # Set location for .wapi creation.
 MONO_SHARED_DIR=${WRKDIR}
@@ -45,8 +47,9 @@ MONO_SHARED_DIR=${WRKDIR}
 # other languages.  This has shown itself in build fails and possibly other
 # strange crashes.
 MAKE_ENV=	MONO_SHARED_DIR="${MONO_SHARED_DIR}" \
-		LC_ALL=C EXTERNAL_MCS="./mcs/class/lib/monolite/gmcs.exe" \
-		PTHREAD_LDFLAGS="${PTHREAD_LDFLAGS}" PTHREAD_LIBS="${PTHREAD_LIBS}"
+		LC_ALL=C EXTERNAL_MCS="./mcs/class/lib/monolite/basic.exe" \
+		PTHREAD_LDFLAGS="${PTHREAD_LDFLAGS}" PTHREAD_LIBS="${PTHREAD_LIBS}" \
+		MAKE=${GMAKE}
 
 ONLY_FOR_ARCHS=	i386 amd64 powerpc
 
