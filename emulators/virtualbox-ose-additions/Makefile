@@ -178,10 +178,10 @@ do-install:
 		${PREFIX}/share/autostart/
 
 	${MKDIR} ${VIDEODIR}
-	${INSTALL_DATA} ${VBOX_BIN}/vboxvideo_drv_${XSERVER_ABI}.so ${VIDEODIR}/vboxvideo_drv.so
+	${INSTALL_DATA} ${VBOX_BIN}/vboxvideo_drv_114.so ${VIDEODIR}/vboxvideo_drv.so
 
 	${MKDIR} ${INPUTDIR}
-	${INSTALL_DATA} ${VBOX_BIN}/vboxmouse_drv_${XSERVER_ABI}.so ${INPUTDIR}/vboxmouse_drv.so
+	${INSTALL_DATA} ${VBOX_BIN}/vboxmouse_drv_112.so ${INPUTDIR}/vboxmouse_drv.so
 .endif
 
 .if ${PORT_OPTIONS:MOPENGL}

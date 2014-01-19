@@ -47,7 +47,9 @@ LIB_DEPENDS=	libicutu.so:${PORTSDIR}/devel/icu \
 		libwpd-0.9.so:${PORTSDIR}/textproc/libwpd \
 		libwps-0.2.so:${PORTSDIR}/textproc/libwps \
 		libmythes-1.2.so:${PORTSDIR}/textproc/mythes \
-		librdf.so:${PORTSDIR}/textproc/redland
+		librdf.so:${PORTSDIR}/textproc/redland \
+		libgstreamer-1.0.so:${PORTSDIR}/multimedia/gstreamer1 \
+		libgstapp-1.0.la:${PORTSDIR}/multimedia/gstreamer1-plugins		
 
 RUN_DEPENDS=	${LOCALBASE}/lib/X11/fonts/dejavu/DejaVuSans.ttf:${PORTSDIR}/x11-fonts/dejavu \
 		${LOCALBASE}/lib/X11/fonts/GentiumBasic/GenBasI.ttf:${PORTSDIR}/x11-fonts/gentium-basic \
@@ -67,6 +69,7 @@ USE_PYTHON=	yes
 USE_XORG=	xaw xrandr
 USE_XZ=		yes
 USES=		bison gmake perl5 pkgconfig
+USE_GSTREAMER1=	yes
 WANT_GNOME=	yes
 OPENSSL_LIBS="-L/usr/lib -ssl -crypto"
 OPENSSL_CFLAGS="-I/usr/include"

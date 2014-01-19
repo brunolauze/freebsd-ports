@@ -1,11 +1,29 @@
---- Config.kmk.orig	2013-10-15 13:01:31.000000000 +0200
-+++ Config.kmk	2013-10-20 14:43:19.015746151 +0200
-@@ -3387,16 +3387,16 @@
+--- Config.kmk.orig	2014-01-19 02:21:29.573621406 -0600
++++ Config.kmk	2014-01-19 02:22:04.572396410 -0600
+@@ -3356,7 +3356,7 @@
+ # x86 FreeBSD (6.2 or something):
+ #  cc -O2 -fno-strict-aliasing -pipe -Werror -D_KERNEL -DKLD_MODULE \
+ #   -nostdinc -I- -I. -I@ -I@/contrib/altq -I@/../include -I/usr/include \
+-#   -finline-limit=8000 -fno-common -mno-align-long-strings -mpreferred-stack-boundary=2 \
++#   -fno-common -mno-align-long-strings -mpreferred-stack-boundary=2 \
+ #   -mno-mmx -mno-3dnow -mno-sse -mno-sse2 -ffreestanding -Wall -Wredundant-decls -Wnested-externs \
+ #   -Wstrict-prototypes -Wmissing-prototypes -Wpointer-arith -Winline -Wcast-qual -fformat-extensions \
+ #   -std=c99 -c ../my.c
+@@ -3367,7 +3367,7 @@
+ #
+ # AMD64 FreeBSD (7.1):
+ #  cc -O2 -fno-strict-aliasing -pipe -D_KERNEL -DKLD_MODULE -std=c99 -nostdinc -I. -I@ -I@/contrib/altq \
+-#  -finline-limit=8000 --param inline-unit-growth=100 --param large-function-growth=1000 -fno-common  \
++#  --param inline-unit-growth=100 --param large-function-growth=1000 -fno-common  \
+ #  -fno-omit-frame-pointer -mcmodel=kernel -mno-red-zone -mfpmath=387 -mno-sse -mno-sse2 -mno-mmx \
+ #  -mno-3dnow -msoft-float -fno-asynchronous-unwind-tables -ffreestanding \
+ #  -Wall -Wredundant-decls -Wnested-externs -Wstrict-prototypes -Wmissing-prototypes -Wpointer-arith -Winline -Wcast-qual -Wundef -Wno-pointer-sign \
+@@ -3396,16 +3396,16 @@
  	$(VBOX_GCC_WARN) -Wpointer-arith -Winline $(VBOX_GCC_Wno-pointer-sign) $(VBOX_GCC_fdiagnostics-show-option) \
  	-Wstrict-prototypes -Wmissing-prototypes -Wstrict-prototypes \
  	-Wimplicit-function-declaration -Werror-implicit-function-declaration \
 -	-O2 -fformat-extensions -ffreestanding -fno-strict-aliasing -fno-common -finline-limit=8000 \
-+	-O2 -ffreestanding -fno-strict-aliasing -fno-common -finline-limit=8000 \
++	-O2 -ffreestanding -fno-strict-aliasing -fno-common \
  	$(VBOX_GCC_fno-stack-protector) $(VBOX_GCC_R0_OPT) $(VBOX_GCC_R0_FP) \
  	-nostdinc -std=c99
 -TEMPLATE_VBOXR0DRV_CFLAGS.x86          = -m32 -mno-align-long-strings -mpreferred-stack-boundary=2 -mno-mmx -mno-3dnow -mno-sse -mno-sse2
@@ -16,11 +34,29 @@
  TEMPLATE_VBOXR0DRV_CXXFLAGS            = -fno-exceptions -fno-rtti \
  	$(VBOX_GCC_WARN) -Wpointer-arith -Winline \
 -	-O2 -fno-format-extensions -fno-strict-aliasing -fno-common -finline-limit=8000 \
-+	-O2 -fno-strict-aliasing -fno-common -finline-limit=8000 \
++	-O2 -fno-strict-aliasing -fno-common \
  	$(VBOX_GCC_fno-stack-protector) $(VBOX_GCC_R0_OPT) $(VBOX_GCC_R0_FP) \
  	-nostdinc
  TEMPLATE_VBOXR0DRV_CXXFLAGS.x86        = $(TEMPLATE_VBOXR0DRV_CFLAGS.x86)
-@@ -3630,8 +3630,6 @@
+@@ -3607,7 +3607,7 @@
+ TEMPLATE_VBOXR3EXE_LIBS                = pthread m rt dl
+  else ifeq ($(KBUILD_TARGET),os2)
+ TEMPLATE_VBOXR3EXE_TOOL                = GXX3OMF
+-TEMPLATE_VBOXR3EXE_LIBS                = socket iconv
++TEMPLATE_VBOXR3EXE_LIBS                = socket 
+  else ifeq ($(KBUILD_TARGET),darwin)
+ TEMPLATE_VBOXR3EXE_TOOL                = GXX4MACHO
+ TEMPLATE_VBOXR3EXE_LIBS                =
+@@ -3624,7 +3624,7 @@
+  else ifeq ($(KBUILD_TARGET),haiku)
+ TEMPLATE_VBOXR3EXE_TOOL                = GXX3
+ TEMPLATE_VBOXR3EXE_POST_CMDS          = $(VBOX_HAIKU_XRES_SETVER_CMDS)
+-TEMPLATE_VBOXR3EXE_LIBS                = network iconv stdc++ supc++
++TEMPLATE_VBOXR3EXE_LIBS                = network  stdc++ supc++
+ TEMPLATE_VBOXR3EXE_LIBPATH            += \
+ 	/boot/common/lib
+ # Haiku uses PIC by default...
+@@ -3639,12 +3639,10 @@
  	/usr/X11R6/include \
  	/usr/local/include
  TEMPLATE_VBOXR3EXE_LIBPATH            += \
@@ -29,7 +65,21 @@
  	/usr/local/lib
   else ifeq ($(KBUILD_TARGET),solaris)
  TEMPLATE_VBOXR3EXE_TOOL                = GXX3PLAIN
-@@ -4206,8 +4204,6 @@
+-TEMPLATE_VBOXR3EXE_DEFS               += LIBICONV_PLUG _REENTRANT # Avoid the GNU libiconv, for now at least.
++TEMPLATE_VBOXR3EXE_DEFS               += LIBICONV_PLUG _REENTRANT # Avoid the GNU lib, for now at least.
+ 
+ TEMPLATE_VBOXR3EXE_LIBS                = rt socket
+  else
+@@ -3830,7 +3828,7 @@
+  ifeq ($(KBUILD_TARGET),linux)
+   TEMPLATE_VBoxR3Static_LIBS       += crypt
+  else if1of ($(KBUILD_TARGET),darwin freebsd)
+-  TEMPLATE_VBoxR3Static_LIBS       += iconv
++  TEMPLATE_VBoxR3Static_LIBS       += 
+  else ifeq ($(KBUILD_TARGET),solaris)
+   TEMPLATE_VBoxR3Static_LIBS       += kstat
+  endif
+@@ -4218,8 +4216,6 @@
  	/usr/X11R6/include \
  	/usr/local/include
  TEMPLATE_VBOXMAINEXE_LIBPATH            += \
@@ -38,7 +88,7 @@
  	/usr/local/lib
  else ifeq ($(KBUILD_TARGET),solaris)
  TEMPLATE_VBOXMAINEXE_TOOL                = GXX3PLAIN
-@@ -4673,8 +4669,6 @@
+@@ -4685,8 +4681,6 @@
  	/usr/X11R6/include \
  	/usr/local/include
      TEMPLATE_VBOXQT4GUIEXE_LIBPATH += \
@@ -47,7 +97,25 @@
  	/usr/local/lib
     endif
     ifeq ($(KBUILD_TARGET),solaris)
-@@ -4869,8 +4863,6 @@
+@@ -4835,7 +4829,7 @@
+ TEMPLATE_VBOXBLDPROG_LIBS                = pthread m rt dl
+  else ifeq ($(KBUILD_HOST),os2)
+ TEMPLATE_VBOXBLDPROG_TOOL                = GXX3OMF
+-TEMPLATE_VBOXBLDPROG_LIBS                = socket iconv
++TEMPLATE_VBOXBLDPROG_LIBS                = socket 
+  else ifeq ($(KBUILD_HOST),darwin)
+ TEMPLATE_VBOXBLDPROG_TOOL                = GXX4MACHO
+   if "$(VBOX_DEF_MACOSX_VERSION_MIN)" == "10.7" || "$(VBOX_DARWIN_HOST_VERSION_MAJOR)" == "7"
+@@ -4870,7 +4864,7 @@
+ TEMPLATE_VBOXBLDPROG_LIBS                =
+  else ifeq ($(KBUILD_HOST),haiku)
+ TEMPLATE_VBOXBLDPROG_TOOL                = GXX3
+-TEMPLATE_VBOXBLDPROG_LIBS                = network iconv
++TEMPLATE_VBOXBLDPROG_LIBS                = network 
+ TEMPLATE_VBOXBLDPROG_LIBPATH            += \
+ 	/boot/common/lib
+  else if1of ($(KBUILD_HOST), freebsd netbsd openbsd)
+@@ -4881,8 +4875,6 @@
  	/usr/X11R6/include \
  	/usr/local/include
  TEMPLATE_VBOXBLDPROG_LIBPATH            += \
@@ -56,3 +124,46 @@
  	/usr/local/lib
   else ifeq ($(KBUILD_HOST),solaris)
  TEMPLATE_VBOXBLDPROG_TOOL                = GXX3PLAIN
+@@ -4915,11 +4907,11 @@
+ 	$(TEMPLATE_VBOXBLDPROG_LIBS)
+ TEMPLATE_VBoxAdvBldProg_LIBS.darwin = \
+ 	$(TEMPLATE_VBOXBLDPROG_LIBS) \
+-	iconv \
++	 \
+ 	$(TEMPLATE_VBOXBLDPROG_LIBS.darwin)
+ TEMPLATE_VBoxAdvBldProg_LIBS.freebsd = \
+ 	$(TEMPLATE_VBOXBLDPROG_LIBS) \
+-	iconv \
++	 \
+ 	rt \
+ 	$(TEMPLATE_VBOXBLDPROG_LIBS.freebsd)
+ TEMPLATE_VBoxAdvBldProg_LIBS.linux = \
+@@ -5010,7 +5002,7 @@
+ ifeq ($(KBUILD_TARGET),linux) # As few libs as possible on linux.
+  TEMPLATE_VBOXGUESTR3EXE_LIBS     = pthread rt m dl
+ else if1of ($(KBUILD_TARGET), darwin freebsd netbsd openbsd)
+- TEMPLATE_VBOXGUESTR3EXE_LIBS     = $(TEMPLATE_VBOXR3EXE_LIBS) iconv
++ TEMPLATE_VBOXGUESTR3EXE_LIBS     = $(TEMPLATE_VBOXR3EXE_LIBS) 
+ else ifeq ($(KBUILD_TARGET), solaris)
+  TEMPLATE_VBOXGUESTR3EXE_LIBS     = $(TEMPLATE_VBOXR3EXE_LIBS) nsl
+ endif
+@@ -5176,8 +5168,8 @@
+  TEMPLATE_VBOXGUESTR3XF86MOD_LDFLAGS.x86     = -m elf_i386
+  TEMPLATE_VBOXGUESTR3XF86MOD_LDFLAGS.amd64   = -m elf_x86_64
+ endif
+-TEMPLATE_VBOXGUESTR3XF86MOD_CFLAGS  = $(TEMPLATE_VBOXGUESTR3EXE_CFLAGS)   -fno-merge-constants -std=c99 -ffreestanding
+-TEMPLATE_VBOXGUESTR3XF86MOD_CXXFLAGS= $(TEMPLATE_VBOXGUESTR3EXE_CXXFLAGS) -fno-merge-constants -ffreestanding
++TEMPLATE_VBOXGUESTR3XF86MOD_CFLAGS  = $(TEMPLATE_VBOXGUESTR3EXE_CFLAGS)   -std=c99 -ffreestanding
++TEMPLATE_VBOXGUESTR3XF86MOD_CXXFLAGS= $(TEMPLATE_VBOXGUESTR3EXE_CXXFLAGS) -ffreestanding
+ ifeq ($(VBOX_WITH_COMPATIBLE_LINUX_GUEST_PACKAGE),)
+  TEMPLATE_VBOXGUESTR3XF86MOD_CFLAGS   += $(VBOX_GCC_fno-stack-protector)
+  TEMPLATE_VBOXGUESTR3XF86MOD_CXXFLAGS += $(VBOX_GCC_fno-stack-protector)
+@@ -5245,7 +5237,7 @@
+ 	$(VBOX_LIB_VBGL_R3_SHARED) \
+ 	$(VBOX_LIB_IPRT_GUEST_R3_MINI)
+ TEMPLATE_VBOXGUESTR3XORGMOD_LIBS.freebsd += \
+-	iconv
++	
+ 
+ 
+ #
