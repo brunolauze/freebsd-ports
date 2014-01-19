@@ -267,6 +267,7 @@ include/gtk-3.0/gtk/gtkrecentchoosermenu.h
 include/gtk-3.0/gtk/gtkrecentchooserwidget.h
 include/gtk-3.0/gtk/gtkrecentfilter.h
 include/gtk-3.0/gtk/gtkrecentmanager.h
+include/gtk-3.0/gtk/gtkrevealer.h
 include/gtk-3.0/gtk/gtkscale.h
 include/gtk-3.0/gtk/gtkscalebutton.h
 include/gtk-3.0/gtk/gtkscrollable.h

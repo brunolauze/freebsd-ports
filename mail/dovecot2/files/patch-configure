@@ -1,0 +1,20 @@
+--- configure.orig	2014-01-17 23:15:31.184822086 -0600
++++ configure	2014-01-17 23:16:30.244418248 -0600
+@@ -22738,7 +22738,7 @@
+ if test "x$ac_cv_lib_gss_gss_acquire_cred" = xyes; then :
+ 
+ 		    # Solaris
+-		    KRB5_LIBS="$KRB5_LIBS -lgss"
++		    KRB5_LIBS="$KRB5_LIBS -lgss -lgss_krb5"
+ 
+ else
+ 
+@@ -22842,7 +22842,7 @@
+ 
+ $as_echo "#define HAVE___GSS_USEROK /**/" >>confdefs.h
+ 
+-					KRB5_LIBS="$KRB5_LIBS -lgss"
++					KRB5_LIBS="$KRB5_LIBS -lgss -lgss_krb5"
+ 
+ fi
+ 

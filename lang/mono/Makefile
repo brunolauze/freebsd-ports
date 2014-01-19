@@ -2,7 +2,7 @@
 # $FreeBSD: lang/mono/Makefile 327741 2013-09-20 19:53:09Z bapt $
 
 PORTNAME=	mono
-PORTVERSION=	3.2.7
+PORTVERSION=	3.2.3
 CATEGORIES=	lang
 MASTER_SITES=	http://download.mono-project.com/sources/${PORTNAME}/
 
@@ -11,6 +11,8 @@ COMMENT=	An open source implementation of .NET Development Framework
 
 BUILD_DEPENDS=	p5-XML-Parser>=0:${PORTSDIR}/textproc/p5-XML-Parser \
 		aclocal:${PORTSDIR}/devel/automake-wrapper \
+		automake:${PORTSDIR}/devel/automake \
+		autoconf:${PORTSDIR}/devel/autoconf \
     		bash:${PORTSDIR}/shells/bash \
     		wget:${PORTSDIR}/ftp/wget \
 		curl:${PORTSDIR}/ftp/curl \
@@ -29,16 +31,18 @@ MAKE_JOBS_UNSAFE=yes
 PTHREAD_LDFLAGS= -pthread -lpthread
 PTHREAD_LIBS= -pthread -lpthread
 
+ACLOCAL_FLAGS= -I ${LOCALBASE}/share/aclocal
 
 MONOLITE_DISTFILE=monolite-111-latest.tar.gz
 
 FETCH_CMD=	fetch http://storage.bos.xamarin.com/mono-dist-master/latest/${MONOLITE_DISTFILE} && git clone https://github.com/mono/mono ${PORTNAME}-${PORTVERSION} && cd ${PORTNAME}-${PORTVERSION} && git submodule update --init --recursive && cd .. && tar pczf ${PORTNAME}-${PORTVERSION}.tar.gz ${PORTNAME}-${PORTVERSION} && rm -rf ${PORTNAME}-${PORTVERSION} && echo
 
 # Moonlight is installed as part of www/moonlight
-CONFIGURE_ARGS+= --with-moonlight=no --disable-dtrace --with-tls=__thread --with-sgen=yes 
-CONFIGURE_ARGS+= --enable-llvm --enable-loadedllvm --enable-parallel-mark PTHREAD_LDFLAGS="${PTHREAD_LDFLAGS}" PTHREAD_LIBS="${PTHREAD_LIBS}" MAKE=${GMAKE}
+CONFIGURE_ARGS+= --with-moonlight=no --disable-dtrace --with-tls=__thread --with-sgen=yes --with-ikvm-native=yes 
+CONFIGURE_ARGS+= --enable-llvm --enable-loadedllvm --enable-parallel-mark
+CONFIGURE_ARGS+= PTHREAD_LDFLAGS="${PTHREAD_LDFLAGS}" PTHREAD_LIBS="${PTHREAD_LIBS}" ACLOCAL_FLAGS="${ACLOCAL_FLAGS}"
 
-CONFIGURE_ENV=	ac_cv_header_sys_inotify_h=no MAKE=${GMAKE}
+CONFIGURE_ENV=	ac_cv_header_sys_inotify_h=no
 
 # Set location for .wapi creation.
 MONO_SHARED_DIR=${WRKDIR}
@@ -47,9 +51,10 @@ MONO_SHARED_DIR=${WRKDIR}
 # other languages.  This has shown itself in build fails and possibly other
 # strange crashes.
 MAKE_ENV=	MONO_SHARED_DIR="${MONO_SHARED_DIR}" \
-		LC_ALL=C EXTERNAL_MCS="./mcs/class/lib/monolite/basic.exe" \
-		PTHREAD_LDFLAGS="${PTHREAD_LDFLAGS}" PTHREAD_LIBS="${PTHREAD_LIBS}" \
-		MAKE=${GMAKE}
+		LC_ALL=C EXTERNAL_MCS="${PWD}/mcs/class/lib/monolite/basic.exe" \
+		PTHREAD_LDFLAGS="${PTHREAD_LDFLAGS}" PTHREAD_LIBS="${PTHREAD_LIBS}"
+
+#EXTERNAL_MCS="${PWD}/mcs/class/lib/monolite/basic.exe"
 
 ONLY_FOR_ARCHS=	i386 amd64 powerpc
 
@@ -78,8 +83,8 @@ post-patch:
 		${WRKSRC}/mcs/class/Managed.Windows.Forms/build-csproj2k5 \
 		${WRKSRC}/mcs/class/Mono.WebBrowser/build-csproj2k5
 	@${FIND} ${WRKSRC} -name '*.sh' | ${XARGS} ${REINPLACE_CMD} \
-		-e 's|^#!/bin/bash|#!/bin/sh|g'
-	@${REINPLACE_CMD} 's/(1)/(1.0)/g' ${WRKSRC}/configure.in
+		-e 's|^#!/bin/bash|#!/usr/local/bin/bash|g'
+#	@${REINPLACE_CMD} 's/(1)/(1.0)/g' ${WRKSRC}/configure.in
 
 tests: build
 	@${ECHO_MSG} "===> Running mono regression tests"
