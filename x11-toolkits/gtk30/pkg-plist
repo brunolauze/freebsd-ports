@@ -287,6 +287,7 @@ include/gtk-3.0/gtk/gtksocket.h
 include/gtk-3.0/gtk/gtkspinbutton.h
 include/gtk-3.0/gtk/gtkspinner.h
 include/gtk-3.0/gtk/gtkstack.h
+include/gtk-3.0/gtk/gtkstackswitcher.h
 include/gtk-3.0/gtk/gtkstatusbar.h
 include/gtk-3.0/gtk/gtkstatusicon.h
 include/gtk-3.0/gtk/deprecated/gtkstock.h

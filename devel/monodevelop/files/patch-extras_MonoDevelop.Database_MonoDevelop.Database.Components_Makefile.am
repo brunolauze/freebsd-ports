@@ -1,0 +1,14 @@
+--- extras/MonoDevelop.Database/MonoDevelop.Database.Components/Makefile.am.orig	2014-01-19 20:31:56.059777504 -0600
++++ extras/MonoDevelop.Database/MonoDevelop.Database.Components/Makefile.am	2014-01-19 20:32:07.499570564 -0600
+@@ -88,9 +88,9 @@
+ 
+ 
+ assemblydir = $(MD_ADDIN_DIR)/MonoDevelop.Database
+-assembly_DATA = $(ASSEMBLY) $(ASSEMBLY).mdb
++assembly_DATA = $(ASSEMBLY)
+ 
+-CLEANFILES = $(ASSEMBLY) $(ASSEMBLY).mdb
++CLEANFILES = $(ASSEMBLY)
+ EXTRA_DIST = $(FILES) $(RES)
+ 
+ include $(top_srcdir)/Makefile.include
