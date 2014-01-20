@@ -4,7 +4,6 @@
 PORTNAME=	xsp
 PORTVERSION=    3.0.0
 CATEGORIES=	www
-MASTER_SITES=	http://ftp.novell.com/pub/mono/sources/${PORTNAME}/
 
 MAINTAINER=	mono@FreeBSD.org
 COMMENT=	Mono based web server
@@ -13,6 +12,12 @@ BUILD_DEPENDS=	${LOCALBASE}/bin/mono:${PORTSDIR}/lang/mono
 RUN_DEPENDS=	${LOCALBASE}/bin/mono:${PORTSDIR}/lang/mono
 
 MAKE_JOBS_UNSAFE=	yes
+
+USE_GITHUB=yes
+GH_ACCOUNT=	mono
+GH_PROJECT=	xsp
+GH_TAGNAME=	8a31bc6
+GH_COMMIT=	${GH_TAGNAME}
 
 USE_SQLITE=	3
 CONFIGURE_SCRIPT=autogen.sh
@@ -34,4 +39,4 @@ pre-su-install:
 
 .include "${.CURDIR}/../../lang/mono/bsd.mono.mk"
 .include <bsd.port.mk>
-FETCH_CMD=git clone https://github.com/mono/xsp xsp-3.0.0 && tar pczf xsp-3.0.0.tar.gz xsp-3.0.0 && rm -rf xsp-3.0.0 && echo 
+
