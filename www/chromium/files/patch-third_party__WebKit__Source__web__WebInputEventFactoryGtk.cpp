@@ -7,7 +7,7 @@
 -           || abs(x - gLastClickX) > doubleClickDistance
 -           || abs(y - gLastClickY) > doubleClickDistance;
 +           || std::abs((double)(x - gLastClickX)) > doubleClickDistance
-+           || std::abs((dobule)(y - gLastClickY)) > doubleClickDistance;
++           || std::abs((double)(y - gLastClickY)) > doubleClickDistance;
  }
  
  void resetClickCountState()

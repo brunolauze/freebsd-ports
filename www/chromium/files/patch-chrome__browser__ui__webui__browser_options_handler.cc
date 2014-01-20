@@ -1,5 +1,5 @@
 --- chrome/browser/ui/webui/options/browser_options_handler.cc.orig	2014-01-13 09:00:47.000000000 -0600
-+++ chrome/browser/ui/webui/options/browser_options_handler.cc	2014-01-14 22:12:31.105695557 -0600
++++ chrome/browser/ui/webui/options/browser_options_handler.cc	2014-01-19 23:19:02.155244740 -0600
 @@ -321,7 +321,8 @@
      { "toolbarShowHomeButton", IDS_OPTIONS_TOOLBAR_SHOW_HOME_BUTTON },
      { "translateEnableTranslate",

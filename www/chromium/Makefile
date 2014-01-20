@@ -17,7 +17,7 @@ LICENSE=	BSD3CLAUSE LGPL21 MPL
 LICENSE_COMB=	multi
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${DISTVERSION}
-CFLAGS+=	-fno-stack-protector -Wno-unknown-warning-option
+CFLAGS+=	-fno-stack-protector -Wno-unknown-warning-option -I${LOCALBASE}/include/dbus-1.0 -I${LOCALBASE}/include/dbus-1.0/include
 
 BUILD_DEPENDS=	${LOCALBASE}/bin/gperf:${PORTSDIR}/devel/gperf \
 		bash:${PORTSDIR}/shells/bash \

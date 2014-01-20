@@ -148,7 +148,7 @@
 +			}
 +			strncpy(ssid, id, idlen);
 +			ssid[idlen] = '\0';
-+			apd.ssid = UTF8ToUTF16(ssid);
++			apd.ssid = base::UTF8ToUTF16(ssid);
 +			apd.mac_address = MacAddressAsString16(isr->isr_bssid);
 +			apd.radio_signal_strength = (isr->isr_rssi/2) + isr->isr_noise;
 +			apd.signal_to_noise = apd.radio_signal_strength - isr->isr_noise;
