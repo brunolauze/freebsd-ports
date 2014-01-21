@@ -48,8 +48,7 @@ LIB_DEPENDS=	libicutu.so:${PORTSDIR}/devel/icu \
 		libwps-0.2.so:${PORTSDIR}/textproc/libwps \
 		libmythes-1.2.so:${PORTSDIR}/textproc/mythes \
 		librdf.so:${PORTSDIR}/textproc/redland \
-		libgstreamer-1.0.so:${PORTSDIR}/multimedia/gstreamer1 \
-		libgstapp-1.0.la:${PORTSDIR}/multimedia/gstreamer1-plugins		
+		libgstreamer-1.0.so:${PORTSDIR}/multimedia/gstreamer1
 
 RUN_DEPENDS=	${LOCALBASE}/lib/X11/fonts/dejavu/DejaVuSans.ttf:${PORTSDIR}/x11-fonts/dejavu \
 		${LOCALBASE}/lib/X11/fonts/GentiumBasic/GenBasI.ttf:${PORTSDIR}/x11-fonts/gentium-basic \
@@ -76,7 +75,7 @@ OPENSSL_CFLAGS="-I/usr/include"
 
 DISTFILES+=	${PORTNAME}-${LOVERSION}${EXTRACT_SUFX}
 DISTFILES+=	${PORTNAME}-help-${LOVERSION}${EXTRACT_SUFX}
-
+V=1
 EXTRACT_ONLY:=	${DISTFILES}
 
 DISTFILES+=	1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz:src \
