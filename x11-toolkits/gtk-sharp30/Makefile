@@ -10,7 +10,8 @@ MASTER_SITES=	GNOME
 MAINTAINER=	mono@FreeBSD.org
 COMMENT=	GTK+ and GNOME interfaces for the .NET runtime
 
-BUILD_DEPENDS=	mono:${PORTSDIR}/lang/mono
+BUILD_DEPENDS=	mono:${PORTSDIR}/lang/mono \
+		automake:${PORTSDIR}/devel/automake
 RUN_DEPENDS=	mono:${PORTSDIR}/lang/mono \
 		p5-XML-LibXML>=0:${PORTSDIR}/textproc/p5-XML-LibXML
 
@@ -19,6 +20,7 @@ LATEST_LINK=	gtk-sharp30
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 USES=		perl5 gmake pkgconfig
+USE_AUTOTOOLS=	libtool
 USE_PERL5=	run
 #USE_GNOME=	gnomehack gtk20 libglade2
 

@@ -1,5 +1,5 @@
---- chrome/app/chrome_main_delegate.cc.orig	2014-01-13 09:01:35.000000000 -0600
-+++ chrome/app/chrome_main_delegate.cc	2014-01-14 21:32:36.492221728 -0600
+--- chrome/app/chrome_main_delegate.cc.orig	2014-01-21 06:25:44.277301962 -0600
++++ chrome/app/chrome_main_delegate.cc	2014-01-21 06:25:18.287555692 -0600
 @@ -97,7 +97,7 @@
  #include "ui/base/x/x11_util.h"
  #endif
@@ -63,3 +63,14 @@
    // Zygote needs to call InitCrashReporter() in RunZygote().
    if (process_type != switches::kZygoteProcess) {
  #if defined(OS_ANDROID)
+@@ -822,8 +822,9 @@
+   const CommandLine* command_line = CommandLine::ForCurrentProcess();
+   std::string process_type =
+       command_line->GetSwitchValueASCII(switches::kProcessType);
++#if !defined(OS_BSD)
+   breakpad::InitCrashReporter(process_type);
+-
++#endif
+   // Reset the command line for the newly spawned process.
+   crash_keys::SetSwitchesFromCommandLine(command_line);
+ }

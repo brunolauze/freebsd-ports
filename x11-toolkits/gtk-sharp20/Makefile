@@ -11,7 +11,8 @@ PKGNAMESUFFIX=	20
 MAINTAINER=	mono@FreeBSD.org
 COMMENT=	GTK+ and GNOME interfaces for the .NET runtime
 
-BUILD_DEPENDS=	mono:${PORTSDIR}/lang/mono
+BUILD_DEPENDS=	mono:${PORTSDIR}/lang/mono \
+		automake:${PORTSDIR}/devel/automake
 RUN_DEPENDS=	mono:${PORTSDIR}/lang/mono \
 		p5-XML-LibXML>=0:${PORTSDIR}/textproc/p5-XML-LibXML
 
@@ -20,6 +21,7 @@ FETCH_CMD=	git clone -b ${PORTNAME}-2-12-branch https://github.com/mono/${PORTNA
 
 LATEST_LINK=	gtk-sharp20
 GNU_CONFIGURE=	yes
+USE_AUTOTOOLS=	libtool
 USE_LDCONFIG=	yes
 USE_GNOME=	gtk20 libglade2
 USES=		gmake pathfix perl5 pkgconfig

@@ -8,7 +8,8 @@ CATEGORIES=	www
 MAINTAINER=	mono@FreeBSD.org
 COMMENT=	Mono based web server
 
-BUILD_DEPENDS=	${LOCALBASE}/bin/mono:${PORTSDIR}/lang/mono
+BUILD_DEPENDS=	${LOCALBASE}/bin/mono:${PORTSDIR}/lang/mono \
+		bash:${PORTSDIR}/shells/bash
 RUN_DEPENDS=	${LOCALBASE}/bin/mono:${PORTSDIR}/lang/mono
 
 MAKE_JOBS_UNSAFE=	yes
