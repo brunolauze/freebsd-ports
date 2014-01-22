@@ -131,9 +131,6 @@ share/locale/yo/LC_MESSAGES/mutter.mo
 share/locale/zh_CN/LC_MESSAGES/mutter.mo
 share/locale/zh_HK/LC_MESSAGES/mutter.mo
 share/locale/zh_TW/LC_MESSAGES/mutter.mo
-%%DATADIR%%/icons/mutter-window-demo.png
-@dirrm %%DATADIR%%/icons
-@dirrm %%DATADIR%%
 @dirrm lib/mutter/plugins
 @dirrm lib/mutter
 @dirrm include/mutter/meta
