@@ -3,7 +3,7 @@
 %%PORTDOCS%%%%DOCSDIR%%/webpage_doxygen.config
 %%PORTDOCS%%%%DOCSDIR%%/doxygen.css
 %%PORTDOCS%%%%DOCSDIR%%/webpage_header.html
-lib/pkgconfig/log4cplus.pc
+libdata/pkgconfig/log4cplus.pc
 lib/liblog4cplus.la
 lib/liblog4cplus-1.1.so
 lib/liblog4cplus.a

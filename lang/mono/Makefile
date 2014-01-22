@@ -95,7 +95,7 @@ post-patch:
 	@${FIND} ${WRKSRC} -name '*.sh' | ${XARGS} ${REINPLACE_CMD} \
 		-e 's|^#!/bin/bash|#!/usr/local/bin/bash|g'
 	@${FIND} ${WRKSRC} -name 'Makefile*' | ${XARGS} ${REINPLACE_CMD} \
-        -e 's|pkgconfigdir = |pkgconfigdir = ${LOCALBASE}/libdata/pkgconfig   #|g'
+        -e 's|pkgconfigdir = |pkgconfigdir = ${LOCALBASE}/libdata/pkgconfig#|g'
 
 tests: build
 	@${ECHO_MSG} "===> Running mono regression tests"

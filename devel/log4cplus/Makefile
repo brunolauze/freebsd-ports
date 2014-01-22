@@ -24,6 +24,11 @@ PORTDOCS=	*
 .endif
 
 NO_STAGE=	yes
+
+post-patch:
+	@${FIND} ${WRKSRC} -name 'Makefile*' | ${XARGS} ${REINPLACE_CMD} \
+	-e 's|pkgconfigdir = |pkgconfigdir = ${LOCALBASE}/libdata/pkgconfig#|g'
+
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/LICENSE ${PREFIX}/include/log4cplus
 .if !defined(NOPORTDOCS)
