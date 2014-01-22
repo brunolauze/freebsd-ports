@@ -30,32 +30,26 @@ USE_PYTHON=	2.7
 GITLAB_USER=	git
 GITLAB_GROUP=	git
 GITLAB_MYSQL_DB=	gitlab
-GITLAB_MYSQL_USER=	${GITLAB_USER}
-GITLAB_MYSQL_PASS=	gitlab
+GITLAB_PGSQL_USER=	${GITLAB_USER}
+GITLAB_PGSQL_PASS=	gitlab
 
-#GIT_HOME=	${PREFIX}/git
-GIT_HOME=	/usr/home/git
+GIT_HOME=	${LOCALBASE}/www/gitlab
 WWWDIR=		${GIT_HOME}/gitlab
-
-#GEMS_VERSION=	1.8.25
-#GEMS_DISTNAME=	rubygems-${GEMS_VERSION}
-#GEMS_FILENAME=	${GEMS_DISTNAME}.tgz
 
 USE_RC_SUBR=	gitlab
 
-SUB_FILES=	gitlab pkg-deinstall gitlab_install.sh mysql_setup.sql nginx.example apache.example
+#SUB_FILES=	gitlab pkg-deinstall gitlab_install.sh nginx.example apache.example
 SUB_LIST=	GITLAB_USER=${GITLAB_USER} \
 		GIT_HOME=${GIT_HOME} \
-		GITLAB_MYSQL_DB=${GITLAB_MYSQL_DB} \
-		GITLAB_MYSQL_USER=${GITLAB_MYSQL_USER} \
-		GITLAB_MYSQL_PASS=${GITLAB_MYSQL_PASS}
+		GITLAB_PGSQL_DB=${GITLAB_PGSQL_DB} \
+		GITLAB_PGSQL_USER=${GITLAB_PGSQL_USER} \
+		GITLAB_MYSQL_PASS=${GITLAB_PGSQL_PASS}
 
 USERS=		git
 GROUPS=		${GITLAB_GROUP}
 
 .include <bsd.port.pre.mk>
 
-#post-patch:
 do-build:
 	@${CP} ${WRKSRC}/config/gitlab.yml.example ${WRKSRC}/config/gitlab.yml
 	@${REINPLACE_CMD} -e 's|/usr/bin/git|${LOCALBASE}/bin/git|g' ${WRKSRC}/config/gitlab.yml
@@ -103,10 +97,10 @@ do-install:
 #	@gem19 install charlock_holmes --version '0.6.9'
 	@(cd ${WWWDIR} && su -m ${GITLAB_USER} -c "bundle install --deployment --without development test postgres")
 	@${MKDIR} ${WWWDIR}/distrib
-	@${CP} ${WRKDIR}/mysql_setup.sql ${WWWDIR}/distrib/
-	@${CP} ${WRKDIR}/nginx.example ${WWWDIR}/distrib/
-	@${CP} ${WRKDIR}/apache.example ${WWWDIR}/distrib/
-	@${INSTALL_SCRIPT} ${WRKDIR}/gitlab_install.sh ${WWWDIR}/distrib/
+#	@${CP} ${WRKDIR}/mysql_setup.sql ${WWWDIR}/distrib/
+#	@${CP} ${WRKDIR}/nginx.example ${WWWDIR}/distrib/
+#	@${CP} ${WRKDIR}/apache.example ${WWWDIR}/distrib/
+	@${INSTALL_SCRIPT} ${WRKDIR}/gitlab_install.sh ${WWWDIR}/distrib/gitlab_install.sh
 
 post-install:
 	@${CAT} ${PKGMESSAGE} | ${SED} -r 's|%%WWWDIR%%|${WWWDIR}|g' | ${SED} -r 's|%%PREFIX%%|${LOCALBASE}|g'

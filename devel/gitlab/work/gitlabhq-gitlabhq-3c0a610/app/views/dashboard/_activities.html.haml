@@ -1,0 +1,8 @@
+= render "events/event_last_push", event: @last_push
+= render 'shared/event_filter'
+
+- if @events.any?
+  .content_list
+- else
+  %p.nothing_here_message Projects activity will be displayed here
+.loading.hide

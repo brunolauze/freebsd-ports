@@ -73,27 +73,30 @@ lib/libmono-profiler-iomap.a
 lib/libMonoSupportW.so
 lib/libmono-profiler-cov.a
 lib/libmono-2.0.la
-lib/pkgconfig/monosgen-2.pc
-lib/pkgconfig/mono-cairo.pc
-lib/pkgconfig/mono-nunit.pc
-lib/pkgconfig/aspnetwebstack.pc
-lib/pkgconfig/mono-options.pc
-lib/pkgconfig/mono.web.pc
-lib/pkgconfig/xbuild12.pc
-lib/pkgconfig/reactive.pc
-lib/pkgconfig/system.web.extensions.design_1.0.pc
-lib/pkgconfig/system.web.mvc.pc
-lib/pkgconfig/system.web.mvc3.pc
-lib/pkgconfig/dotnet.pc
-lib/pkgconfig/system.web.mvc2.pc
-lib/pkgconfig/mono-2.pc
-lib/pkgconfig/mono.pc
-lib/pkgconfig/wcf.pc
-lib/pkgconfig/dotnet35.pc
-lib/pkgconfig/system.web.extensions_1.0.pc
-lib/pkgconfig/monodoc.pc
-lib/pkgconfig/mono-lineeditor.pc
-lib/pkgconfig/cecil.pc
+lib/libmono-llvm.a
+lib/libmono-llvm.la
+lib/libmono-llvm.so
+libdata/pkgconfig/monosgen-2.pc
+libdata/pkgconfig/mono-cairo.pc
+libdata/pkgconfig/mono-nunit.pc
+libdata/pkgconfig/aspnetwebstack.pc
+libdata/pkgconfig/mono-options.pc
+libdata/pkgconfig/mono.web.pc
+libdata/pkgconfig/xbuild12.pc
+libdata/pkgconfig/reactive.pc
+libdata/pkgconfig/system.web.extensions.design_1.0.pc
+libdata/pkgconfig/system.web.mvc.pc
+libdata/pkgconfig/system.web.mvc3.pc
+libdata/pkgconfig/dotnet.pc
+libdata/pkgconfig/system.web.mvc2.pc
+libdata/pkgconfig/mono-2.pc
+libdata/pkgconfig/mono.pc
+libdata/pkgconfig/wcf.pc
+libdata/pkgconfig/dotnet35.pc
+libdata/pkgconfig/system.web.extensions_1.0.pc
+libdata/pkgconfig/monodoc.pc
+libdata/pkgconfig/mono-lineeditor.pc
+libdata/pkgconfig/cecil.pc
 lib/libmono-profiler-log.la
 lib/libmonosgen-2.0.so.1
 lib/libmono-2.0.so
@@ -1769,7 +1772,6 @@ bin/mono-boehm
 @dirrm lib/mono/gac
 @dirrm lib/mono
 @dirrm lib/mono-source-libs
-@dirrm lib/pkgconfig
 @dirrm %%DATADIR%%-2.0/mono/cil
 @dirrm %%DATADIR%%-2.0/mono
 @dirrm %%DATADIR%%-2.0
