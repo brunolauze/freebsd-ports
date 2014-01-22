@@ -2,7 +2,7 @@
 # $FreeBSD: lang/mono/Makefile 327741 2013-09-20 19:53:09Z bapt $
 
 PORTNAME=	mono
-PORTVERSION=	3.2.3
+PORTVERSION=	3.2.7
 CATEGORIES=	lang
 MASTER_SITES=	http://download.mono-project.com/sources/${PORTNAME}/
 
@@ -28,8 +28,19 @@ GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 MAKE_JOBS_UNSAFE=yes
 
-PTHREAD_LDFLAGS= -pthread -lpthread
-PTHREAD_LIBS= -pthread -lpthread
+
+#CANNOT USE USE_GITHUB because there are submodules
+#Keep note of last commit used
+GH_COMMIT=	738f9c3
+
+CXXFLAGS+= 	-pthread
+CFLAGS+=	-pthread
+LDFLAGS+=	-pthread
+
+PTHREAD_LIBS=
+PTHREAD_CFLAGS=
+
+LLVM_LDFLAGS=	-L${LOCALBASE}/lib  -lz -pthread -lffi -ltinfo -lm
 
 ACLOCAL_FLAGS= -I ${LOCALBASE}/share/aclocal
 
@@ -41,7 +52,6 @@ FETCH_CMD=	fetch http://storage.bos.xamarin.com/mono-dist-master/latest/${MONOLI
 CONFIGURE_ARGS+= --with-moonlight=no --disable-dtrace --with-tls=__thread --with-sgen=yes --with-ikvm-native=yes 
 CONFIGURE_ARGS+= --enable-llvm --enable-loadedllvm 
 CONFIGURE_ARGS+= --enable-parallel-mark
-CONFIGURE_ARGS+= PTHREAD_LDFLAGS="${PTHREAD_LDFLAGS}" PTHREAD_LIBS="${PTHREAD_LIBS}" ACLOCAL_FLAGS="${ACLOCAL_FLAGS}"
 
 CONFIGURE_ENV=	ac_cv_header_sys_inotify_h=no
 
@@ -52,8 +62,7 @@ MONO_SHARED_DIR=${WRKDIR}
 # other languages.  This has shown itself in build fails and possibly other
 # strange crashes.
 MAKE_ENV=	MONO_SHARED_DIR="${MONO_SHARED_DIR}" \
-		LC_ALL=C EXTERNAL_MCS="${PWD}/mcs/class/lib/monolite/basic.exe" \
-		PTHREAD_LDFLAGS="${PTHREAD_LDFLAGS}" PTHREAD_LIBS="${PTHREAD_LIBS}"
+		LC_ALL=C EXTERNAL_MCS="${PWD}/mcs/class/lib/monolite/basic.exe"
 
 #EXTERNAL_MCS="${PWD}/mcs/class/lib/monolite/basic.exe"
 
