@@ -39,7 +39,8 @@ FETCH_CMD=	fetch http://storage.bos.xamarin.com/mono-dist-master/latest/${MONOLI
 
 # Moonlight is installed as part of www/moonlight
 CONFIGURE_ARGS+= --with-moonlight=no --disable-dtrace --with-tls=__thread --with-sgen=yes --with-ikvm-native=yes 
-CONFIGURE_ARGS+= --enable-llvm --enable-loadedllvm --enable-parallel-mark
+CONFIGURE_ARGS+= --enable-llvm --enable-loadedllvm 
+CONFIGURE_ARGS+= --enable-parallel-mark
 CONFIGURE_ARGS+= PTHREAD_LDFLAGS="${PTHREAD_LDFLAGS}" PTHREAD_LIBS="${PTHREAD_LIBS}" ACLOCAL_FLAGS="${ACLOCAL_FLAGS}"
 
 CONFIGURE_ENV=	ac_cv_header_sys_inotify_h=no
@@ -84,7 +85,8 @@ post-patch:
 		${WRKSRC}/mcs/class/Mono.WebBrowser/build-csproj2k5
 	@${FIND} ${WRKSRC} -name '*.sh' | ${XARGS} ${REINPLACE_CMD} \
 		-e 's|^#!/bin/bash|#!/usr/local/bin/bash|g'
-#	@${REINPLACE_CMD} 's/(1)/(1.0)/g' ${WRKSRC}/configure.in
+	@${FIND} ${WRKSRC} -name 'Makefile*' | ${XARGS} ${REINPLACE_CMD} \
+        -e 's|pkgconfigdir = |pkgconfigdir = ${LOCALBASE}/libdata/pkgconfig   #|g'
 
 tests: build
 	@${ECHO_MSG} "===> Running mono regression tests"

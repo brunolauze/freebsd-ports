@@ -1,0 +1,29 @@
+@@ -762,12 +761,12 @@
+ usr/share/doc/info-4.13a/COPYING
+ usr/share/doc/keyutils-1.4/LICENCE.GPL
+ usr/share/doc/keyutils-1.4/README
+-usr/share/doc/krb5-libs-1.9/LICENSE
+-usr/share/doc/krb5-libs-1.9/NOTICE
+-usr/share/doc/krb5-libs-1.9/README
++usr/share/doc/krb5-libs-1.10.3/LICENSE
++usr/share/doc/krb5-libs-1.10.3/NOTICE
++usr/share/doc/krb5-libs-1.10.3/README
+ usr/share/doc/libcap-2.16/License
+ usr/share/doc/libcap-2.16/capability.notes
+-usr/share/doc/libgcc-4.4.6/COPYING.LIB
++usr/share/doc/libgcc-4.4.7/COPYING.LIB
+ usr/share/doc/libidn-1.18/AUTHORS
+ usr/share/doc/libidn-1.18/COPYING
+ usr/share/doc/libidn-1.18/COPYING.LIB
+@@ -3148,9 +3147,9 @@
+ @dirrm usr/share/doc/pcre-7.8
+ @dirrm usr/share/doc/ncurses-5.7
+ @dirrm usr/share/doc/libidn-1.18
+-@dirrm usr/share/doc/libgcc-4.4.6
++@dirrm usr/share/doc/libgcc-4.4.7
+ @dirrm usr/share/doc/libcap-2.16
+-@dirrm usr/share/doc/krb5-libs-1.9
++@dirrm usr/share/doc/krb5-libs-1.10.3
+ @dirrm usr/share/doc/keyutils-1.4
+ @dirrm usr/share/doc/info-4.13a
+ @dirrm usr/share/doc/grep-2.6.3

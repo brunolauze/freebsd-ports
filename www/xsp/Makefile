@@ -9,7 +9,8 @@ MAINTAINER=	mono@FreeBSD.org
 COMMENT=	Mono based web server
 
 BUILD_DEPENDS=	${LOCALBASE}/bin/mono:${PORTSDIR}/lang/mono \
-		bash:${PORTSDIR}/shells/bash
+		bash:${PORTSDIR}/shells/bash \
+		automake:${PORTSDIR}/devel/automake
 RUN_DEPENDS=	${LOCALBASE}/bin/mono:${PORTSDIR}/lang/mono
 
 MAKE_JOBS_UNSAFE=	yes
