@@ -23,11 +23,10 @@ LIB_DEPENDS=	libenchant.so:${PORTSDIR}/textproc/enchant \
 		libwebp.so:${PORTSDIR}/graphics/webp \
 		libcurl.so:${PORTSDIR}/ftp/curl \
 		libsoup-2.4.so:${PORTSDIR}/devel/libsoup \
-		libupower-glib.so:${PORTSDIR}/sysutils/upower
+		libupower-glib.so:${PORTSDIR}/sysutils/upower \
+		libEGL.so:${PORTSDIR}/graphics/libEGL
 
 LATEST_LINK=	${PORTNAME}${PKGNAMESUFFIX}
-
-#CONFIGURE_SCRIPT=autogen.sh
 
 USE_XZ=		yes
 USE_GSTREAMER1=	yes

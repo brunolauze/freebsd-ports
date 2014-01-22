@@ -13,7 +13,8 @@ COMMENT=	GTK+ and GNOME interfaces for the .NET runtime
 BUILD_DEPENDS=	mono:${PORTSDIR}/lang/mono \
 		automake:${PORTSDIR}/devel/automake
 RUN_DEPENDS=	mono:${PORTSDIR}/lang/mono \
-		p5-XML-LibXML>=0:${PORTSDIR}/textproc/p5-XML-LibXML
+		p5-XML-LibXML>=0:${PORTSDIR}/textproc/p5-XML-LibXML \
+		
 
 LATEST_LINK=	gtk-sharp30
 
@@ -22,7 +23,7 @@ USE_LDCONFIG=	yes
 USES=		perl5 gmake pkgconfig
 USE_AUTOTOOLS=	libtool
 USE_PERL5=	run
-#USE_GNOME=	gnomehack gtk20 libglade2
+USE_GNOME=	gnomehack gtk20 libglade2 gtk30
 
 NO_STAGE=	yes
 post-patch:

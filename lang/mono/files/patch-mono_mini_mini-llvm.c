@@ -1,21 +1,21 @@
 --- mono/mini/mini-llvm.c.orig	2014-01-22 11:02:34.000000000 -0600
-+++ mono/mini/mini-llvm.c	2014-01-22 13:22:45.814940123 -0600
++++ mono/mini/mini-llvm.c	2014-01-22 14:02:39.044979804 -0600
 @@ -244,6 +244,25 @@
  	return size;
  }
  
++static gboolean
++mini_llvm_is_gsharedvt_variable_type (MonoCompile *cfg, MonoType *t)
++{
++        return FALSE;
++}
++
 +static gboolean
 +mini_llvm_type_is_vtype (MonoCompile *cfg, MonoType *t)
 +{
 +    return MONO_TYPE_ISSTRUCT (t) || mini_llvm_is_gsharedvt_variable_type (cfg, t);
 +}
 +
-+
-+static gboolean
-+mini_llvm_is_gsharedvt_variable_type (MonoCompile *cfg, MonoType *t)
-+{
-+        return FALSE;
-+}
 +
 +static gboolean
 +mini_llvm_is_gsharedvt_klass (MonoCompile *cfg, MonoClass *klass)

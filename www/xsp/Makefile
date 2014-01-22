@@ -23,7 +23,8 @@ GH_COMMIT=	${GH_TAGNAME}
 
 USE_SQLITE=	3
 CONFIGURE_SCRIPT=autogen.sh
-USES=	pathfix pkgconfig
+USES=	pathfix pkgconfig gmake
+USE_AUTOTOOLS=	libtool
 GNU_CONFIGURE=	yes
 USE_GMAKE=	yes
 
