@@ -16,7 +16,8 @@ LICENSE=	BSD3CLAUSE LGPL21 MPL
 LICENSE_COMB=	multi
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${DISTVERSION}
-CFLAGS+=	-fno-stack-protector -Wno-unknown-warning-option -I${LOCALBASE}/include/dbus-1.0 -I${LOCALBASE}/include/dbus-1.0/include
+CFLAGS+=	-fno-stack-protector -Wno-unknown-warning-option -I${LOCALBASE}/include/dbus-1.0 -I${LOCALBASE}/include/dbus-1.0/include 
+LDFLAGS+=	-L${LOCALBASE}/lib -lsysinfo
 
 BUILD_DEPENDS=	${LOCALBASE}/bin/gperf:${PORTSDIR}/devel/gperf \
 		bash:${PORTSDIR}/shells/bash \
@@ -37,7 +38,8 @@ LIB_DEPENDS=	libcairo.so:${PORTSDIR}/graphics/cairo \
 		libgcrypt.so:${PORTSDIR}/security/libgcrypt \
 		libpci.so:${PORTSDIR}/devel/libpci \
                 libffi.so:${PORTSDIR}/devel/libffi \
-		libgtkglext-x11-1.0.so:${PORTSDIR}/x11-toolkits/gtkglext
+		libgtkglext-x11-1.0.so:${PORTSDIR}/x11-toolkits/gtkglext \
+		libsysinfo.so:${PORTSDIR}/devel/libsysinfo
 
 
 RUN_DEPENDS=	${LOCALBASE}/lib/alsa-lib/libasound_module_pcm_oss.so:${PORTSDIR}/audio/alsa-plugins \
@@ -52,7 +54,7 @@ USE_XORG=	scrnsaverproto x11 xproto xscrnsaver xtst
 USE_GNOME=	glib20 gtk20 dconf libxslt
 
 SHEBANG_FILES=	chrome/tools/build/linux/chrome-wrapper
-NINJA_TARGETS=	cefclient cef_unittests
+NINJA_TARGETS=	cefclient
 
 # See build/common.gypi for all the available variables.
 GYP_DEFINES+=	use_cups=1 \

@@ -1,5 +1,5 @@
 --- content/content_browser.gypi.orig	2014-01-13 09:00:41.000000000 -0600
-+++ content/content_browser.gypi	2014-01-14 22:29:10.735538152 -0600
++++ content/content_browser.gypi	2014-01-23 15:37:22.993251425 -0600
 @@ -593,6 +593,8 @@
      'browser/geolocation/wifi_data_provider_common_win.cc',
      'browser/geolocation/wifi_data_provider_common_win.h',
@@ -32,3 +32,12 @@
      }],
      ['use_aura!=1 and OS!="win"', {
        'sources!': [
+@@ -1645,7 +1657,7 @@
+         'browser/geolocation/empty_wifi_data_provider.cc',
+       ],
+     }],
+-    ['OS == "linux" and use_dbus==1', {
++    ['(OS == "linux" or os_bsd==1) and use_dbus==1', {
+       'sources!': [
+         'browser/geolocation/empty_wifi_data_provider.cc',
+       ],

@@ -1,5 +1,5 @@
 --- cef/cef.gyp.orig	2014-01-23 10:04:19.843670177 -0600
-+++ cef/cef.gyp	2014-01-23 11:17:03.334428958 -0600
++++ cef/cef.gyp	2014-01-23 15:41:51.843200003 -0600
 @@ -839,7 +839,6 @@
          '<(DEPTH)/base/base.gyp:base',
          '<(DEPTH)/base/base.gyp:base_prefs',
@@ -51,3 +51,18 @@
                           '--keystone=0',
                           '--scm=1',
                           '--version=<(chrome_version)',
+@@ -1648,9 +1654,13 @@
+               },
+             },
+           }],
+-          [ 'OS=="linux" or OS=="freebsd" or OS=="openbsd"', {
++	  [ 'OS=="linux"', {
+             'dependencies':[
+               '<(DEPTH)/base/allocator/allocator.gyp:allocator',
++	    ],
++	  }],
++          [ 'OS=="linux" or OS=="freebsd" or OS=="openbsd"', {
++            'dependencies':[
+               '<(DEPTH)/build/linux/system.gyp:gtk',
+               '<(DEPTH)/build/linux/system.gyp:gtkprint',
+             ],
