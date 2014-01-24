@@ -10,7 +10,7 @@ MASTER_SITES=	http://commondatastorage.googleapis.com/chromium-browser-official/
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}:browser
 
 MAINTAINER=	chromium@FreeBSD.org
-COMMENT=	Mostly BSD-licensed web browser based on WebKit and Gtk+
+COMMENT=	Mostly BSD-licensed Chromium Embedded Library based on WebKit and Gtk+
 
 LICENSE=	BSD3CLAUSE LGPL21 MPL
 LICENSE_COMB=	multi
@@ -91,7 +91,7 @@ GYP_DEFINES+=	google_api_key=AIzaSyBsp9n41JLW8jCokwn7vhoaMejDFRd1mp8 \
 		google_default_client_id=996322985003.apps.googleusercontent.com \
 		google_default_client_secret=IR1za9-1VK0zZ0f_O8MVFicn
 
-SUB_FILES=	chromium-browser.desktop chrome
+SUB_FILES=	cefclient
 SUB_LIST+=	COMMENT="${COMMENT}"
 
 OPTIONS_DEFINE=	CODECS GCONF PULSEAUDIO TEST DEBUG
@@ -222,10 +222,6 @@ do-configure:
 	cd ${WRKSRC}/cef && ${SETENV} ${CONFIGURE_ENV} ${PYTHON_CMD} \
 	tools/gyp_cef cef.gyp -Icef.gypi --depth ..
 
-#	cd ${WRKSRC}/cef && ${SETENV} ${CONFIGURE_ENV} ./cef_create_projects.sh
-#	cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} ${PYTHON_CMD} \
-#		./build/gyp_chromium chrome/chrome.gyp --depth .
-
 do-build:
 	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${LOCALBASE}/bin/ninja \
 		${_MAKE_JOBS} -C out/${BUILDTYPE} ${NINJA_TARGETS}
@@ -238,20 +234,17 @@ test regression-test: build
 
 do-install:
 	${MKDIR} ${STAGEDIR}${DATADIR}
-	${INSTALL_MAN} ${WRKSRC}/out/${BUILDTYPE}/chrome.1 ${STAGEDIR}${MANPREFIX}/man/man1
-	${INSTALL_DATA} ${WRKSRC}/out/${BUILDTYPE}/product_logo_48.png ${STAGEDIR}${DATADIR}
-	${INSTALL_SCRIPT} ${WRKSRC}/out/${BUILDTYPE}/chrome-wrapper \
-		${WRKSRC}/out/${BUILDTYPE}/xdg-settings ${STAGEDIR}${DATADIR}
-.for p in chrome_100_percent content_resources resources
+.for p in cef cef_resources content_resources devtools_resources
 	${INSTALL_DATA} ${WRKSRC}/out/${BUILDTYPE}/${p}.pak ${STAGEDIR}${DATADIR}
 .endfor
-.for f in chrome libffmpegsumo.so protoc
+.for f in cefclient libffmpegsumo.so protoc
 	${INSTALL_PROGRAM} ${WRKSRC}/out/${BUILDTYPE}/${f} ${STAGEDIR}${DATADIR}
 .endfor
+	${INSTALL_PROGRAM} ${WRKSRC}/out/${BUILDTYPE}/lib/libcef.so \
+	${STAGEDIR}${PREFIX}/lib/libcef.so.0
+	cd ${STAGEDIR}${PREFIX}/lib && ln -s libcef.so.0 libcef.so
 	cd ${WRKSRC}/out/${BUILDTYPE} && \
-		${COPYTREE_SHARE} "locales resources" ${STAGEDIR}${DATADIR}
-	${MKDIR} ${STAGEDIR}${DESKTOPDIR}
-	${INSTALL_DATA} ${WRKDIR}/chromium-browser.desktop ${STAGEDIR}${DESKTOPDIR}
-	${INSTALL_SCRIPT} ${WRKDIR}/chrome ${STAGEDIR}${PREFIX}/bin
+		${COPYTREE_SHARE} "files locales pyproto resources" ${STAGEDIR}${DATADIR}
+	${INSTALL_SCRIPT} ${WRKDIR}/cefclient ${STAGEDIR}${PREFIX}/bin
 
 .include <bsd.port.post.mk>
