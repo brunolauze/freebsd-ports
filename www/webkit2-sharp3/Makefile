@@ -18,16 +18,8 @@ PLIST_SUB+=	ASSEMBLY_VERSION=3.0.0
 
 GNU_CONFIGURE=	yes
 USES=		gmake pkgconfig
-USE_AUTOTOOLS=	aclocal libtool autoconf
 USE_GNOME=	gnomehack gtksharp30
 GNU_CONFIGURE=	yes
-
-CONFIGURE_SCRIPT=autogen.sh
-
-configure: patch do-configure
-
-do-configure:
-	@(cd ${WRKSRC} && ./${CONFIGURE_SCRIPT} --prefix=${STAGEDIR}${PREFIX})
 
 NO_STAGE=	yes
 .include <bsd.port.mk>

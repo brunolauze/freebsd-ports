@@ -1,6 +1,33 @@
---- bindinate/bindinate.in.orig	2014-01-24 15:25:55.654580077 -0600
-+++ bindinate/bindinate.in	2014-01-24 15:26:09.234835865 -0600
-@@ -187,10 +187,6 @@
+--- bindinate/bindinate.in.orig	2013-10-21 15:58:10.000000000 -0500
++++ bindinate/bindinate.in	2014-01-24 17:00:38.688837218 -0600
+@@ -37,9 +37,6 @@
+ if [ ! -d $OUTDIR/out ]; then
+ 	mkdir -p $OUTDIR/out
+ fi
+-if [ ! -d $OUTDIR/doc ]; then
+-	mkdir -p $OUTDIR/doc
+-fi
+ 
+ PACKAGE=`@XSLTPROC@ --stringparam type package @prefix@/lib/bindinator/preprocess.xslt @GIRDIR@/$1.gir`
+ ORIGINAL=$PACKAGE
+@@ -139,7 +136,6 @@
+ 	sources/Makefile
+ 	sources/AssemblyInfo.cs
+ 	$NAME-sharp-$VERSION.pc
+-	doc/Makefile
+ ])
+ AC_CONFIG_COMMANDS([default],[[ echo timestamp > stamp-h ]],[[]])
+ AC_OUTPUT
+@@ -155,7 +151,7 @@
+ EOF
+ 
+ cat >>$OUTDIR/Makefile.am <<EOF
+-SUBDIRS = sources doc
++SUBDIRS = sources
+ 
+ EXTRA_DIST = $NAME-sharp-$VERSION.pc.in
+ DISTCLEANFILES = $NAME-sharp-$VERSION.pc
+@@ -187,10 +183,6 @@
  	cp @prefix@/lib/bindinator/pc.template $OUTDIR/$NAME-sharp-$VERSION.pc.in
  fi
  
