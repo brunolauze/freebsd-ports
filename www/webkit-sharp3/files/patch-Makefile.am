@@ -1,0 +1,8 @@
+--- Makefile.am.orig	2014-01-24 16:13:43.212451019 -0600
++++ Makefile.am	2014-01-24 16:13:48.873631632 -0600
+@@ -1,4 +1,4 @@
+-SUBDIRS = sources doc
++SUBDIRS = sources
+ 
+ EXTRA_DIST = webkit-sharp-3.0.pc.in
+ DISTCLEANFILES = webkit-sharp-3.0.pc
