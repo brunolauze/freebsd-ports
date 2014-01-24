@@ -18,7 +18,7 @@ RUN_DEPENDS=	mono:${PORTSDIR}/lang/mono \
 
 CONFIGURE_SCRIPT=bootstrap-2.12
 FETCH_CMD=	git clone -b ${PORTNAME}-2-12-branch https://github.com/mono/${PORTNAME} ${PORTNAME}-${PORTVERSION} && tar pczf ${PORTNAME}-${PORTVERSION}.tar.gz ${PORTNAME}-${PORTVERSION} && rm -rf ${PORTNAME}-${PORTVERSION} && echo
-
+CONFIGURE_ARGS+=  --program-prefix= --enable-program-transform-name=
 LATEST_LINK=	gtk-sharp20
 GNU_CONFIGURE=	yes
 USE_AUTOTOOLS=	libtool
@@ -29,12 +29,12 @@ USE_PERL5=	run
 MAKE_ENV=	INSTALL_STRIP_FLAG=${STRIP}
 
 post-patch:
+	@${FIND} ${WRKSRC} -name "Makefile.am" | ${XARGS} ${REINPLACE_CMD} -e 's/pkgconfigdir = /pkgconfigdir = \/usr\/local\/libdata\/pkgconfig#/g'
+	@${FIND} ${WRKSRC} -name "Makefile.am" | ${XARGS} ${REINPLACE_CMD} -e 's/pkgconfigdir=/pkgconfigdir = \/usr\/local\/libdata\/pkgconfig#/g'
 	@${FIND} ${WRKSRC} -name '*.pl' | ${XARGS} ${REINPLACE_CMD} -e \
 		's|^#!/usr/bin/perl|#!${PERL}|'
 	@${REINPLACE_CMD} -e 's|glib/.*\.h>|glib.h>|g' \
 		${WRKSRC}/glib/glue/*.c
-	@${FIND} ${WRKSRC} -name 'Makefile*' | ${XARGS} ${REINPLACE_CMD} \
-	-e 's|pkgconfigdir = |pkgconfigdir = ${LOCALBASE}/libdata/pkgconfig#|g'
 
 .include "${.CURDIR}/../../lang/mono/bsd.mono.mk"
 .include <bsd.port.mk>
