@@ -241,10 +241,13 @@ do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/out/${BUILDTYPE}/${f} ${STAGEDIR}${DATADIR}
 .endfor
 	${INSTALL_PROGRAM} ${WRKSRC}/out/${BUILDTYPE}/lib/libcef.so \
-	${STAGEDIR}${PREFIX}/lib/libcef.so.0
+		${STAGEDIR}${PREFIX}/lib/libcef.so.0
 	cd ${STAGEDIR}${PREFIX}/lib && ln -s libcef.so.0 libcef.so
 	cd ${WRKSRC}/out/${BUILDTYPE} && \
 		${COPYTREE_SHARE} "files locales pyproto resources" ${STAGEDIR}${DATADIR}
+	${MKDIR} ${STAGEDIR}${DATADIR}/resources/inspector/Images
+	cd ${WRKSRC}/out/${BUILDTYPE}/gen/devtools && \
+		${COPYTREE_SHARE} "Images" ${STAGEDIR}${DATADIR}/resources/inspector
 	${INSTALL_SCRIPT} ${WRKDIR}/cefclient ${STAGEDIR}${PREFIX}/bin
 
 .include <bsd.port.post.mk>

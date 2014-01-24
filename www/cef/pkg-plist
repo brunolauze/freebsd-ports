@@ -205,9 +205,15 @@ lib/libcef.so.0
 lib/libcef.so
 @dirrm %%DATADIR%%/resources/inspector/Images
 @dirrm %%DATADIR%%/resources/inspector
-@dirrm %%DATADIR%%/resources/extension/demo
-@dirrm %%DATADIR%%/resources/extension
 @dirrm %%DATADIR%%/resources
 @dirrm %%DATADIR%%/locales
+@dirrm %%DATADIR%%/pyproto/content/browser/speech/proto
+@dirrm %%DATADIR%%/pyproto/content/browser/speech
+@dirrm %%DATADIR%%/pyproto/content/browser
+@dirrm %%DATADIR%%/pyproto/gpu/command_buffer/service
+@dirrm %%DATADIR%%/pyproto/gpu/command_buffer
+@dirrm %%DATADIR%%/pyproto/gpu
+@dirrm %%DATADIR%%/pyproto/webrtc/audio_processing
+@dirrm %%DATADIR%%/pyproto/webrtc
 @dirrm %%DATADIR%%/pyproto
 @dirrm %%DATADIR%%
