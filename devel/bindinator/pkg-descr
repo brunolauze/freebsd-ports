@@ -1,0 +1,2 @@
+The bindinator installs a tool called bindinate, which can be called
+with the name of a gir file to generate a binding project.

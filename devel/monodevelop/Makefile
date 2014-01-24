@@ -26,10 +26,9 @@ LIB_PC_DEPENDS= ${LOCALBASE}/libdata/pkgconfig/mono.pc:${PORTSDIR}/lang/mono \
 
 USE_GNOME=	gnomehack gtksharp20 gnomesharp20
 USE_AUTOTOOLS=	autoconf autoheader automake libtool
-MAN1=		mdtool.1 monodevelop.1
 USES=		desktop-file-utils gettext gmake pkgconfig
 INSTALLS_ICONS=	yes
-
+DISABLE_MAKE_JOBS=yes
 OPTIONS_DEFINE=	MONOEXT GIT SVN
 OPTIONS_DEFAULT=	MONOEXT GIT SVN
 MONOEXT_DESC=	Extensions for Mono development
@@ -38,8 +37,8 @@ GIT_DESC=	git support
 MONOEXT_CONFIGURE_ENABLE=	monoextensions
 GIT_CONFIGURE_ENABLE=		git
 GIT_RUN_DEPENDS=	git:${PORTSDIR}/devel/git
-SVN_CONFIGURE_ENABLE=		subversion
-SVN_RUN_DEPENDS=	svn:${PORTSDIR}/devel/subversion
+#SVN_CONFIGURE_ENABLE=		subversion
+#SVN_RUN_DEPENDS=        svn:${PORTSDIR}/devel/subversion
 
 # Restrict to stable (even) versions, indicated by the second component.
 PORTSCOUT=	limitw:1,even
@@ -56,11 +55,11 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|/bin/bash|/usr/bin/env bash|' \
 		${WRKSRC}/main/monodevelop.in \
 		${WRKSRC}/main/mdtool.in
+	@${RM} ${WRKSRC}/main/src/addins/MonoDevelop.Debugger/icons/exception-icon@2x.png
 
+configure: do-configure
 
-CONFIGURE_SCRIPT=autogen.sh
-
-do-configure:
+do-configure: patch
 	@(cd ${WRKSRC} && ./${CONFIGURE_SCRIPT} --prefix=${STAGEDIR}${PREFIX} --profile=dist)
 
 .include "${.CURDIR}/../../lang/mono/bsd.mono.mk"

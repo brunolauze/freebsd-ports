@@ -1,0 +1,13 @@
+--- bindinate/bindinate.in.orig	2014-01-24 15:25:55.654580077 -0600
++++ bindinate/bindinate.in	2014-01-24 15:26:09.234835865 -0600
+@@ -187,10 +187,6 @@
+ 	cp @prefix@/lib/bindinator/pc.template $OUTDIR/$NAME-sharp-$VERSION.pc.in
+ fi
+ 
+-if [ ! -x $OUTDIR/doc/Makefile.am ]; then
+-	cp @prefix@/lib/bindinator/Makefile-docs.am.template $OUTDIR/doc/Makefile.am
+-fi
+-
+ if [ ! -e $OUTDIR/sources/$NAME-sharp-api.raw ]; then
+ 	echo "Processing @GIRDIR@/$1.gir and outputting $OUTDIR/sources/$NAME-sharp-api.raw"
+ 	@XSLTPROC@ -o $OUTDIR/sources/$NAME-sharp-api.raw @prefix@/lib/bindinator/gir2gapi.xslt @GIRDIR@/$1.gir

@@ -33,6 +33,8 @@ MAN1=		mautil.1
 
 PLIST_SUB+=	VER=1.0.0
 
+CONFIGURE_SCRIPT=autogen.sh
+
 NO_STAGE=	yes
 .include <bsd.port.pre.mk>
 .include "${.CURDIR}/../../lang/mono/bsd.mono.mk"
@@ -45,5 +47,11 @@ PLIST_SUB+=	OPT_GTK2=""
 CONFIGURE_ARGS+=	--disable-gui
 PLIST_SUB+=	OPT_GTK2="@comment "
 .endif
+
+post-patch:
+	@${FIND} ${WRKSRC} -name "Makefile.*" | ${XARGS} ${REINPLACE_CMD} -e 's/pkgconfigdir/pkgconfigdir = \/usr\/local\/libdata\/pkgconfig#/g'
+
+post-install:
+	@(cd ${WRKSRC} && ${INSTALL_DATA} Mono.Addins.MSBuild/Mono.Addins.targets ${STAGEDIR}${PREFIX}/lib/mono/xbuild)
 
 .include <bsd.port.post.mk>
