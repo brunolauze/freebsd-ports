@@ -1,0 +1,412 @@
+--- sources/webkit2-sharp-api.raw.orig	2014-01-24 17:09:46.000000000 -0600
++++ sources/webkit2-sharp-api.raw	2014-01-24 19:26:14.555892922 -0600
+@@ -259,11 +259,11 @@
+         <parameters/>
+       </method>
+       <method name="GetBackList" cname="webkit_back_forward_list_get_back_list">
+-        <return-type type="GLib.List"/>
++        <return-type type="GLib.List" element_type="WebKitBackForwardListItem*"/>
+         <parameters/>
+       </method>
+       <method name="GetBackListWithLimit" cname="webkit_back_forward_list_get_back_list_with_limit">
+-        <return-type type="GLib.List"/>
++        <return-type type="GLib.List" element_type="WebKitBackForwardListItem*"/>
+         <parameters>
+           <parameter name="limit" type="guint"/>
+         </parameters>
+@@ -277,11 +277,11 @@
+         <parameters/>
+       </method>
+       <method name="GetForwardList" cname="webkit_back_forward_list_get_forward_list">
+-        <return-type type="GLib.List"/>
++        <return-type type="GLib.List" element_type="WebKitBackForwardListItem*"/>
+         <parameters/>
+       </method>
+       <method name="GetForwardListWithLimit" cname="webkit_back_forward_list_get_forward_list_with_limit">
+-        <return-type type="GLib.List"/>
++        <return-type type="GLib.List" element_type="WebKitBackForwardListItem*"/>
+         <parameters>
+           <parameter name="limit" type="guint"/>
+         </parameters>
+@@ -337,7 +337,7 @@
+       <constructor cname="webkit_context_menu_new" disable_void_ctor=""/>
+       <constructor cname="webkit_context_menu_new_with_items">
+         <parameters>
+-          <parameter name="items" type="GLib.List"/>
++          <parameter name="items" type="GLib.List" element_type="WebKitContextMenuItem*"/>
+         </parameters>
+       </constructor>
+       <method name="Append" cname="webkit_context_menu_append">
+@@ -357,7 +357,7 @@
+         </parameters>
+       </method>
+       <method name="GetItems" cname="webkit_context_menu_get_items">
+-        <return-type type="GLib.List"/>
++        <return-type type="GLib.List" element_type="WebKitContextMenuItem*"/>
+         <parameters/>
+       </method>
+       <method name="GetNItems" cname="webkit_context_menu_get_n_items">
+@@ -495,7 +495,7 @@
+         </parameters>
+       </method>
+       <method name="GetDomainsWithCookiesFinish" cname="webkit_cookie_manager_get_domains_with_cookies_finish">
+-        <return-type type="gchar***" array="true"/>
++        <return-type type="gchar***" array="true" null_term_array="true"/>
+         <parameters>
+           <parameter name="_result" type="Gio.AsyncResult"/>
+           <parameter name="error" type="GError**"/>
+@@ -2987,7 +2987,7 @@
+         <parameters/>
+       </method>
+       <method name="GetCurrentTarget" cname="webkit_dom_event_get_current_target">
+-        <return-type type="WebKitDOMEventTarget*"/>
++        <return-type type="gpointer*"/>
+         <parameters/>
+       </method>
+       <method name="GetDefaultPrevented" cname="webkit_dom_event_get_default_prevented">
+@@ -3003,11 +3003,11 @@
+         <parameters/>
+       </method>
+       <method name="GetSrcElement" cname="webkit_dom_event_get_src_element">
+-        <return-type type="WebKitDOMEventTarget*"/>
++        <return-type type="gpointer*"/>
+         <parameters/>
+       </method>
+       <method name="GetTarget" cname="webkit_dom_event_get_target">
+-        <return-type type="WebKitDOMEventTarget*"/>
++        <return-type type="gpointer*"/>
+         <parameters/>
+       </method>
+       <method name="GetTimeStamp" cname="webkit_dom_event_get_time_stamp">
+@@ -3049,12 +3049,12 @@
+       <property name="Bubbles" cname="bubbles" type="gboolean" readable="true" writable="false"/>
+       <property name="CancelBubble" cname="cancel-bubble" type="gboolean" readable="true" writable="true"/>
+       <property name="Cancelable" cname="cancelable" type="gboolean" readable="true" writable="false"/>
+-      <property name="CurrentTarget" cname="current-target" type="WebKitDOMEventTarget*" readable="true" writable="false"/>
++      <property name="CurrentTarget" cname="current-target" type="gpointer*" readable="true" writable="false"/>
+       <property name="DefaultPrevented" cname="default-prevented" type="gboolean" readable="true" writable="false"/>
+       <property name="EventPhase" cname="event-phase" type="guint" readable="true" writable="false"/>
+       <property name="ReturnValue" cname="return-value" type="gboolean" readable="true" writable="true"/>
+-      <property name="SrcElement" cname="src-element" type="WebKitDOMEventTarget*" readable="true" writable="false"/>
+-      <property name="Target" cname="target" type="WebKitDOMEventTarget*" readable="true" writable="false"/>
++      <property name="SrcElement" cname="src-element" type="gpointer*" readable="true" writable="false"/>
++      <property name="Target" cname="target" type="gpointer*" readable="true" writable="false"/>
+       <property name="TimeStamp" cname="time-stamp" type="guint" readable="true" writable="false"/>
+       <property name="Type" cname="type" type="gchar*" readable="true" writable="false"/>
+       <field cname="parent_instance" name="ParentInstance" type="WebKitDOMObject*"/>
+@@ -8711,7 +8711,7 @@
+         <parameters/>
+       </method>
+       <method name="GetRelatedTarget" cname="webkit_dom_mouse_event_get_related_target">
+-        <return-type type="WebKitDOMEventTarget*"/>
++        <return-type type="gpointer*"/>
+         <parameters/>
+       </method>
+       <method name="GetScreenX" cname="webkit_dom_mouse_event_get_screen_x">
+@@ -8763,7 +8763,7 @@
+           <parameter name="shiftKey" type="gboolean"/>
+           <parameter name="metaKey" type="gboolean"/>
+           <parameter name="button" type="gushort"/>
+-          <parameter name="relatedTarget" type="WebKitDOMEventTarget*"/>
++          <parameter name="relatedTarget" type="gpointer*"/>
+         </parameters>
+       </method>
+       <property name="AltKey" cname="alt-key" type="gboolean" readable="true" writable="false"/>
+@@ -8775,7 +8775,7 @@
+       <property name="MetaKey" cname="meta-key" type="gboolean" readable="true" writable="false"/>
+       <property name="OffsetX" cname="offset-x" type="glong" readable="true" writable="false"/>
+       <property name="OffsetY" cname="offset-y" type="glong" readable="true" writable="false"/>
+-      <property name="RelatedTarget" cname="related-target" type="WebKitDOMEventTarget*" readable="true" writable="false"/>
++      <property name="RelatedTarget" cname="related-target" type="gpointer*" readable="true" writable="false"/>
+       <property name="ScreenX" cname="screen-x" type="glong" readable="true" writable="false"/>
+       <property name="ScreenY" cname="screen-y" type="glong" readable="true" writable="false"/>
+       <property name="ShiftKey" cname="shift-key" type="gboolean" readable="true" writable="false"/>
+@@ -10874,7 +10874,7 @@
+         <parameters/>
+       </method>
+       <method name="GetMimeTypes" cname="webkit_file_chooser_request_get_mime_types">
+-        <return-type type="gchar**" array="true"/>
++        <return-type type="gchar**" array="true" null_term_array="true"/>
+         <parameters/>
+       </method>
+       <method name="GetMimeTypesFilter" cname="webkit_file_chooser_request_get_mime_types_filter">
+@@ -10886,13 +10886,13 @@
+         <parameters/>
+       </method>
+       <method name="GetSelectedFiles" cname="webkit_file_chooser_request_get_selected_files">
+-        <return-type type="gchar**" array="true"/>
++        <return-type type="gchar**" array="true" null_term_array="true"/>
+         <parameters/>
+       </method>
+       <method name="SelectFiles" cname="webkit_file_chooser_request_select_files">
+         <return-type type="void"/>
+         <parameters>
+-          <parameter name="files" type="gchar**" array="true"/>
++          <parameter name="files" type="gchar**" array="true" null_term_array="true"/>
+         </parameters>
+       </method>
+       <property name="Filter" cname="filter" type="GtkFileFilter*" readable="true" writable="false"/>
+@@ -10978,7 +10978,7 @@
+         <return-type type="GType"/>
+       </method>
+       <method name="GetTextFields" cname="webkit_form_submission_request_get_text_fields">
+-        <return-type type="GLib.HashTable"/>
++        <return-type type="GHashTable"/>
+         <parameters/>
+       </method>
+       <method name="Submit" cname="webkit_form_submission_request_submit">
+@@ -11092,7 +11092,7 @@
+         <parameters/>
+       </method>
+       <method name="GetMimeInfoList" cname="webkit_plugin_get_mime_info_list">
+-        <return-type type="GLib.List"/>
++        <return-type type="GLib.List" element_type="const-gchar*"/>
+         <parameters/>
+       </method>
+       <method name="GetName" cname="webkit_plugin_get_name">
+@@ -11291,7 +11291,7 @@
+       <constructor cname="webkit_settings_new_with_settings">
+         <parameters>
+           <parameter name="first_setting_name" type="const-gchar*"/>
+-          <parameter name="..." type="va_list"/>
++          <parameter name="items" type="va_list"/>
+         </parameters>
+       </constructor>
+       <method name="GetAllowModalDialogs" cname="webkit_settings_get_allow_modal_dialogs">
+@@ -11811,9 +11811,7 @@
+         </parameters>
+       </constructor>
+       <method name="GetHttpHeaders" cname="webkit_uri_request_get_http_headers">
+-        <return-type type="SoupMessageHeaders*">
+-          <warning>missing glib:type-name</warning>
+-        </return-type>
++        <return-type type="gpointer" />
+         <parameters/>
+       </method>
+       <method name="GetUri" cname="webkit_uri_request_get_uri">
+@@ -11867,7 +11865,7 @@
+       <method name="Finish" cname="webkit_uri_scheme_request_finish">
+         <return-type type="void"/>
+         <parameters>
+-          <parameter name="stream" type="Gio.InputStream"/>
++          <parameter name="stream" type="GLib.InputStream"/>
+           <parameter name="stream_length" type="gint64"/>
+           <parameter name="mime_type" type="const-gchar*"/>
+         </parameters>
+@@ -11875,7 +11873,7 @@
+       <method name="FinishError" cname="webkit_uri_scheme_request_finish_error">
+         <return-type type="void"/>
+         <parameters>
+-          <parameter name="error" type="GLib.Error"/>
++          <parameter name="error" type="GError"/>
+         </parameters>
+       </method>
+       <method name="GetPath" cname="webkit_uri_scheme_request_get_path">
+@@ -11941,7 +11939,7 @@
+         </parameters>
+       </method>
+       <method name="GetPluginsFinish" cname="webkit_web_context_get_plugins_finish">
+-        <return-type type="GLib.List*"/>
++        <return-type type="GLib.List*" element_type="WebKitPlugin*"/>
+         <parameters>
+           <parameter name="_result" type="Gio.AsyncResult"/>
+           <parameter name="error" type="GError**"/>
+@@ -11956,7 +11954,7 @@
+         <parameters/>
+       </method>
+       <method name="GetSpellCheckingLanguages" cname="webkit_web_context_get_spell_checking_languages">
+-        <return-type type="gchar**" array="true"/>
++        <return-type type="gchar**" array="true" null_term_array="true"/>
+         <parameters/>
+       </method>
+       <method name="GetTlsErrorsPolicy" cname="webkit_web_context_get_tls_errors_policy">
+@@ -11975,7 +11973,7 @@
+           <parameter name="scheme" type="const-gchar*"/>
+           <parameter name="callback" type="WebKitURISchemeRequestCallback"/>
+           <parameter name="user_data" type="gpointer"/>
+-          <parameter name="user_data_destroy_func" type="GLib.DestroyNotify"/>
++          <parameter name="user_data_destroy_func" type="GDestroyNotify"/>
+         </parameters>
+       </method>
+       <method name="SetAdditionalPluginsDirectory" cname="webkit_web_context_set_additional_plugins_directory">
+@@ -12005,7 +12003,7 @@
+       <method name="SetPreferredLanguages" cname="webkit_web_context_set_preferred_languages">
+         <return-type type="void"/>
+         <parameters>
+-          <parameter name="languages" type="gchar**" array="true"/>
++          <parameter name="languages" type="gchar**" array="true" null_term_array="true"/>
+         </parameters>
+       </method>
+       <method name="SetSpellCheckingEnabled" cname="webkit_web_context_set_spell_checking_enabled">
+@@ -12017,7 +12015,7 @@
+       <method name="SetSpellCheckingLanguages" cname="webkit_web_context_set_spell_checking_languages">
+         <return-type type="void"/>
+         <parameters>
+-          <parameter name="languages" type="gchar**" array="true"/>
++          <parameter name="languages" type="gchar**" array="true" null_term_array="true"/>
+         </parameters>
+       </method>
+       <method name="SetTlsErrorsPolicy" cname="webkit_web_context_set_tls_errors_policy">
+@@ -12254,7 +12252,7 @@
+           <parameter name="web_view" type="WebKitWebView*"/>
+           <parameter name="load_event" type="WebKitLoadEvent"/>
+           <parameter name="failing_uri" type="const-gchar*"/>
+-          <parameter name="error" type="GLib.Error"/>
++          <parameter name="error" type="GError"/>
+         </parameters>
+       </virtual_method>
+       <virtual_method name="MouseTargetChanged" cname="mouse_target_changed">
+@@ -12269,7 +12267,7 @@
+         <return-type type="gboolean"/>
+         <parameters>
+           <parameter name="web_view" type="WebKitWebView*"/>
+-          <parameter name="permission_request" type="WebKitPermissionRequest*"/>
++          <parameter name="permission_request" type="gpointer*"/>
+         </parameters>
+       </virtual_method>
+       <virtual_method name="Print" cname="print">
+@@ -12403,9 +12401,7 @@
+         <parameters/>
+       </method>
+       <method name="GetJavascriptGlobalContext" cname="webkit_web_view_get_javascript_global_context">
+-        <return-type type="JSGlobalContextRef">
+-          <warning>missing glib:type-name</warning>
+-        </return-type>
++        <return-type type="gpointer" />
+         <parameters/>
+       </method>
+       <method name="GetMainResource" cname="webkit_web_view_get_main_resource">
+@@ -12569,7 +12565,7 @@
+         </parameters>
+       </method>
+       <method name="SaveFinish" cname="webkit_web_view_save_finish">
+-        <return-type type="Gio.InputStream*"/>
++        <return-type type="GLib.InputStream*"/>
+         <parameters>
+           <parameter name="_result" type="Gio.AsyncResult"/>
+           <parameter name="error" type="GError**"/>
+@@ -12578,7 +12574,7 @@
+       <method name="SaveToFile" cname="webkit_web_view_save_to_file">
+         <return-type type="void"/>
+         <parameters>
+-          <parameter name="file" type="Gio.File"/>
++          <parameter name="file" type="GLib.File"/>
+           <parameter name="save_mode" type="WebKitSaveMode"/>
+           <parameter name="cancellable" type="Gio.Cancellable"/>
+           <parameter name="callback" type="Gio.AsyncReadyCallback"/>
+@@ -12650,8 +12646,8 @@
+         <parameters>
+           <parameter name="source" type="const-gchar*"/>
+           <parameter name="base_uri" type="const-gchar*"/>
+-          <parameter name="whitelist" type="gchar**" array="true"/>
+-          <parameter name="blacklist" type="gchar**" array="true"/>
++          <parameter name="whitelist" type="gchar**" array="true" null_term_array="true"/>
++          <parameter name="blacklist" type="gchar**" array="true" null_term_array="true"/>
+           <parameter name="injected_frames" type="WebKitInjectedContentFrames"/>
+         </parameters>
+       </method>
+@@ -12764,15 +12760,11 @@
+     </struct>
+     <struct name="JavascriptResult" cname="WebKitJavascriptResult">
+       <method name="GetGlobalContext" cname="webkit_javascript_result_get_global_context">
+-        <return-type type="JSGlobalContextRef">
+-          <warning>missing glib:type-name</warning>
+-        </return-type>
++        <return-type type="gpointer" />
+         <parameters/>
+       </method>
+       <method name="GetValue" cname="webkit_javascript_result_get_value">
+-        <return-type type="JSValueRef">
+-          <warning>missing glib:type-name</warning>
+-        </return-type>
++        <return-type type="gpointer" />
+         <parameters/>
+       </method>
+       <method name="Ref" cname="webkit_javascript_result_ref">
+@@ -12792,7 +12784,7 @@
+         <parameters/>
+       </method>
+       <method name="GetExtensions" cname="webkit_mime_info_get_extensions">
+-        <return-type type="gchar**" array="true"/>
++        <return-type type="gchar**" array="true" null_term_array="true"/>
+         <parameters/>
+       </method>
+       <method name="GetMimeType" cname="webkit_mime_info_get_mime_type">
+@@ -12918,14 +12910,14 @@
+     <callback name="DispatchEvent" cname="WebKit2DispatchEventFunc">
+       <return-type type="void"/>
+       <parameters>
+-        <parameter name="target" type="WebKitDOMEventTarget*"/>
++        <parameter name="target" type="gpointer*"/>
+         <parameter name="event" type="WebKitDOMEvent*"/>
+       </parameters>
+     </callback>
+     <callback name="AddEventListener" cname="WebKit2AddEventListenerFunc">
+       <return-type type="gboolean"/>
+       <parameters>
+-        <parameter name="target" type="WebKitDOMEventTarget*"/>
++        <parameter name="target" type="gpointer*"/>
+         <parameter name="event_name" type="const-gchar*"/>
+         <parameter name="handler" type="GCallback"/>
+         <parameter name="bubble" type="gboolean"/>
+@@ -12935,7 +12927,7 @@
+     <callback name="RemoveEventListener" cname="WebKit2RemoveEventListenerFunc">
+       <return-type type="gboolean"/>
+       <parameters>
+-        <parameter name="target" type="WebKitDOMEventTarget*"/>
++        <parameter name="target" type="gpointer*"/>
+         <parameter name="event_name" type="const-gchar*"/>
+         <parameter name="handler" type="GCallback"/>
+         <parameter name="bubble" type="gboolean"/>
+@@ -13047,13 +13039,13 @@
+     <callback name="Allow" cname="WebKit2AllowFunc">
+       <return-type type="void"/>
+       <parameters>
+-        <parameter name="request" type="WebKitPermissionRequest*"/>
++        <parameter name="request" type="gpointer*"/>
+       </parameters>
+     </callback>
+     <callback name="Deny" cname="WebKit2DenyFunc">
+       <return-type type="void"/>
+       <parameters>
+-        <parameter name="request" type="WebKitPermissionRequest*"/>
++        <parameter name="request" type="gpointer*"/>
+       </parameters>
+     </callback>
+     <callback name="_webkitWebkitReserved0" cname="WebKit2_webkitWebkitReserved0Func">
+@@ -13237,7 +13229,7 @@
+         <parameter name="web_view" type="WebKitWebView*"/>
+         <parameter name="load_event" type="WebKitLoadEvent"/>
+         <parameter name="failing_uri" type="const-gchar*"/>
+-        <parameter name="error" type="GLib.Error"/>
++        <parameter name="error" type="GError"/>
+       </parameters>
+     </callback>
+     <callback name="Create" cname="WebKit2CreateFunc">
+@@ -13264,7 +13256,7 @@
+         <parameter name="web_view" type="WebKitWebView*"/>
+       </parameters>
+     </callback>
+-    <callback name="ScriptDialog" cname="WebKit2ScriptDialogFunc">
++    <callback name="ScriptDialogCallback" cname="WebKit2ScriptDialogFunc">
+       <return-type type="gboolean"/>
+       <parameters>
+         <parameter name="web_view" type="WebKitWebView*"/>
+@@ -13285,7 +13277,7 @@
+       <return-type type="gboolean"/>
+       <parameters>
+         <parameter name="web_view" type="WebKitWebView*"/>
+-        <parameter name="permission_request" type="WebKitPermissionRequest*"/>
++        <parameter name="permission_request" type="gpointer*"/>
+       </parameters>
+     </callback>
+     <callback name="MouseTargetChanged" cname="WebKit2MouseTargetChangedFunc">
+@@ -13330,7 +13322,7 @@
+         <parameter name="request" type="WebKitFileChooserRequest*"/>
+       </parameters>
+     </callback>
+-    <callback name="ContextMenu" cname="WebKit2ContextMenuFunc">
++    <callback name="ContextMenuCallback" cname="WebKit2ContextMenuFunc">
+       <return-type type="gboolean"/>
+       <parameters>
+         <parameter name="web_view" type="WebKitWebView*"/>
