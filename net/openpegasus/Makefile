@@ -14,7 +14,7 @@ GNU_CONFIGURE=	yes
 USE_GITHUB=	yes
 GH_ACCOUNT=	brunolauze
 GH_PROJECT=	pegasus
-GH_COMMIT=	53b2097
+GH_COMMIT=	cbe8ea9
 GH_TAGNAME=	${GH_COMMIT}
 
 LIB_DEPENDS=	libslp.so:${PORTSDIR}/net/openslp
@@ -373,7 +373,12 @@ post-build: repository
 
 repository:
 	@(cd ${WRKSRC} && ${MAKE_ENV} ${GMAKE} repository)
+#	@(cd ${WRKSRC} && ${MAKE_ENV} ${GMAKE} repositoryServer)
 	@(cd ${WRKSRC} && ${MAKE_ENV} ${GMAKE} setupdevserver)
+
+processor:
+	@(cd ${WRKSRC}/src/Providers/ManagedSystem/Processor && ${MAKE_ENV} ${GMAKE} clean)
+	@(cd ${WRKSRC}/src/Providers/ManagedSystem/Processor && ${MAKE_ENV} ${GMAKE})
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pegasus
@@ -501,7 +506,6 @@ do-install:
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libpegslp_client.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libpegslp_client.so.1
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libpeguser.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libpeguser.so.1
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libpegwql.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libpegwql.so.1
-	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libpeginterop.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libpeginterop.so.1
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libpegwsmserver.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libpegwsmserver.so.1
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libAlertIndicationProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libAlertIndicationProvider.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libCIMOMHandleTestProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libCIMOMHandleTestProvider.so
@@ -624,7 +628,6 @@ do-install:
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libpegslp_client.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libpegslp_client.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libpeguser.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libpeguser.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libpegwql.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libpegwql.so
-	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libpeginterop.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libpeginterop.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libpegwsmserver.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libpegwsmserver.so
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/bin/SampleCMPIInstanceClient ${STAGEDIR}${PREFIX}/lib/pegasus/bin/SampleCMPIInstanceClient
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/bin/TestAbstract ${STAGEDIR}${PREFIX}/lib/pegasus/bin/TestAbstract

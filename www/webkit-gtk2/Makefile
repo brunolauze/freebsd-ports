@@ -6,7 +6,7 @@ PORTNAME=	webkit
 PORTVERSION=	2.2.4
 CATEGORIES=	www
 MASTER_SITES=	http://webkitgtk.org/releases/
-PKGNAMESUFFIX=	-gtk3
+PKGNAMESUFFIX=	-gtk2
 DISTNAME=	${PORTNAME}gtk-${PORTVERSION}
 
 MAINTAINER=	gnome@FreeBSD.org
@@ -34,7 +34,7 @@ USE_XORG=	xt xdamage xcomposite
 USES=		bison gettext gmake perl5 pkgconfig shebangfix
 USE_RUBY=	yes
 RUBY_NO_RUN_DEPENDS=yes
-USE_GNOME=	cairo gnomehier gtk20 gtk30 introspection:build \
+USE_GNOME=	cairo gnomehier gtk20 introspection:build \
 		libxslt:build
 USE_SQLITE=	3
 USE_PERL5=	build
@@ -46,11 +46,12 @@ CONFIGURE_ENV=	ac_cv_path_FLEX="${LOCALBASE}/bin/flex" \
 		ac_cv_path_DOLT_BASH=""
 CPPFLAGS+=	-I${LOCALBASE}/include -I/usr/include/c++/v1
 LDFLAGS+=	-L${LOCALBASE}/lib
-CONFIGURE_ARGS=	--with-gtk=3.0 \
+CONFIGURE_ARGS=	--with-gtk=2.0 \
 		--enable-svg-fonts \
 		--disable-geolocation \
 		--enable-introspection \
 		--enable-developer-mode \
+		--enable-accelerated-compositing \
 		--with-wayland-target=no
 MAKEFILE=	GNUmakefile
 
@@ -67,16 +68,14 @@ SHEBANG_FILES=	\
 	Source/WebCore/make-hash-tools.pl \
 	Source/WebCore/page/make_settings.pl \
 	Source/WebCore/platform/text/mac/make-charset-table.pl \
-	Source/WebKit2/Scripts/generate-forwarding-headers.pl \
 	Source/WebCore/bindings/scripts/*.p[lm] \
 	Source/JavaScriptCore/create_hash_table
 
-BROWSER_PLUGINS_DIR?=	${LOCALBASE}/lib/browser_plugins/symlinks/webkit-gtk3
+BROWSER_PLUGINS_DIR?=	${LOCALBASE}/lib/browser_plugins/symlinks/webkit-gtk2
 #_BROWSER_PLUGINS_DIR=	${BROWSER_PLUGINS_DIR:S|^/|"|:S|/|", "|g}",
 
-OPTIONS_DEFINE=	WEBGL WEBAUDIO DEBUG FULLDEBUG WEBKIT2
+OPTIONS_DEFINE=	WEBGL WEBAUDIO DEBUG FULLDEBUG
 OPTIONS_DEFAULT=WEBGL WEBAUDIO
-WEBKIT2_DESC=	Build WebKit2 API library
 WEBAUDIO_DESC=	Web audio support
 WEBGL_DESC=	Enable Web GL support
 DEBUG_DESC=	Just enable debug symbols
@@ -112,9 +111,7 @@ CPPFLAGS+=	-DGTEST_USE_OWN_TR1_TUPLE
 # Shutup warning spam
 CXXFLAGS+=	-Wno-c++11-extensions -Qunused-arguments
 
-.if ${PORT_OPTIONS:MWEBKIT2}
-CONFIGURE_ARGS+=--enable-webkit2
-PLIST_SUB+=	WEBKIT2=""
+CONFIGURE_ARGS+=--disable-webkit2
 
 # We need clang + libc++ or gcc 4.7+. gcc has libstdc++ conflict between
 # gcc port and base. This originates from icu
@@ -129,10 +126,6 @@ CXX=		clang++33
 CPP=		clang-cpp33
 CONFIGURE_ENV+=	CC=${CC} CXX=${CXX} CPP=${CPP}
 . endif
-.else
-CONFIGURE_ARGS+=--disable-webkit2
-PLIST_SUB+=	WEBKIT2="@comment "
-.endif
 
 .if ${ARCH} == powerpc64
 CFLAGS+=	-mminimal-toc
@@ -146,7 +139,7 @@ BUILD_DEPENDS+=	p5-Switch>0:${PORTSDIR}/lang/p5-Switch
 
 post-patch:
 	@${CHMOD} +x ${WRKSRC}/create_webcorelayer.sh
-	@${CHMOD} +x ${WRKSRC}/create_webcorelayergtk2.sh
+	@${ECHO} "1.0" > ${WRKSRC}/Documentation/webkitgtk/version.xml
 	@${REINPLACE_CMD} -e 's|%%BROWSER_PLUGINS_DIR%%|${BROWSER_PLUGINS_DIR}|' \
 		${WRKSRC}/Source/WebCore/plugins/PluginDatabase.cpp
 	@${FIND} ${WRKSRC} -name GNUmakefile.* | ${XARGS} ${REINPLACE_CMD} -e \
@@ -162,8 +155,6 @@ post-patch:
 
 post-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/Programs/GtkLauncher \
-		${STAGEDIR}${PREFIX}/bin/GtkLauncher-3
-	${INSTALL_PROGRAM} ${WRKSRC}/Programs/MiniBrowser \
-        ${STAGEDIR}${PREFIX}/bin/MiniBrowser-3
+		${STAGEDIR}${PREFIX}/bin/GtkLauncher-1
 
 .include <bsd.port.post.mk>

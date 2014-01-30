@@ -2045,6 +2045,8 @@ lib/pegasus/lib/libDeliveryRetryTestProvider.so.1
 lib/pegasus/lib/libPG_TestPropertyTypes.so.1
 lib/pegasus/lib/libpegprm.so
 lib/pegasus/lib/libpegserver.so.1
+lib/pegasus/lib/libpegwsmserver.so.1
+lib/pegasus/lib/libpegwsmserver.so
 lib/pegasus/lib/libPG_DefaultInstanceProvider.so
 lib/pegasus/lib/libOSProvider.so
 lib/pegasus/lib/libpegcliutils.so.1
