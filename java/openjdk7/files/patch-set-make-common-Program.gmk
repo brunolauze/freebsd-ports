@@ -1,0 +1,11 @@
+--- jdk/make/common/Program.gmk
++++ jdk/make/common/Program.gmk
+@@ -102,7 +102,7 @@
+ # Work-around an dlsym(RTLD_DEFAULT) bug in at least FreeBSD & OpenBSD
+   LDFLAGS += -Wl,--export-dynamic
+   ifeq ($(SYSTEM_ZLIB),true)
+-      OTHER_LDLIBS += -lz
++      OTHER_LDLIBS += %%ZLIB_LIBS%%
+   endif
+ endif #PLATFORM
+ 
