@@ -14,7 +14,7 @@ GNU_CONFIGURE=	yes
 USE_GITHUB=	yes
 GH_ACCOUNT=	brunolauze
 GH_PROJECT=	pegasus
-GH_COMMIT=	cbe8ea9
+GH_COMMIT=	4d6fa2f
 GH_TAGNAME=	${GH_COMMIT}
 
 LIB_DEPENDS=	libslp.so:${PORTSDIR}/net/openslp
@@ -166,11 +166,6 @@ SUB_FILES=	SampleCMPIInstanceClient \
 		TestClassDecl \
 		TestClassDeclRep \
 		TestClient \
-		TestClientCSProvider \
-		TestClientIPProvider \
-		TestClientOSProvider \
-		TestClientProcessProvider \
-		TestClientProcessorProvider \
 		TestCompAssoc \
 		TestCompare \
 		TestCompareRepositories \
@@ -334,6 +329,7 @@ SUB_FILES=	SampleCMPIInstanceClient \
 		cimprovider \
 		cimreparchive \
 		cimserver \
+		cimserverd \
 		cimsub \
 		cimtrust \
 		cimuser \
@@ -395,7 +391,17 @@ do-install:
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libCMPISampleClass.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libCMPISampleClass.so.1
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libCMPI_RT_Sample.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libCMPI_RT_Sample.so.1
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libCertificateProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libCertificateProvider.so.1
-	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libComputerSystemProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libComputerSystemProvider.so.1
+	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libUNIX_AccountModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_AccountModule.so.1
+	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libUNIX_ComputerSystemModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_ComputerSystemModule.so.1
+	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libUNIX_DNSServiceModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_DNSServiceModule.so.1
+	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libUNIX_IPEndPointModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_IPEndPointModule.so.1
+	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libUNIX_IPRouteModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_IPRouteModule.so.1
+	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libUNIX_LocalTimeModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_LocalTimeModule.so.1
+	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libUNIX_LogicalDiskModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_LogicalDiskModule.so.1
+	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libUNIX_NTPServiceModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_NTPServiceModule.so.1
+	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libUNIX_OperatingSystemModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_OperatingSystemModule.so.1
+	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libUNIX_ProcessModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_ProcessModule.so.1
+	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libUNIX_SoftwareElementModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_SoftwareElementModule.so.1
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libConfigSettingProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libConfigSettingProvider.so.1
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libDefaultProviderManager.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libDefaultProviderManager.so.1
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libDeliveryRetryTestProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libDeliveryRetryTestProvider.so.1
@@ -405,7 +411,6 @@ do-install:
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libFileListenerDestination.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libFileListenerDestination.so.1
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libFilesAndDirectories.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libFilesAndDirectories.so.1
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libFilesAndDirectories_CXX.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libFilesAndDirectories_CXX.so.1
-	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libIPProviderModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libIPProviderModule.so.1
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libIndicationStressTestConsumer.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libIndicationStressTestConsumer.so.1
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libIndicationStressTestProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libIndicationStressTestProvider.so.1
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libIndicationTestProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libIndicationTestProvider.so.1
@@ -415,12 +420,9 @@ do-install:
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libMissingEntryPointHandler.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libMissingEntryPointHandler.so.1
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libNamespaceProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libNamespaceProvider.so.1
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libOOPModuleFailureTestProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libOOPModuleFailureTestProvider.so.1
-	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libOSProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libOSProvider.so.1
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libPG_DefaultInstanceProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libPG_DefaultInstanceProvider.so.1
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libPG_TestPropertyTypes.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libPG_TestPropertyTypes.so.1
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libProcessIndicationProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libProcessIndicationProvider.so.1
-	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libProcessProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libProcessProvider.so.1
-	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libProcessorProviderModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libProcessorProviderModule.so.1
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libProviderLifecycleIndicationConsumer.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libProviderLifecycleIndicationConsumer.so.1
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libProviderRegistrationProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libProviderRegistrationProvider.so.1
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/lib/libSLPProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libSLPProvider.so.1
@@ -517,7 +519,17 @@ do-install:
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libCMPISampleClass.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libCMPISampleClass.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libCMPI_RT_Sample.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libCMPI_RT_Sample.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libCertificateProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libCertificateProvider.so
-	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libComputerSystemProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libComputerSystemProvider.so
+	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_AccountModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_AccountModule.so
+	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_ComputerSystemModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_ComputerSystemModule.so
+	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_DNSServiceModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_DNSServiceModule.so
+	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_IPEndPointModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_IPEndPointModule.so
+	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_IPRouteModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_IPRouteModule.so
+	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_LocalTimeModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_LocalTimeModule.so
+	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_LogicalDiskModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_LogicalDiskModule.so
+	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_NTPServiceModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_NTPServiceModule.so
+	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_OperatingSystemModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_OperatingSystemModule.so
+	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_ProcessModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_ProcessModule.so
+	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_SoftwareElementModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libUNIX_SoftwareElementModule.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libConfigSettingProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libConfigSettingProvider.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libDefaultProviderManager.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libDefaultProviderManager.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libDeliveryRetryTestProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libDeliveryRetryTestProvider.so
@@ -527,7 +539,6 @@ do-install:
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libFileListenerDestination.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libFileListenerDestination.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libFilesAndDirectories.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libFilesAndDirectories.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libFilesAndDirectories_CXX.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libFilesAndDirectories_CXX.so
-	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libIPProviderModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libIPProviderModule.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libIndicationStressTestConsumer.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libIndicationStressTestConsumer.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libIndicationStressTestProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libIndicationStressTestProvider.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libIndicationTestProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libIndicationTestProvider.so
@@ -537,12 +548,9 @@ do-install:
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libMissingEntryPointHandler.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libMissingEntryPointHandler.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libNamespaceProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libNamespaceProvider.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libOOPModuleFailureTestProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libOOPModuleFailureTestProvider.so
-	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libOSProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libOSProvider.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libPG_DefaultInstanceProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libPG_DefaultInstanceProvider.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libPG_TestPropertyTypes.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libPG_TestPropertyTypes.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libProcessIndicationProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libProcessIndicationProvider.so
-	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libProcessProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libProcessProvider.so
-	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libProcessorProviderModule.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libProcessorProviderModule.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libProviderLifecycleIndicationConsumer.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libProviderLifecycleIndicationConsumer.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libProviderRegistrationProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libProviderRegistrationProvider.so
 	${LN} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libSLPProvider.so.1 ${STAGEDIR}${PREFIX}/lib/pegasus/lib/libSLPProvider.so
@@ -689,11 +697,6 @@ do-install:
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/bin/TestClassDecl ${STAGEDIR}${PREFIX}/lib/pegasus/bin/TestClassDecl
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/bin/TestClassDeclRep ${STAGEDIR}${PREFIX}/lib/pegasus/bin/TestClassDeclRep
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/bin/TestClient ${STAGEDIR}${PREFIX}/lib/pegasus/bin/TestClient
-	${INSTALL_PROGRAM} ${PEGASUS_HOME}/bin/TestClientCSProvider ${STAGEDIR}${PREFIX}/lib/pegasus/bin/TestClientCSProvider
-	${INSTALL_PROGRAM} ${PEGASUS_HOME}/bin/TestClientIPProvider ${STAGEDIR}${PREFIX}/lib/pegasus/bin/TestClientIPProvider
-	${INSTALL_PROGRAM} ${PEGASUS_HOME}/bin/TestClientOSProvider ${STAGEDIR}${PREFIX}/lib/pegasus/bin/TestClientOSProvider
-	${INSTALL_PROGRAM} ${PEGASUS_HOME}/bin/TestClientProcessProvider ${STAGEDIR}${PREFIX}/lib/pegasus/bin/TestClientProcessProvider
-	${INSTALL_PROGRAM} ${PEGASUS_HOME}/bin/TestClientProcessorProvider ${STAGEDIR}${PREFIX}/lib/pegasus/bin/TestClientProcessorProvider
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/bin/TestCompAssoc ${STAGEDIR}${PREFIX}/lib/pegasus/bin/TestCompAssoc
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/bin/TestCompare ${STAGEDIR}${PREFIX}/lib/pegasus/bin/TestCompare
 	${INSTALL_PROGRAM} ${PEGASUS_HOME}/bin/TestCompareRepositories ${STAGEDIR}${PREFIX}/lib/pegasus/bin/TestCompareRepositories
@@ -908,9 +911,11 @@ do-install:
 	${INSTALL_SCRIPT} ${WRKDIR}/testExecQuery ${STAGEDIR}${PREFIX}/bin/testExecQuery
 	${INSTALL_SCRIPT} ${WRKDIR}/tomof ${STAGEDIR}${PREFIX}/bin/tomof
 	${INSTALL_SCRIPT} ${WRKDIR}/wbemexec ${STAGEDIR}${PREFIX}/bin/wbemexec
+	${INSTALL_SCRIPT} ${WRKDIR}/cimserverd ${STAGEDIR}${PREFIX}/etc/rc.d/cimserver
 	${INSTALL_DATA}	${WRKDIR}/cimserver_planned.conf ${STAGEDIR}${PREFIX}/etc/pegasus/cimserver_planned.conf
 	${INSTALL_DATA} ${WRKDIR}/cimserver_planned.conf ${STAGEDIR}${PREFIX}/etc/pegasus/cimserver_current.conf
 	${INSTALL_DATA} ${WRKDIR}/cimserver_planned.conf ${STAGEDIR}${PREFIX}/etc/pegasus/cimserver.conf
+	${LN} ${STAGEDIR}${PREFIX}/etc/pegasus/cimserver.conf ${STAGEDIR}${PREFIX}/lib/pegasus/cimserver_current.conf
 	@(cd ${PEGASUS_HOME} && ${COPYTREE_SHARE} "repository" ${STAGEDIR}${PREFIX}/share/pegasus)
 
 .include <bsd.port.post.mk>

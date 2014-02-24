@@ -49,7 +49,6 @@ lib/monodevelop/bin/mdhost.xml
 lib/monodevelop/bin/MSBuild/4.0/MonoDevelop.Projects.Formats.MSBuild.exe
 lib/monodevelop/bin/MSBuild/4.0/MonoDevelop.Projects.Formats.MSBuild.exe.mdb
 lib/monodevelop/bin/MSBuild/4.0/MonoDevelop.Projects.Formats.MSBuild.exe.config
-lib/monodevelop/bin/MonoDevelop.Projects.Formats.MSBuild.xml
 lib/monodevelop/bin/Xwt.dll.mdb
 lib/monodevelop/bin/MonoDevelop.Ide.dll.config
 lib/monodevelop/bin/mdhost.exe.config
@@ -101,7 +100,7 @@ lib/monodevelop/locale/ru/LC_MESSAGES/monodevelop.mo
 lib/monodevelop/locale/id/LC_MESSAGES/monodevelop.mo
 lib/monodevelop/locale/de/LC_MESSAGES/monodevelop.mo
 lib/monodevelop/locale/ja/LC_MESSAGES/monodevelop.mo
-lib/monodevelop/AddIns/GnomePlatform.dll.mdb
+lib/monodevelop/bin/GnomePlatform.dll.mdb
 lib/monodevelop/AddIns/MonoDevelop.AspNet/Schemas/readme.txt
 lib/monodevelop/AddIns/MonoDevelop.AspNet/Schemas/xhtml1-frameset.xsd
 lib/monodevelop/AddIns/MonoDevelop.AspNet/Schemas/W3C-License.html
@@ -187,7 +186,7 @@ lib/monodevelop/AddIns/MonoDevelop.AspNet.Mvc/Templates/ViewPage.xft.xml
 lib/monodevelop/AddIns/MonoDevelop.AspNet.Mvc/Templates/LayoutPage.xft.xml
 lib/monodevelop/AddIns/MonoDevelop.AspNet.Mvc/Templates/Project.xpt.xml
 lib/monodevelop/AddIns/MonoDevelop.AspNet.Mvc/System.Web.Razor.dll
-lib/monodevelop/AddIns/GnomePlatform.dll
+lib/monodevelop/bin/GnomePlatform.dll
 lib/monodevelop/AddIns/VersionControl/MonoDevelop.VersionControl.Subversion.Unix.dll.mdb
 lib/monodevelop/AddIns/VersionControl/NSch.dll
 lib/monodevelop/AddIns/VersionControl/MonoDevelop.VersionControl.Git.xml
@@ -268,7 +267,7 @@ lib/monodevelop/AddIns/MonoDevelop.XmlEditor/schemas/appconfig.xsd
 lib/monodevelop/AddIns/MonoDevelop.XmlEditor/schemas/xslt.xsd
 lib/monodevelop/AddIns/MonoDevelop.XmlEditor/schemas/W3C-License.html
 lib/monodevelop/AddIns/MonoDevelop.XmlEditor/schemas/XMLSchema.xsd
-lib/monodevelop/AddIns/GnomePlatform.dll.config
+lib/monodevelop/bin/GnomePlatform.dll.config
 lib/monodevelop/AddIns/MonoDeveloperExtensions/MonoDeveloperExtensions_nunit.dll.mdb
 lib/monodevelop/AddIns/MonoDeveloperExtensions/MonoDeveloperExtensions_nunit.dll
 lib/monodevelop/AddIns/MonoDeveloperExtensions/MonoDeveloperExtensions_nunit.xml
@@ -391,9 +390,9 @@ lib/monodevelop/data/options/MonoDevelop-tools.xml
 lib/monodevelop/data/options/TipsOfTheDay.xml
 lib/monodevelop/data/options/MonoDevelop-templates.xml
 lib/monodevelop/data/options/MonoDevelopProperties.xml
-lib/pkgconfig/monodevelop-database.pc
-lib/pkgconfig/monodevelop-profiling.pc
-lib/pkgconfig/monodevelop-codeanalysis.pc
+libdata/pkgconfig/monodevelop-database.pc
+libdata/pkgconfig/monodevelop-profiling.pc
+libdata/pkgconfig/monodevelop-codeanalysis.pc
 share/mime/aliases
 share/mime/packages/monodevelop.xml
 share/mime/icons
@@ -465,7 +464,6 @@ share/icons/hicolor/16x16/apps/monodevelop.png
 share/icons/hicolor/32x32/apps/monodevelop.png
 share/icons/hicolor/22x22/apps/monodevelop.png
 share/icons/hicolor/48x48/apps/monodevelop.png
-share/icons/hicolor/icon-theme.cache
 share/icons/hicolor/24x24/apps/monodevelop.png
 share/man/man1/monodevelop.1
 share/man/man1/mdtool.1
@@ -489,7 +487,6 @@ share/man/man1/mdtool.1
 @dirrm share/mime/text
 @dirrm share/mime/packages
 @dirrm share/mime
-@dirrm lib/pkgconfig
 @dirrm lib/monodevelop/data/options
 @dirrm lib/monodevelop/data
 @dirrm lib/monodevelop/AddIns/MonoDevelop.DesignerSupport
