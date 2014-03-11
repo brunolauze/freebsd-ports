@@ -30,5 +30,5 @@ export PEGASUS_ENABLE_CMPI_PROVIDER_MANAGER=true
 export PATH=%%PEGASUS_PREFIX%%/lib/pegasus/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/root/bin
 export LD_LIBRARY_PATH=%%PEGASUS_PREFIX%%/lib/pegasus/lib:
 
-%%PEGASUS_PREFIX%%/lib/pegasus/bin/cimserver repositoryDir=%%PEGASUS_PREFIX%%/share/pegasus/repository $*
+%%PEGASUS_PREFIX%%/lib/pegasus/bin/cimserver repositoryDir=%%PEGASUS_PREFIX%%/share/pegasus/repository listenAddress=127.0.0.1 $*
 
