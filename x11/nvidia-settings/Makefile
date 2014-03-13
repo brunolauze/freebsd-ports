@@ -2,7 +2,7 @@
 # $FreeBSD: x11/nvidia-settings/Makefile 327777 2013-09-20 23:43:19Z bapt $
 
 PORTNAME=	nvidia-settings
-PORTVERSION=	331.38
+PORTVERSION=	334.21
 CATEGORIES=	x11
 MASTER_SITES=	ftp://download.nvidia.com/XFree86/nvidia-settings/ \
 		ftp://download1.nvidia.com/XFree86/nvidia-settings/

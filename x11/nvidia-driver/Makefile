@@ -2,7 +2,7 @@
 # $FreeBSD: head/x11/nvidia-driver/Makefile 337471 2013-12-26 06:42:43Z danfe $
 
 PORTNAME=	nvidia-driver
-DISTVERSION?=	331.38
+DISTVERSION?=	334.21
 # Always try to set PORTREVISION as it can be overridden by the slave ports
 PORTREVISION?=	0
 CATEGORIES=	x11
