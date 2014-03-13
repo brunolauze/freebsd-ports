@@ -14,7 +14,7 @@ MAINTAINER=	x11@FreeBSD.org
 COMMENT?=	X.Org X server and related programs
 
 LIB_DEPENDS=	libdrm.so:${PORTSDIR}/graphics/libdrm \
-		libxshmfence.so:${PORTSDIR}/devel/libxshmfence
+		libxshmfence.so:${PORTSDIR}/x11/libxshmfence
 RUN_DEPENDS=	xkeyboard-config>=2.5:${PORTSDIR}/x11/xkeyboard-config \
 		xkbcomp:${PORTSDIR}/x11/xkbcomp
 
