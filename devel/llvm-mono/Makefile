@@ -1,7 +1,7 @@
 # $FreeBSD: devel/llvm-mono/Makefile 332110 2013-10-30 14:03:46Z brooks $
 
 PORTNAME=	llvm-mono
-PORTVERSION=	3.4
+PORTVERSION=	3.5
 PORTREVISION=	7
 CATEGORIES=	devel lang
 
@@ -24,7 +24,7 @@ MANCOMPRESSED=	no
 USE_GITHUB=	yes
 GH_ACCOUNT=	mono
 GH_PROJECT=	llvm
-GH_TAGNAME=	e656cac
+GH_TAGNAME=	714a9d7
 GH_COMMIT=	${GH_TAGNAME}
 
 USES=		gmake perl5
@@ -45,7 +45,7 @@ MAKE_ARGS+=		REQUIRES_RTTI=1
 LIBNAME=		libLLVM-${DISTVERSION:C/\rc[0-9]//}.so
 
 CONFIGURE_ARGS+=	--enable-ltdl-install --enable-libffi --enable-libcpp --enable-cxx11
-CONFIGURE_ARGS+=	--enable-optimized --enable-profiling
+CONFIGURE_ARGS+=	--enable-optimized
 
 OPTIONS_DEFINE=	ASSERTS CMAKE DOCS LIT LTOPLUGIN MANPAGES
 

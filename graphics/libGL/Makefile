@@ -36,9 +36,11 @@ do-install:
 	cd ${WRKSRC}/src/glx; ${GMAKE} install
 	${MKDIR} ${PREFIX}/include/GL
 	cd ${WRKSRC}/include/GL && ${COPYTREE_SHARE} \*.h ${PREFIX}/include/GL/
+	cd ${WRKSRC}/src/gallium/state_trackers/xa && ${COPYTREE_SHARE} \*.h ${PREFIX}/include/
 	@${MKDIR} ${PREFIX}/lib/.libGL
 	${INSTALL_LIB} ${WRKSRC}/src/glx/.libs/libGL.so ${PREFIX}/lib/.libGL/
 	${INSTALL_LIB} ${WRKSRC}/src/glx/.libs/libGL.so.1 ${PREFIX}/lib/.libGL/
+	${INSTALL_LIB} ${WRKSRC}/src/glx/.libs/libGL.la ${PREFIX}/lib/.libGL/
 .endif
 
 post-install:

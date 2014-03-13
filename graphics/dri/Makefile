@@ -60,7 +60,7 @@ CONFIGURE_ARGS+=--enable-gallium-llvm --disable-gallium-egl
 CPPFLAGS+=      -I${LOCALBASE}/include -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS
 LDFLAGS+=       -L${LOCALBASE}/lib
 
-CONFIGURE_ARGS+=--with-gallium-drivers=svga,swrast
+#CONFIGURE_ARGS+=--with-gallium-drivers=svga,swrast
 PLIST_SUB+=	GALLIUM=""
 . else
 CONFIGURE_ARGS+=--enable-gallium-llvm=no --without-gallium-drivers

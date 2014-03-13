@@ -13,4 +13,6 @@ XORG_CAT=	lib
 
 USE_XORG=	xproto
 
+CONFIGURE_ARGS+=        --with-shared-memory-dir=/tmp
+
 .include <bsd.port.mk>
