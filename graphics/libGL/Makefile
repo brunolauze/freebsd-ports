@@ -13,7 +13,8 @@ LIB_DEPENDS+=	libdrm.so:${PORTSDIR}/graphics/libdrm \
 		libdricore${MESAVERSION}.so:${PORTSDIR}/graphics/dri
 
 USES=		pkgconfig
-USE_XORG=	glproto x11 xext xxf86vm xdamage xfixes dri2proto:both
+USE_XORG=	glproto x11 xext xxf86vm xdamage xfixes dri2proto:both \
+		dri3proto presentproto
 
 SUB_FILES=	pkg-install pkg-deinstall
 
