@@ -11,13 +11,14 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	Itseez
 GH_PROJECT=	${PORTNAME}
 GH_TAGNAME=	${PORTVERSION}
-
+GH_COMMIT=	6fac92d
 
 MAINTAINER=	jhale@FreeBSD.org
 COMMENT=	Open Source Computer Vision library
 
 LICENSE=	BSD
-LICENSE_FILE=	${WRKSRC}/doc/license.txt
+#BSD License file is now gone from repo
+#LICENSE_FILE=	${WRKSRC}/doc/license.txt
 
 USES=		cmake pkgconfig
 USE_ZIP=	yes
