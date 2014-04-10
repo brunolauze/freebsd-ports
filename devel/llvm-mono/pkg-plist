@@ -101,19 +101,15 @@ lib/libLLVMHexagonInfo.a
 lib/libLLVMX86AsmParser.a
 lib/libLLVMObject.a
 lib/libLLVMExecutionEngine.a
-bin/llvm-lto
 bin/llvm-extract
 bin/llvm-symbolizer
 bin/llvm-mc
 bin/llvm-ar
-bin/FileUpdate
 bin/llvm-rtdyld
 bin/llvm-diff
 bin/llvm-cov
-bin/obj2yaml
 bin/llvm-dis
 bin/llvm-config
-bin/llvm-PerfectShuffle
 bin/FileCheck
 bin/llc
 bin/llvm-mcmarkup
@@ -123,7 +119,6 @@ bin/llvm-stress
 bin/llvm-dwarfdump
 bin/lit
 bin/llvm-nm
-bin/yaml2obj
 bin/llvm-as
 bin/llvm-tblgen
 bin/opt
@@ -134,7 +129,6 @@ bin/%%PERL_ARCH%%o-dump
 bin/llvm-readobj
 bin/llvm-link
 bin/llvm-ranlib
-bin/llvm-c-test
 bin/llvm-objdump
 include/llvm-c/IRReader.h
 include/llvm-c/lto.h
@@ -265,7 +259,6 @@ include/llvm/Target/TargetCallingConv.h
 include/llvm/Target/TargetLoweringObjectFile.h
 include/llvm/Target/TargetCallingConv.td
 include/llvm/Target/TargetInstrInfo.h
-include/llvm/Target/Mangler.h
 include/llvm/Target/Target.td
 include/llvm/Target/TargetSelectionDAGInfo.h
 include/llvm/Target/TargetSelectionDAG.td
@@ -306,10 +299,6 @@ include/llvm/Transforms/Utils/ValueMapper.h
 include/llvm/Transforms/Utils/BasicBlockUtils.h
 include/llvm/Transforms/Utils/Cloning.h
 include/llvm/Transforms/Utils/PromoteMemToReg.h
-include/llvm/Assembly/PrintModulePass.h
-include/llvm/Assembly/Parser.h
-include/llvm/Assembly/Writer.h
-include/llvm/Assembly/AssemblyAnnotationWriter.h
 include/llvm/CodeGen/MachineConstantPool.h
 include/llvm/CodeGen/GCMetadataPrinter.h
 include/llvm/CodeGen/AsmPrinter.h
@@ -344,7 +333,6 @@ include/llvm/CodeGen/PBQP/HeuristicBase.h
 include/llvm/CodeGen/PBQP/HeuristicSolver.h
 include/llvm/CodeGen/PBQP/Heuristics/Briggs.h
 include/llvm/CodeGen/MachineSSAUpdater.h
-include/llvm/CodeGen/LiveRegUnits.h
 include/llvm/CodeGen/GCs.h
 include/llvm/CodeGen/JITCodeEmitter.h
 include/llvm/CodeGen/ISDOpcodes.h
@@ -452,7 +440,6 @@ include/llvm/Analysis/DependenceAnalysis.h
 include/llvm/Analysis/InstructionSimplify.h
 include/llvm/Analysis/Trace.h
 include/llvm/Analysis/IntervalPartition.h
-include/llvm/Analysis/Verifier.h
 include/llvm/Analysis/Loads.h
 include/llvm/Analysis/SparsePropagation.h
 include/llvm/Analysis/ConstantsScanner.h
@@ -462,7 +449,6 @@ include/llvm/Analysis/RegionPrinter.h
 include/llvm/Analysis/AliasAnalysis.h
 include/llvm/Analysis/BlockFrequencyInfo.h
 include/llvm/Analysis/CallGraph.h
-include/llvm/Analysis/Dominators.h
 include/llvm/Analysis/IVUsers.h
 include/llvm/Analysis/MemoryDependenceAnalysis.h
 include/llvm/Analysis/AliasSetTracker.h
@@ -475,7 +461,6 @@ include/llvm/Analysis/Lint.h
 include/llvm/Analysis/Interval.h
 include/llvm/Analysis/TargetTransformInfo.h
 include/llvm/Analysis/DOTGraphTraitsPass.h
-include/llvm/Analysis/DominatorInternals.h
 include/llvm/Analysis/Passes.h
 include/llvm/Analysis/ScalarEvolutionExpander.h
 include/llvm/Analysis/PHITransAddr.h
@@ -735,7 +720,6 @@ include/llvm/MC/MCRegisterInfo.h
 @dirrm include/llvm/CodeGen/PBQP/Heuristics
 @dirrm include/llvm/CodeGen/PBQP
 @dirrm include/llvm/CodeGen
-@dirrm include/llvm/Assembly
 @dirrm include/llvm/Transforms/Utils
 @dirrm include/llvm/Transforms/IPO
 @dirrm include/llvm/Transforms
