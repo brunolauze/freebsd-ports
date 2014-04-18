@@ -1,63 +1,58 @@
-# $FreeBSD: devel/llvm-mono/Makefile 332110 2013-10-30 14:03:46Z brooks $
+# Created by: Hye-Shik Chang
+# $FreeBSD: head/devel/llvm-devel/Makefile 351292 2014-04-14 21:34:25Z brooks $
 
 PORTNAME=	llvm-mono
-PORTVERSION=	3.5
-PORTREVISION=	7
+DISTVERSION=	3.5.0svn
 CATEGORIES=	devel lang
+MASTER_SITES=	${MASTER_SITE_LOCAL}
+MASTER_SITE_SUBDIR=	brooks
+PKGNAMESUFFIX=	-devel
 
 MAINTAINER=	brooks@FreeBSD.org
 COMMENT=	Low Level Virtual Machine
 
-LIB_DEPENDS=	execinfo:${PORTSDIR}/devel/libexecinfo \
-		libffi.so:${PORTSDIR}/devel/libffi
-
 LLVM_SUFFIX=	
-#${PORTVERSION:S/.//g}
 LLVM_PREFIX=	${PREFIX}
-#/llvm${LLVM_SUFFIX}
 DOCSDIR=	${PREFIX}/share/doc/${PORTNAME}${LLVM_SUFFIX}
 DATADIR=	${PREFIX}/share/${PORTNAME}${LLVM_SUFFIX}
-UNIQUENAME=	${PORTNAME}${LLVM_SUFFIX}
-
-MANCOMPRESSED=	no
+#UNIQUENAME=	${PORTNAME}${LLVM_SUFFIX}
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	mono
 GH_PROJECT=	llvm
-GH_TAGNAME=	714a9d7
-GH_COMMIT=	${GH_TAGNAME}
+GH_TAGNAME=	d0ce8848b7ceba48862706d76ec14c8e5496bc25
+GH_COMMIT=	d0ce884
 
-USES=		gmake perl5
+USES=		compiler:c++11-lib gmake perl5
 GNU_CONFIGURE=	yes
+USE_BZIP2=	yes
 GNU_CONFIGURE_PREFIX=	${LLVM_PREFIX}
 USE_LDCONFIG=	${LLVM_PREFIX}/lib
 
 SUB_FILES=	llvm-wrapper.sh
 SUB_LIST=	LLVM_PREFIX="${LLVM_PREFIX}" LLVM_SUFFIX="${LLVM_SUFFIX}"
 
-
-CPPFLAGS+=	-I${LOCALBASE}/include
-LDFLAGS+=	-L${LOCALBASE}/lib
-
 # Suggested tweaks from http://llvm.org/docs/Packaging.html
 CONFIGURE_ARGS+=	--enable-shared
 MAKE_ARGS+=		REQUIRES_RTTI=1
-LIBNAME=		libLLVM-${DISTVERSION:C/\rc[0-9]//}.so
+LIBNAME=		libLLVM-${DISTVERSION:C/\.r[0-9]*//}svn.so
+LIBNAME_REAL=		libLLVM-${DISTVERSION:C/\.r[0-9]*//}.0svn.so
 
-CONFIGURE_ARGS+=	--enable-ltdl-install --enable-libffi --enable-libcpp --enable-cxx11
+CONFIGURE_ARGS+=	--enable-bindings=none
 CONFIGURE_ARGS+=	--enable-optimized
 
 OPTIONS_DEFINE=	ASSERTS CMAKE DOCS LIT LTOPLUGIN MANPAGES
 
 ASSERTS_DESC=	Enable assertions (thread unsafe)
 CMAKE_DESC=	Build cmake support files
-LIT_DESC=	Install lit test tools (requires python)
-LTOPLUGIN_DESC=	Install lit gold
+LIT_DESC=	Install lit and FileCheck test tools (requires python)
+LTOPLUGIN_DESC=	Build LTO plugin (requires gold)
 
 OPTIONS_DEFAULT=	CMAKE LIT MANPAGES
 OPTIONS_SUB=	yes
 
-PLIST_SUB+=		PORTVERSION=${PORTVERSION}
+LLVM_RELEASE=	${PORTVERSION:C/\.r[0-9]*//}
+PLIST_SUB+=	LLVM_RELEASE=${LLVM_RELEASE}
 
 COMMANDS=	bugpoint \
 		llc \
@@ -76,6 +71,7 @@ COMMANDS=	bugpoint \
 		llvm-mcmarkup \
 		llvm-nm \
 		llvm-objdump \
+		llvm-profdata \
 		llvm-ranlib \
 		llvm-readobj \
 		llvm-rtdyld \
@@ -89,11 +85,8 @@ FIRST_COMMAND=	${COMMANDS:C/^/XXXX/1:MXXXX*:C/^XXXX//}
 
 STRIP_LIBS=	BugpointPasses.so \
 		LLVMHello.so \
-		libLLVM-${PORTVERSION}.so.0 \
+		${LIBNAME_REAL}.0 \
 		libLTO.so
-
-# Enable AMD r600 backend used by the r600/radeonsi graphics/dri gallium drivers
-CONFIGURE_ARGS+=--enable-experimental-targets=R600
 
 .include <bsd.port.options.mk>
 
@@ -123,8 +116,7 @@ CONFIGURE_ARGS+=	--disable-docs
 .if ${PORT_OPTIONS:MLIT}
 MAN1SRCS+=		lit.1
 USE_PYTHON=		yes
-LIT_COMMANDS=		lit llvm-lit
-#FileCheck
+LIT_COMMANDS=		lit llvm-lit FileCheck
 .else
 USE_PYTHON_BUILD=	yes
 .endif
@@ -133,23 +125,27 @@ USE_PYTHON_BUILD=	yes
 BUILD_DEPENDS+=		ld.gold:${PORTSDIR}/devel/binutils
 RUN_DEPENDS+=		ld.gold:${PORTSDIR}/devel/binutils
 CONFIGURE_ARGS+=	--with-binutils-include=${LOCALBASE}/include
-PLIST_FILES+=		lib/LLVMgold.so
+PLIST_FILES+=		llvm${LLVM_SUFFIX}/lib/LLVMgold.so
 .endif
 
 .if ${PORT_OPTIONS:MMANPAGES}
 MAN1SRCS+=	bugpoint.1 llc.1 lli.1 llvm-ar.1 llvm-as.1 \
 		llvm-bcanalyzer.1 llvm-config.1 llvm-cov.1 llvm-diff.1 \
 		llvm-dis.1 llvm-extract.1 llvm-link.1 llvm-nm.1 \
-		llvm-prof.1 llvm-ranlib.1 llvm-stress.1 opt.1 tblgen.1
-PLIST_FILES+=	${MAN1SRCS:S|^|man/man1/|:S|.1$|${LLVM_SUFFIX}.1|}
+		llvm-profdata.1 llvm-readobj.1 llvm-stress.1 llvm-symbolizer.1 \
+		opt.1 tblgen.1
+PLIST_FILES+=	${MAN1SRCS:S|^|man/man1/|:S|.1$|${LLVM_SUFFIX}.1.gz|}
 .endif
 
 .include <bsd.port.pre.mk>
 
-.if ${ARCH} == "arm"
-BROKEN=		Does not compile on arm
-.elif ${ARCH} == "sparc64"
-BROKEN=		does not compile on sparc64
+.if !defined(SVN_REV)
+.if defined(BOOTSTRAP)
+LANG=		"C"
+SVN_REV!=	svn info http://llvm.org/svn/llvm-project/ | ${GREP} Revision | cut -d' ' -f2
+.else
+.include "Makefile.svn_rev"
+.endif
 .endif
 
 .if ${ARCH} == "amd64" || ${ARCH} == "ia64"
@@ -160,9 +156,22 @@ CONFIGURE_ARGS+=	--enable-pic --with-pic
 CONFIGURE_ARGS+=	--with-optimize-option=-O2
 .endif
 
+.if defined(BOOTSTRAP) || defined(SVN_FETCH)
+FETCH_DEPENDS+=	svn:${PORTSDIR}/devel/subversion
+
+do-fetch:
+	${MKDIR} ${WRKDIR}
+	svn export -r ${SVN_REV} \
+	    http://llvm.org/svn/llvm-project/llvm/trunk ${WRKSRC}
+	cd ${WRKDIR}; tar cvfy ${DISTDIR}/${DISTNAME}.tar.bz2 ${DISTNAME}
+	echo "SVN_REV=	${SVN_REV}" > ${MASTERDIR}/Makefile.svn_rev
+.if ${USER} == brooks || ${USER} == bed22
+	scp ${DISTDIR}/${DISTNAME}.tar.bz2 \
+	    brooks@freefall.freebsd.org:public_distfiles/
+.endif
+.endif
+
 post-patch:
-	${REINPLACE_CMD} -e 's|${PORTVERSION}svn|${PORTVERSION}|g' \
-	    ${WRKSRC}/configure
 	${REINPLACE_CMD} -e 's|\(PROJ_docsdir.*:=\).*$$|\1${DOCSDIR}|g' \
 	    ${WRKSRC}/Makefile.config.in
 	${REINPLACE_CMD} -e 's|\(PROJ_mandir.*:=\).*$$|\1${MANPREFIX}/man|g' \
@@ -175,7 +184,10 @@ post-patch:
 .if ${PORT_OPTIONS:MCMAKE}
 post-configure:
 	${MKDIR} ${WRKDIR}/cmake
-	cd ${WRKDIR}/cmake && cmake -G "Unix Makefiles" ${WRKSRC}
+	cd ${WRKDIR}/cmake && cmake -G "Unix Makefiles" \
+	    -DCMAKE_C_COMPILER:STRING="${CC}" \
+	    -DCMAKE_CXX_COMPILER:STRING="${CXX}" \
+	    ${WRKSRC}
 	${REINPLACE_CMD} -e 's|${WRKDIR}/cmake|${LLVM_PREFIX}|' \
 	    -e 's|${WRKSRC}/cmake/modules|${DATADIR}/cmake|' \
 	    ${WRKDIR}/cmake/share/llvm/cmake/LLVMConfig.cmake
@@ -190,23 +202,27 @@ post-build:
 .endif
 
 post-install:
-	${MV} ${STAGEDIR}${LLVM_PREFIX}/lib/${LIBNAME} \
-	    ${STAGEDIR}${LLVM_PREFIX}/lib/${LIBNAME}.0
-	${LN} -sf ${LIBNAME}.0 ${STAGEDIR}${LLVM_PREFIX}/lib/${LIBNAME}
+	ln -sf ${LIBNAME_REAL} ${STAGEDIR}${LLVM_PREFIX}/lib/${LIBNAME}
+	${MV} ${STAGEDIR}${LLVM_PREFIX}/lib/${LIBNAME_REAL} \
+	    ${STAGEDIR}${LLVM_PREFIX}/lib/${LIBNAME_REAL}.0
+	${LN} -sf ${LIBNAME_REAL}.0 \
+	    ${STAGEDIR}${LLVM_PREFIX}/lib/${LIBNAME_REAL}
 	${STRIP_CMD} ${STRIP_LIBS:S|^|${STAGEDIR}${LLVM_PREFIX}/lib/|}
 	${INSTALL_SCRIPT} ${WRKDIR}/llvm-wrapper.sh \
 	    ${STAGEDIR}${PREFIX}/bin/${FIRST_COMMAND}${LLVM_SUFFIX}
-#.for command in ${COMMANDS:C/^/XXXX/1:NXXXX*}
-#	test -e ${STAGEDIR}${LLVM_PREFIX}/bin/${command}
-#	${LN} -f ${STAGEDIR}${PREFIX}/bin/${FIRST_COMMAND}${LLVM_SUFFIX} \
-#	    ${STAGEDIR}${PREFIX}/bin/${command}${LLVM_SUFFIX}
-#.endfor
-#	${LN} -sf ${STAGEDIR}${LLVM_PREFIX}/bin/llvm-config${LLVM_SUFFIX} ${STAGEDIR}${PREFIX}/bin/llvm-config
+.for command in ${COMMANDS:C/^/XXXX/1:NXXXX*}
+	test -e ${STAGEDIR}${LLVM_PREFIX}/bin/${command}
+	${LN} -f ${STAGEDIR}${PREFIX}/bin/${FIRST_COMMAND}${LLVM_SUFFIX} \
+	    ${STAGEDIR}${PREFIX}/bin/${command}${LLVM_SUFFIX}
+.endfor
 .if ${PORT_OPTIONS:MCMAKE}
 	${MKDIR} ${STAGEDIR}${DATADIR}/cmake
 	${INSTALL_DATA} ${WRKSRC}/cmake/modules/*.cmake \
 	    ${WRKDIR}/cmake/share/llvm/cmake/*.cmake \
 	    ${STAGEDIR}${DATADIR}/cmake/
+	${REINPLACE_CMD} -e 's|${STAGEDIR}||' \
+	    ${STAGEDIR}${DATADIR}/cmake/LLVMConfig.cmake
+	${RM} -f ${STAGEDIR}${DATADIR}/cmake/LLVMConfig.cmake.bak
 .endif
 .if ${PORT_OPTIONS:MDOCS}
 	${MKDIR} ${STAGEDIR}${DOCSDIR}/html
@@ -216,15 +232,19 @@ post-install:
 .if ${PORT_OPTIONS:MLIT}
 	${INSTALL_SCRIPT} ${WRKSRC}/utils/lit/lit.py \
 	    ${STAGEDIR}${LLVM_PREFIX}/bin/lit
-#	${LN} -f ${STAGEDIR}${LLVM_PREFIX}/bin/lit \
-#	    ${STAGEDIR}${LLVM_PREFIX}/bin/llvm-lit
-#	${LN} -f ${STAGEDIR}${LLVM_PREFIX}/bin/lit \
-#	    ${STAGEDIR}${PREFIX}/bin/lit${LLVM_SUFFIX}
-#	${LN} -f ${STAGEDIR}${LLVM_PREFIX}/bin/lit \
-#	    ${STAGEDIR}${PREFIX}/bin/llvm-lit${LLVM_SUFFIX}
+	${LN} -f ${STAGEDIR}${LLVM_PREFIX}/bin/lit \
+	    ${STAGEDIR}${LLVM_PREFIX}/bin/llvm-lit
+	${LN} -f ${STAGEDIR}${LLVM_PREFIX}/bin/lit \
+	    ${STAGEDIR}${PREFIX}/bin/lit${LLVM_SUFFIX}
+	${LN} -f ${STAGEDIR}${LLVM_PREFIX}/bin/lit \
+	    ${STAGEDIR}${PREFIX}/bin/llvm-lit${LLVM_SUFFIX}
 	${MKDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}/lit${LLVM_SUFFIX}
 	${INSTALL_DATA} ${WRKSRC}/utils/lit/lit/*.py \
 	    ${STAGEDIR}${PYTHON_SITELIBDIR}/lit${LLVM_SUFFIX}
+	${INSTALL_PROGRAM} ${WRKSRC}/${RELEASE_TYPE}/bin/FileCheck \
+	    ${STAGEDIR}${LLVM_PREFIX}/bin/
+	${LN} -f ${STAGEDIR}${LLVM_PREFIX}/bin/FileCheck \
+	    ${STAGEDIR}${PREFIX}/bin/FileCheck${LLVM_SUFFIX}
 .endif
 .if ${PORT_OPTIONS:MMANPAGES}
 	for man in ${MAN1SRCS}; do \
@@ -269,17 +289,5 @@ build-plist:
 	${FIND} ${STAGEDIR}${DOCSDIR} -type d | \
 	    ${SED} -e 's|${STAGEDIR}${DOCSDIR}|%%PORTDOCS%%@dirrm %%DOCSDIR%%|' | \
 	    ${SORT} -r >> ${PLIST}
-
-.if make(svn-patch)
-.if !defined(PATCH_REV)
-.error svn-patch requires that PATCH_REV be set
-.endif
-_PATCH_FILE=${FILESDIR}/patch-svn-${PATCH_REV}
-_LLVM_BASE=http://llvm.org/svn/llvm-project/llvm/trunk
-svn-patch:
-	${PRINTF} "$$%s$$\n" FreeBSD > ${_PATCH_FILE}
-	svn log -c ${PATCH_REV} ${_LLVM_BASE} >> ${_PATCH_FILE}
-	svn diff -c ${PATCH_REV} ${_LLVM_BASE} >> ${_PATCH_FILE}
-.endif
 
 .include <bsd.port.post.mk>

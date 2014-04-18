@@ -1,8 +1,8 @@
 # Created by: Alexander Nedotsukov <bland@FreeBSD.org>
-# $FreeBSD: x11/nvidia-xconfig/Makefile 327777 2013-09-20 23:43:19Z bapt $
+# $FreeBSD: head/x11/nvidia-xconfig/Makefile 342323 2014-02-02 16:02:58Z miwi $
 
 PORTNAME=	nvidia-xconfig
-PORTVERSION=	334.21
+PORTVERSION=	337.12
 CATEGORIES=	x11
 MASTER_SITES=	ftp://download.nvidia.com/XFree86/nvidia-xconfig/ \
 		ftp://download1.nvidia.com/XFree86/nvidia-xconfig/
@@ -13,7 +13,7 @@ COMMENT=	Tool to manipulate X configuration files for the NVidia driver
 LICENSE=	GPLv2
 
 USE_BZIP2=	yes
-USE_GMAKE=	yes
+USES=		gmake
 
 MAKE_ENV=	NV_VERBOSE= \
 		STRIP_CMD=${TRUE} \
@@ -21,13 +21,11 @@ MAKE_ENV=	NV_VERBOSE= \
 		INSTALL_MAN="${INSTALL_MAN}" \
 		prefix=${PREFIX}
 
-PLIST_FILES=	bin/nvidia-xconfig
-MANCOMPRESSED=	yes
-MAN1=		nvidia-xconfig.1
+PLIST_FILES=	bin/nvidia-xconfig \
+		man/man1/nvidia-xconfig.1.gz
 
 post-patch:	.SILENT
 	${REINPLACE_CMD} -e '/^prefix/s/=/?&/' \
 		 -e '/^MANDIR/s|share/||' ${WRKSRC}/utils.mk
 
-NO_STAGE=	yes
 .include <bsd.port.mk>
