@@ -50,7 +50,8 @@ FETCH_CMD=	fetch http://storage.bos.xamarin.com/mono-dist-master/latest/${MONOLI
 
 # Moonlight is installed as part of www/moonlight
 CONFIGURE_ARGS+= --with-moonlight=no --disable-dtrace --with-tls=__thread --with-sgen=yes --with-ikvm-native=yes 
-CONFIGURE_ARGS+= --enable-llvm --enable-loadedllvm 
+CONFIGURE_ARGS+= --enable-llvm 
+#--enable-loadedllvm 
 CONFIGURE_ARGS+= --enable-parallel-mark
 
 CONFIGURE_ENV=	ac_cv_header_sys_inotify_h=no
