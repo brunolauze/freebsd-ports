@@ -1,8 +1,0 @@
---- profiles/dist.orig	2014-01-24 12:17:53.000000000 -0600
-+++ profiles/dist	2014-01-24 14:41:53.629399205 -0600
-@@ -1,3 +1,4 @@
- main
-+extras/MonoDevelop.CodeAnalysis
- extras/MonoDevelop.Database
--extras/MonoDevelop.Debugger.Gdb
-+extras/MonoDevelop.Profiling
