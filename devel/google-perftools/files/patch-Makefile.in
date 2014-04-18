@@ -1,0 +1,44 @@
+--- Makefile.in.orig	2013-07-30 04:12:29.000000000 -0500
++++ Makefile.in	2014-01-31 07:45:32.509537957 -0600
+@@ -95,10 +95,10 @@
+ # changes one day.  gcc ignores functions it doesn't understand.
+ @GCC_TRUE@am__append_2 = -Wall -Wwrite-strings -Woverloaded-virtual \
+ @GCC_TRUE@               -Wno-sign-compare \
+-@GCC_TRUE@               -fno-builtin-malloc -fno-builtin-free -fno-builtin-realloc \
+-@GCC_TRUE@               -fno-builtin-calloc -fno-builtin-cfree \
+-@GCC_TRUE@               -fno-builtin-memalign -fno-builtin-posix_memalign \
+-@GCC_TRUE@               -fno-builtin-valloc -fno-builtin-pvalloc
++@GCC_TRUE@                  \
++@GCC_TRUE@                 \
++@GCC_TRUE@                 \
++@GCC_TRUE@                
+ 
+ 
+ # On i386, -mmmx is needed for the mmx-based instructions in
+@@ -2171,7 +2171,7 @@
+ builddir = @builddir@
+ datadir = @datadir@
+ datarootdir = @datarootdir@
+-docdir = $(prefix)/share/doc/$(PACKAGE)-$(VERSION)
++docdir = $(prefix)/share/doc/$(PACKAGE)
+ dvidir = @dvidir@
+ exec_prefix = @exec_prefix@
+ host = @host@
+@@ -2287,7 +2287,7 @@
+ # noinst doesn't seem to work with data.  I separate them out anyway, in case
+ # one day we figure it out.  Regardless, installing the dot files isn't the
+ # end of the world.
+-dist_doc_DATA = AUTHORS COPYING ChangeLog INSTALL NEWS README \
++dist_doc_DATA = AUTHORS ChangeLog INSTALL NEWS README \
+ 	README_windows.txt TODO doc/index.html doc/designstyle.css \
+ 	$(am__append_14) doc/tcmalloc.html doc/overview.gif \
+ 	doc/pageheap.gif doc/spanmap.gif doc/threadheap.gif \
+@@ -3099,7 +3099,7 @@
+ @WITH_CPU_PROFILER_TRUE@@WITH_HEAP_PROFILER_OR_CHECKER_TRUE@tcmalloc_and_profiler_unittest_LDADD = libtcmalloc_and_profiler.la
+ 
+ # http://linux.die.net/man/1/pkg-config, http://pkg-config.freedesktop.org/wiki
+-pkgconfigdir = $(libdir)/pkgconfig
++pkgconfigdir = $(prefix)/libdata/pkgconfig
+ pkgconfig_DATA = libtcmalloc.pc libtcmalloc_minimal.pc \
+                  libtcmalloc_debug.pc libtcmalloc_minimal_debug.pc \
+                  libprofiler.pc

@@ -1,0 +1,8 @@
+OpenPegasus is an open-source implementationof the DMTF CIM and WBEM standards. 
+It is designed to be portable and highly modular. It is coded in C++ so that it 
+effectively translates the object concepts of the CIM objects into a programming 
+model but still retains the speed and efficiency of a compiled language. 
+OpenPegasus is designed to be inherently portable and builds and runs today on 
+most versionsof UNIX(R), Linux, OpenVMS, and Microsoft Windows.
+
+WWW HOMEPAGE: https://collaboration.opengroup.org/pegasus/

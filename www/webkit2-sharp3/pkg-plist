@@ -1,0 +1,8 @@
+@comment $FreeBSD: www/webkit-sharp/pkg-plist 300897 2012-07-14 14:29:18Z beat $
+lib/mono/gac/webkit2-sharp/%%ASSEMBLY_VERSION%%.0__038ee7666125b9cf/webkit2-sharp.dll
+lib/mono/gac/webkit2-sharp/%%ASSEMBLY_VERSION%%.0__038ee7666125b9cf/webkit2-sharp.dll.config
+lib/mono/webkit2-sharp/webkit2-sharp.dll
+libdata/pkgconfig/webkit2-sharp-3.0.pc
+@dirrm lib/mono/webkit2-sharp
+@dirrm lib/mono/gac/webkit2-sharp/%%ASSEMBLY_VERSION%%.0__038ee7666125b9cf
+@dirrm lib/mono/gac/webkit2-sharp
