@@ -1,0 +1,61 @@
+--- Makefile.orig	2013-01-24 12:55:36.000000000 -0600
++++ Makefile	2014-04-21 09:38:52.873890994 -0500
+@@ -242,9 +242,6 @@
+ 	$(INSTALL) -m 0644 gen_ndr/property.h $(DESTDIR)$(includedir)/gen_ndr/
+ 	$(INSTALL) -m 0644 gen_ndr/ndr_exchange.h $(DESTDIR)$(includedir)/gen_ndr/
+ 	$(INSTALL) -m 0644 gen_ndr/ndr_property.h $(DESTDIR)$(includedir)/gen_ndr/
+-	@$(SED) $(DESTDIR)$(includedir)/libmapi/*.h
+-	@$(SED) $(DESTDIR)$(includedir)/libmapi/socket/*.h
+-	@$(SED) $(DESTDIR)$(includedir)/gen_ndr/*.h
+ 
+ libmapi-installscript:
+ 	$(INSTALL) -d $(DESTDIR)$(datadir)/setup/profiles
+@@ -384,7 +381,6 @@
+ 	$(INSTALL) -m 0644 libmapi++/profile.h $(DESTDIR)$(includedir)/libmapi++/
+ 	$(INSTALL) -m 0644 libmapi++/property_container.h $(DESTDIR)$(includedir)/libmapi++/
+ 	$(INSTALL) -m 0644 libmapi++/session.h $(DESTDIR)$(includedir)/libmapi++/
+-	@$(SED) $(DESTDIR)$(includedir)/libmapi++/*.h
+ 
+ libmapixx-libs-clean:
+ 	rm -f libmapi++/src/*.po
+@@ -555,7 +551,6 @@
+ 	@echo "[*] install: libmapiadmin headers"
+ 	$(INSTALL) -d $(DESTDIR)$(includedir)/libmapiadmin 
+ 	$(INSTALL) -m 0644 libmapiadmin/libmapiadmin.h $(DESTDIR)$(includedir)/libmapiadmin/
+-	@$(SED) $(DESTDIR)$(includedir)/libmapiadmin/*.h
+ 
+ libmapiadmin-uninstallpc:
+ 	rm -f $(DESTDIR)$(libdir)/pkgconfig/libmapiadmin.pc
+@@ -626,7 +621,6 @@
+ 	@echo "[*] install: libocpf headers"
+ 	$(INSTALL) -d $(DESTDIR)$(includedir)/libocpf
+ 	$(INSTALL) -m 0644 libocpf/ocpf.h $(DESTDIR)$(includedir)/libocpf/
+-	@$(SED) $(DESTDIR)$(includedir)/libocpf/*.h
+ 
+ libocpf-uninstallpc:
+ 	rm -f $(DESTDIR)$(libdir)/pkgconfig/libocpf.pc
+@@ -789,7 +783,6 @@
+ endif
+ 	$(INSTALL) -m 0644 mapiproxy/libmapiserver/libmapiserver.h $(DESTDIR)$(includedir)/
+ 	$(INSTALL) -m 0644 mapiproxy/libmapiserver.pc $(DESTDIR)$(libdir)/pkgconfig
+-	@$(SED) $(DESTDIR)$(includedir)/*.h
+ 
+ libmapiserver-clean:
+ 	rm -f mapiproxy/libmapiserver/*.po mapiproxy/libmapiserver/*.o
+@@ -855,7 +848,7 @@
+ 	libmapi/conf/mparse.pl --parser=mapistore_nameid --outputdir=mapiproxy/libmapistore/ libmapi/conf/mapi-named-properties
+ 
+ setup/mapistore/mapistore_namedprops.ldif: libmapi/conf/mparse.pl libmapi/conf/mapi-named-properties
+-	-mkdir --parent "setup/mapistore"
++	-mkdir -p "setup/mapistore"
+ 	libmapi/conf/mparse.pl --parser=mapistore_namedprops --outputdir=setup/mapistore/ libmapi/conf/mapi-named-properties
+ 
+ libmapistore-installpc:
+@@ -876,7 +869,6 @@
+ 	$(INSTALL) -m 0644 mapiproxy/libmapiserver.pc $(DESTDIR)$(libdir)/pkgconfig
+ 	$(INSTALL) -d $(DESTDIR)$(datadir)/setup/mapistore
+ 	$(INSTALL) -m 0644 setup/mapistore/*.ldif $(DESTDIR)$(datadir)/setup/mapistore/
+-	@$(SED) $(DESTDIR)$(includedir)/mapistore/*.h
+ 
+ libmapistore-clean:	$(OC_MAPISTORE_CLEAN)
+ 	rm -f mapiproxy/libmapistore/*.po mapiproxy/libmapistore/*.o

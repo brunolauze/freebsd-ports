@@ -1,0 +1,154 @@
+libdata/pkgconfig/libmapi++.pc
+libdata/pkgconfig/libmapi.pc
+libdata/pkgconfig/libocpf.pc
+libdata/pkgconfig/libmapiadmin.pc
+libdata/pkgconfig/libmapistore.pc
+libdata/pkgconfig/libmapiproxy.pc
+libdata/pkgconfig/libmapiserver.pc
+share/setup/profiles/oc_profiles_init.ldif
+share/setup/profiles/oc_profiles_schema.ldif
+share/setup/openchangedb/oc_provision_openchange_init.ldif
+share/setup/openchangedb/oc_provision_openchange_mailbox.ldif
+share/setup/mapistore/mapistore_namedprops.ldif
+share/mapitest/lzxpress/002_Outlook_2007_in_Tables_operations_comp.dat
+share/mapitest/lzxpress/001_Outlook_2007_in_ModifyRecipients_comp.dat
+share/mapitest/lzfu/testcase.rtf
+share/samba41/setup/AD/oc_provision_configuration.ldif
+share/samba41/setup/AD/oc_provision_schema_auxiliary_class.ldif
+share/samba41/setup/AD/oc_provision_configuration_finalize.ldif
+share/samba41/setup/AD/oc_provision_schema_possSuperior.ldif
+share/samba41/setup/AD/oc_provision_schema.ldif
+share/samba41/setup/AD/provision_schema_basedn_modify.ldif
+share/samba41/setup/AD/oc_provision_schema_sub_mailGateway.ldif
+share/samba41/setup/AD/prefixMap.txt
+share/samba41/setup/AD/oc_provision_schema_objectCategory.ldif
+share/samba41/setup/AD/oc_provision_schema_attributes.ldif
+share/samba41/setup/AD/oc_provision_schema_subcontainer.ldif
+share/samba41/setup/AD/oc_provision_schema_container.ldif
+share/samba41/setup/AD/oc_provision_schema_sub_CfgProtocol.ldif
+share/samba41/setup/AD/oc_provision_schema_modify.ldif
+sbin/openchange_newuser
+sbin/openchange_provision
+bin/test_asyncnotif
+bin/check_fasttransfer
+bin/openchangeclient
+bin/openchangepfadmin
+bin/openchangemapidump
+bin/exchange2mbox
+bin/mapiprofile
+bin/schemaIDGUID
+bin/exchange2ical
+bin/mapitest
+lib/libmapiadmin.so
+%%PYTHON_LIBDIR%%/site-packages/openchange/web/auth/NTLMAuthHandler.py
+%%PYTHON_LIBDIR%%/site-packages/openchange/web/auth/__init__.py
+%%PYTHON_LIBDIR%%/site-packages/openchange/web/__init__.py
+%%PYTHON_LIBDIR%%/site-packages/openchange/mailbox.py
+%%PYTHON_LIBDIR%%/site-packages/openchange/mapistore.so
+%%PYTHON_LIBDIR%%/site-packages/openchange/mapi.so
+%%PYTHON_LIBDIR%%/site-packages/openchange/tests/test_provision.py
+%%PYTHON_LIBDIR%%/site-packages/openchange/tests/test_mailbox.py
+%%PYTHON_LIBDIR%%/site-packages/openchange/tests/__init__.py
+%%PYTHON_LIBDIR%%/site-packages/openchange/utils/__init__.py
+%%PYTHON_LIBDIR%%/site-packages/openchange/utils/packets.py
+%%PYTHON_LIBDIR%%/site-packages/openchange/utils/fdunix.py
+%%PYTHON_LIBDIR%%/site-packages/openchange/__init__.py
+%%PYTHON_LIBDIR%%/site-packages/openchange/provision.py
+%%PYTHON_LIBDIR%%/site-packages/openchange/urlutils.py
+lib/libmapistore.so
+lib/libmapiproxy.so
+lib/libmapiserver.so
+lib/libmapiproxy.so.0
+lib/libmapiserver.so.2.0
+lib/libmapi.so.2.0
+lib/libmapi.so
+lib/libmapiproxy.so.2.0
+lib/nagios/check_exchange
+lib/libocpf.so.0
+lib/libmapipp.so.2.0
+lib/libmapistore.so.2.0
+lib/shared-modules/dcerpc_server/dcesrv_mapiproxy.so
+lib/shared-modules/dcerpc_mapiproxy_server/exchange_emsmdb.so
+lib/shared-modules/dcerpc_mapiproxy_server/exchange_nsp.so
+lib/shared-modules/dcerpc_mapiproxy_server/exchange_ds_rfr.so
+lib/shared-modules/dcerpc_mapiproxy/mpm_pack.so
+lib/shared-modules/dcerpc_mapiproxy/mpm_downgrade.so
+lib/shared-modules/dcerpc_mapiproxy/mpm_dummy.so
+lib/shared-modules/dcerpc_mapiproxy/mpm_cache.so
+lib/libocpf.so
+lib/libmapipp.so
+lib/libmapistore.so.0
+lib/libmapipp.so.0
+lib/libmapi.so.0
+lib/libocpf.so.2.0
+lib/libmapiadmin.so.0
+lib/libmapiadmin.so.2.0
+lib/libmapiserver.so.0
+include/libmapiadmin/libmapiadmin.h
+include/libmapi++/profile.h
+include/libmapi++/session.h
+include/libmapi++/mapi_exception.h
+include/libmapi++/clibmapi.h
+include/libmapi++/libmapi++.h
+include/libmapi++/message.h
+include/libmapi++/property_container.h
+include/libmapi++/object.h
+include/libmapi++/folder.h
+include/libmapi++/attachment.h
+include/libmapi++/message_store.h
+include/mapistore/mapistore_nameid.h
+include/mapistore/mapistore_errors.h
+include/mapistore/mapistore.h
+include/gen_ndr/exchange.h
+include/gen_ndr/ndr_exchange.h
+include/gen_ndr/ndr_property.h
+include/gen_ndr/property.h
+include/libmapi/property_altnames.h
+include/libmapi/emsmdb.h
+include/libmapi/nspi.h
+include/libmapi/mapi_context.h
+include/libmapi/mapi_id_array.h
+include/libmapi/idset.h
+include/libmapi/mapi_notification.h
+include/libmapi/mapi_nameid.h
+include/libmapi/mapi_object.h
+include/libmapi/socket/netif.h
+include/libmapi/version.h
+include/libmapi/mapidefs.h
+include/libmapi/mapi_provider.h
+include/libmapi/mapi_profile.h
+include/libmapi/property_tags.h
+include/libmapi/libmapi.h
+include/libmapi/mapicode.h
+include/libmapiserver.h
+include/libocpf/ocpf.h
+include/libmapiproxy.h
+@dirrm include/libocpf
+@dirrm include/libmapi/socket
+@dirrm include/libmapi
+@dirrm include/gen_ndr
+@dirrm include/mapistore
+@dirrm include/libmapi++
+@dirrm include/libmapiadmin
+@dirrm lib/shared-modules/dcerpc_mapiproxy
+@dirrm lib/shared-modules/dcerpc_mapiproxy_server
+@dirrm lib/shared-modules/dcerpc_server
+@dirrm lib/shared-modules
+@dirrm lib/nagios
+@dirrm %%PYTHON_LIBDIR%%/site-packages/openchange/utils
+@dirrm %%PYTHON_LIBDIR%%/site-packages/openchange/tests
+@dirrm %%PYTHON_LIBDIR%%/site-packages/openchange/web/auth
+@dirrm %%PYTHON_LIBDIR%%/site-packages/openchange/web
+@dirrm %%PYTHON_LIBDIR%%/site-packages/openchange
+@dirrm %%PYTHON_LIBDIR%%/site-packages
+@dirrm %%PYTHON_LIBDIR%%
+@dirrm share/samba41/setup/AD
+@dirrm share/samba41/setup
+@dirrm share/samba41
+@dirrm share/mapitest/lzfu
+@dirrm share/mapitest/lzxpress
+@dirrm share/mapitest
+@dirrm share/setup/mapistore
+@dirrm share/setup/openchangedb
+@dirrm share/setup/profiles
+@dirrm share/setup
