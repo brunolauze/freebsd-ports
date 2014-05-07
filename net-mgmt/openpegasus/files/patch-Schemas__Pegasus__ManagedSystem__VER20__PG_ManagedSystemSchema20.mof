@@ -1,0 +1,10 @@
+--- Schemas/Pegasus/ManagedSystem/VER20/PG_ManagedSystemSchema20.mof.orig	2014-04-22 14:46:11.906284027 -0500
++++ Schemas/Pegasus/ManagedSystem/VER20/PG_ManagedSystemSchema20.mof	2014-04-22 14:46:23.621285733 -0500
+@@ -27,6 +27,5 @@
+ //
+ //////////////////////////////////////////////////////////////////////////
+ 
+-#pragma include ("PG_OperatingSystem20.mof")
+ #pragma include ("PG_ComputerSystem20.mof")
+-#pragma include ("PG_UnixProcess20.mof")
++

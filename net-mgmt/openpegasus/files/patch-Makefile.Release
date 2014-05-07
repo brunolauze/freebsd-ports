@@ -1,0 +1,20 @@
+--- Makefile.Release.orig	2013-12-16 03:37:26.000000000 -0600
++++ Makefile.Release	2014-04-24 08:43:56.566129434 -0500
+@@ -189,8 +189,6 @@
+ 
+ PEGASUS_PROVIDERS = \
+    libComputerSystemProvider \
+-   libOSProvider \
+-   libProcessProvider
+ 
+ ifeq ($(OS),HPUX)
+ PEGASUS_PROVIDERS += \
+@@ -435,7 +433,7 @@
+ 
+ stage_genOpenPegasusSSLCertsFile: FORCE
+ 	@$(RM) $(PEGASUS_STAGING_DIR)$(PEGASUS_SCRIPT_DIR)/genOpenPegasusSSLCerts
+-	@$(ECHO-E) "#!/bin/bash" >> \
++	@$(ECHO-E) "#!/usr/bin/env bash" >> \
+              $(PEGASUS_STAGING_DIR)$(PEGASUS_SCRIPT_DIR)/genOpenPegasusSSLCerts
+ 	@$(ECHO-E) "#" >> \
+              $(PEGASUS_STAGING_DIR)$(PEGASUS_SCRIPT_DIR)/genOpenPegasusSSLCerts

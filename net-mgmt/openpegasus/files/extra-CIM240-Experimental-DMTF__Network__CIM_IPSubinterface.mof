@@ -1,0 +1,12 @@
+--- Schemas/CIM240/DMTF/Network/CIM_IPSubinterface.mof.orig	2014-04-23 11:01:07.000258080 -0500
++++ Schemas/CIM240/DMTF/Network/CIM_IPSubinterface.mof	2014-04-23 11:01:22.061256784 -0500
+@@ -28,8 +28,7 @@
+           "of CIM_EthernetPort) that this IPSubinterface is "
+           "associated with. Each non-null value of the "
+           "ParentInterfaceID property shall be formated as a URI "
+-          "per RFC3986 and should be a WBEM URI (DSP0207)." ), 
+-       Reference ( "CIM_EthernetPort" )]
++          "per RFC3986 and should be a WBEM URI (DSP0207)." )]
+    string ParentInterface;
+ 
+       [Description ( 

@@ -1,0 +1,12 @@
+--- Schemas/CIM240/DMTF/Core/CIM_LogicalDevice.mof.orig	2014-04-23 11:41:40.311090353 -0500
++++ Schemas/CIM240/DMTF/Core/CIM_LogicalDevice.mof	2014-04-23 11:41:54.852089489 -0500
+@@ -273,8 +273,7 @@
+    uint16 LocationIndicator;
+ 
+       [Override ( "AllocationState" ), 
+-       Description ( "Allocation state of the logical device." ), 
+-       EmbeddedInstance ( "CIM_ResourceAllocationSettingData" )]
++       Description ( "Allocation state of the logical device." )]
+    string AllocationState;
+ 
+ 

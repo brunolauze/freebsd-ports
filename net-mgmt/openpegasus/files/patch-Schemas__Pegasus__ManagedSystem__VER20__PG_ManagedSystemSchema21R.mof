@@ -1,0 +1,10 @@
+--- Schemas/Pegasus/ManagedSystem/VER20/PG_ManagedSystemSchema21R.mof.orig	2014-04-22 14:47:22.678279096 -0500
++++ Schemas/Pegasus/ManagedSystem/VER20/PG_ManagedSystemSchema21R.mof	2014-04-22 14:47:32.835324917 -0500
+@@ -27,6 +27,5 @@
+ //
+ //////////////////////////////////////////////////////////////////////////
+ 
+-#pragma include ("PG_OperatingSystem21R.mof")
+ #pragma include ("PG_ComputerSystem21R.mof")
+-#pragma include ("PG_UnixProcess21R.mof")
++

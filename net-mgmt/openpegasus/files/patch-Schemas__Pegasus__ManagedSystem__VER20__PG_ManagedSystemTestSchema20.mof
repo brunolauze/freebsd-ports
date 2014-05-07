@@ -1,0 +1,9 @@
+--- Schemas/Pegasus/ManagedSystem/VER20/PG_ManagedSystemTestSchema20.mof.orig	2014-04-22 14:47:50.158277184 -0500
++++ Schemas/Pegasus/ManagedSystem/VER20/PG_ManagedSystemTestSchema20.mof	2014-04-22 14:48:01.805276737 -0500
+@@ -27,5 +27,4 @@
+ //
+ //////////////////////////////////////////////////////////////////////////
+ 
+-#pragma include ("PG_Processor20.mof")
+-#pragma include ("PG_IP20.mof")
++

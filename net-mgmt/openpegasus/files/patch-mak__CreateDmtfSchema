@@ -1,0 +1,56 @@
+--- mak/CreateDmtfSchema.orig	2014-04-22 16:16:50.778909052 -0500
++++ mak/CreateDmtfSchema	2014-04-22 16:18:15.565904574 -0500
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/usr/bin/env bash
+ ###########################################################################
+ ##
+ ## createschema script to create CIM Schema "interface" files:
+@@ -176,22 +176,6 @@
+ INSERT_BLANK_LINE ${NAME} ;
+ }
+ 
+-## Let user make choice.
+-## called like: chice <prompt>
+-## Returns: global variable choice with y / n or answer
+-function choice {
+-    CHOICE=''
+-    local prompt="$*"
+-    local answer
+-
+-    read -p "$prompt" answer
+-    case "$answer" in
+-        [yY1] ) CHOICE='y';;
+-        [nN0] ) CHOICE='n';;
+-        *     ) CHOICE="$answer";;
+-    esac
+-}  # end of choice function
+-
+ #######################################################################
+ ##
+ ## Execute the script
+@@ -229,23 +213,11 @@
+ fi
+ 
+ ## Check with user to be sure input was correct
+-choice "Create ${SCHEMA_DIR} from input file ${ZIP_FILE} [y/n]?"
+-if [ "$CHOICE" != "y" ]; then
+-    echo "Terminating because user elected not to continue."
+-    exit 1
+-fi
+ 
+ ## if the schema directory exists, ask if we want to redo it.
+ ## Deletes the DMTF subdirectory and mof in the SCHEMA_DIR
+ if [ -a $SCHEMA_DIR ]; then
+-    echo Schema directory $SCHEMA_DIR already exists.
+-    choice "Replace existing Directory ${SCHEMA_DIR} [y/n]?"
+-    if [ "$CHOICE" = "y" ]; then
+-        rm -rf "$SCHEMA_DIR"
+-    else
+-        echo Terminating without changing Directory $SCHEMA_DIR MOF.
+-        exit 1
+-    fi
++    rm -rf "$SCHEMA_DIR"
+ fi
+ 
+ mkdir "$SCHEMA_DIR" || { echo Unable to create $SCHEMA_DIR ; exit 4; }

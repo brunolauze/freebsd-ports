@@ -1,0 +1,32 @@
+#!/bin/sh
+#
+# $FreeBSD: head/net-mgmt/openpegasus/files/cimserverd.in 340872 2014-01-24 00:14:07Z mat $
+#
+# PROVIDE: cimserverd
+# REQUIRE: DAEMON slpd
+# KEYWORD: shutdown
+#
+# Add the following line to /etc/rc.conf to enable cimserverd:
+#
+# cimserverd_enable="YES"
+#
+
+cimserverd_enable=${cimserverd_enable-"NO"}
+
+. /etc/rc.subr
+
+name=cimserverd
+rcvar=cimserverd_enable
+
+command=/usr/local/bin/cimserver
+
+stop_cmd="cimserverd_stop"
+
+cimserverd_stop()
+{
+	/usr/local/bin/cimserver -s
+}
+
+
+load_rc_config ${name}
+run_rc_command "$1"

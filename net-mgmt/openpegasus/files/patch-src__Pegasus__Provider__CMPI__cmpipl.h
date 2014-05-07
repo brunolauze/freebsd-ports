@@ -1,0 +1,13 @@
+--- src/Pegasus/Provider/CMPI/cmpipl.h.orig	2014-02-25 14:40:31.707170447 -0600
++++ src/Pegasus/Provider/CMPI/cmpipl.h	2014-02-25 14:41:12.333957941 -0600
+@@ -37,6 +37,10 @@
+ # define CMPI_PLATFORM_LINUX_GENERIC_GNU 1
+ #endif
+ 
++#ifdef PEGASUS_PLATFORM_FREEBSD_GENERIC_GNU
++# define CMPI_PLATFORM_FREEBSD_GENERIC_GNU 1
++#endif
++
+ #ifdef PEGASUS_PLATFORM_HPUX_ACC
+ # define CMPI_PLATFORM_HPUX_ACC 1
+ #endif

@@ -1,0 +1,13 @@
+--- src/SDK/samples/Providers/CMPI/FilesAndDirectories/Makefile.orig	2014-02-26 06:39:46.277045809 -0600
++++ src/SDK/samples/Providers/CMPI/FilesAndDirectories/Makefile	2014-02-26 06:40:32.012015273 -0600
+@@ -39,6 +39,10 @@
+    EXTRA_LINK_ARGUMENTS += -Xlinker -rpath -Xlinker $(PEGASUS_SAMPLE_LIB_DIR)
+ endif
+ 
++ifeq ($(OS),freebsd)
++   EXTRA_LINK_ARGUMENTS += -Xlinker -rpath -Xlinker $(PEGASUS_SAMPLE_LIB_DIR)
++endif
++
+ SOURCES = \
+    CWS_PlainFile.c \
+    CWS_FileUtils.c \

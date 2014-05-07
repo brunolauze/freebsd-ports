@@ -1,0 +1,24 @@
+--- src/Providers/ManagedSystem/Makefile.orig	2014-04-22 14:44:09.630292335 -0500
++++ src/Providers/ManagedSystem/Makefile	2014-04-22 14:44:39.490304030 -0500
+@@ -35,20 +35,10 @@
+ include $(ROOT)/mak/config.mak
+ 
+ DIRS =  \
+-    OperatingSystem \
+-    ComputerSystem \
+-    Process \
+-    Processor \
+-    IP
++    ComputerSystem
+ 
+ TEST_DIRS = \
+-        OperatingSystem/tests \
+-        OperatingSystem/tests/OSTestClient \
+         ComputerSystem/tests \
+-        Process/tests \
+-        Processor/tests \
+-	IP/tests \
+-	IP/testclient
+ 
+ ifeq ($(OS),HPUX)
+     DIRS += \

@@ -1,0 +1,531 @@
+
+
+PORTNAME=	openpegasus
+PORTVERSION=	2.14.0
+CATEGORIES=	net-mgmt
+
+MAINTAINER=	brunolauze@msn.com
+COMMENT=	OpenPegasus Web Management Instrumentation
+
+USES=		gettext gmake pkgconfig perl5
+GNU_CONFIGURE=	yes
+
+FETCH_DEPENDS=	cvs:${PORTSDIR}/devel/cvs
+
+LIB_DEPENDS=	libslp.so:${PORTSDIR}/net/openslp \
+		libnetsnmp.so:${PORTSDIR}/net-mgmt/net-snmp
+
+FETCH_CMD= sh -c "export CVSROOT=:pserver:anon:anon@cvs.opengroup.org:/cvs/MSB && export CVS_PASS=anon && cvs login && cvs co pegasus && find ./pegasus -name 'CVS' -exec rm -rf {} + && mv pegasus ${PORTNAME}-${PORTVERSION} && tar pczf ${PORTNAME}-${PORTVERSION}.tar.gz ${PORTNAME}-${PORTVERSION} && rm -rf ${PORTNAME}-${PORTVERSION}" && echo 
+
+MAKEFILE=Makefile.Release
+ALL_TARGET=rebuild
+
+USERS=  cimsrvr
+GROUPS= cimsrvr
+
+PEGASUS_ROOT=${WRKSRC}
+PEGASUS_HOME=${PEGASUS_ROOT}/out/Debug
+PEGASUS_PLATFORM=FREEBSD_X86_64_CLANG
+
+#PEGASUS_PREFIX=${STAGEDIR}${PREFIX}
+PEGASUS_PREFIX=${PREFIX}
+
+# OpenPegasus SSL support
+OPENSSL_HOME=/usr
+PEGASUS_HAS_SSL=yes
+PEGASUS_ENABLE_SSLV2=yes
+PEGASUS_TRACE_FILE_PATH=/var/log/cimserver.log
+PEGASUS_LOG_DIR=/var/log/pegasus
+
+PEGASUS_CONFIG_DIR="${PREFIX}/etc/pegasus"
+PEGASUS_SSL_CERT_FILE_PATH="${PREFIX}/etc/pegasus/server.pem"
+PEGASUS_SSL_KEY_FILE_PATH="${PREFIX}/etc/pegasus/file.pem"
+PEGASUS_SSL_SERVER_TRUSTSTORE="${PREFIX}/etc/pegasus"
+PEGASUS_CRL_VERIFICATION="${PREFIX}/etc/pegasus"
+PEGASUS_SSL_SERVER_CRL="${PREFIX}/etc/pegasus"
+PEGASUS_REPOSITORY_DIR="${PREFIX}/share/pegasus/repository"
+PEGASUS_CIM_SCHEMA=CIM240
+ALLOW_EXPERIMENTAL="-aEV"
+
+# OpenPegasus SLP support
+PEGASUS_OPENSLP_HOME=${LOCALBASE}
+PEGASUS_ENABLE_SLP=true
+PEGASUS_USE_EXTERNAL_SLP=openslp
+
+# OpenPegasus User authentication & authorization
+PEGASUS_ENABLE_USERGROUP_AUTHORIZATION=true
+PEGASUS_PAM_AUTHENTICATION=true
+
+# OpenPegasus ExecQuery() method support
+PEGASUS_ENABLE_EXECQUERY=true
+
+PEGASUS_ENABLE_CMPI_PROVIDER_MANAGER=true
+PEGASUS_SUPPORTS_DYNLIB="yes"
+PEGASUS_USE_EXPERIMENTAL_INTERFACES=true
+PEGASUS_DISABLE_DEPRECATED_INTERFACES=false
+PEGASUS_REPOSITORY_MODE=BIN
+PEGASUS_ADVANCED_CIMCLIENT=true
+PEGASUS_ENABLE_PROTOCOL_BINARY=true
+PEGASUS_ENABLE_PROTOCOL_WSMAN=true
+PEGASUS_DEFAULT_ENABLE_OOP=true
+PEGASUS_ENABLE_DMTF_INDICATION_PROFILE_SUPPORT=true
+PEGASUS_ENABLE_EMAIL_HANDLER=true
+PEGASUS_ENABLE_SYSTEM_LOG_HANDLER=true
+PEGASUS_NET_SNMP_INCLUDE_DIR=/usr/local/include
+PEGASUS_NET_SNMP_LIB_DIR=/usr/local/lib
+
+PEGASUS_ENVVAR_FILE=${WRKSRC}/env_var_FreeBSD.status
+
+CFLAGS+=        -DPEGASUS_PAM_AUTHENTICATION=1 -DPEGASUS_ENABLE_USERGROUP_AUTHORIZATION=1 \
+                -DPEGASUS_ENABLE_EXECQUERY=1 -DPEGASUS_ENABLE_SLP -DPEGASUS_HAS_SSL=1 \
+                -DPEGASUS_USE_EXTERNAL_SLP=1 
+
+CXXFLAGS+=      -DOPENSSL_HOME=${OPENSSL_HOME} -DPEGASUS_HAS_SSL=1 -DPEGASUS_ENABLE_SSLV2=1 \
+                -DPEGASUS_OPENSLP_HOME=\"${PEGASUS_OPENSLP_HOME}\" \
+                -DPEGASUS_ENABLE_SLP=1 \
+		-DPEGASUS_USE_EXTERNAL_SLP=1 \
+                -DPEGASUS_ENABLE_USERGROUP_AUTHORIZATION=1 \
+                -DPEGASUS_PAM_AUTHENTICATION=1 \
+                -DPEGASUS_ENABLE_EXECQUERY=1 \
+                -DPEGASUS_ENABLE_CMPI_PROVIDER_MANAGER=1 \
+                -DPEGASUS_SUPPORTS_DYNLIB=1 \
+                -DPEGASUS_USE_EXPERIMENTAL_INTERFACES=1 \
+                -DPEGASUS_DISABLE_DEPRECATED_INTERFACES=1 \
+                -DPEGASUS_REPOSITORY_MODE=BIN \
+                -DPEGASUS_ADVANCED_CIMCLIENT=1 \
+                -DPEGASUS_ENABLE_PROTOCOL_BINARY=1 \
+		-DPEGASUS_ENABLE_PROTOCOL_WSMAN \
+		-DPEGASUS_CONFIG_DIR=\"${PEGASUS_CONFIG_DIR}\" \
+		-DPEGASUS_SSL_CERT_FILE_PATH=\"${PEGASUS_SSL_CERT_FILE_PATH}\" \
+		-DPEGASUS_SSL_KEY_FILE_PATH=\"${PEGASUS_SSL_KEY_FILE_PATH}\" \
+		-DPEGASUS_SSL_SERVER_TRUSTSTORE=\"${PEGASUS_SSL_SERVER_TRUSTSTORE}\" \
+		-DPEGASUS_CRL_VERIFICATION=\"${PEGASUS_CRL_VERIFICATION}\" \
+		-DPEGASUS_SSL_SERVER_CRL=\"${PEGASUS_SSL_SERVER_CRL}\" \
+		-DPEGASUS_REPOSITORY_DIR=\"${PEGASUS_REPOSITORY_DIR}\" \
+		-DPEGASUS_CIM_SCHEMA=CIM240
+
+
+CONFIGURE_ENV+= PEGASUS_ROOT=${PEGASUS_ROOT} PEGASUS_HOME=${PEGASUS_HOME} \
+                PEGASUS_PLATFORM=${PEGASUS_PLATFORM} OPENSSL_HOME=${OPENSSL_HOME} \
+                PEGASUS_HAS_SSL=${PEGASUS_HAS_SSL} \
+		PEGASUS_ENABLE_SSLV2=${PEGASUS_ENABLE_SSLV2} \
+                PEGASUS_OPENSLP_HOME=${PEGASUS_OPENSLP_HOME} \
+                PEGASUS_ENABLE_SLP=${PEGASUS_ENABLE_SLP} \
+                PEGASUS_ENABLE_USERGROUP_AUTHORIZATION=${PEGASUS_ENABLE_USERGROUP_AUTHORIZATION} \
+                PEGASUS_PAM_AUTHENTICATION=${PEGASUS_PAM_AUTHENTICATION} \
+                PEGASUS_ENABLE_EXECQUERY=${PEGASUS_ENABLE_EXECQUERY} \
+		PEGASUS_ENABLE_PROTOCOL_WSMAN=${PEGASUS_ENABLE_PROTOCOL_WSMAN} \
+		PEGASUS_CIM_SCHEMA=${PEGASUS_CIM_SCHEMA} \
+		ALLOW_EXPERIMENTAL=${ALLOW_EXPERIMENTAL} \
+		PEGASUS_DEFAULT_ENABLE_OOP=${PEGASUS_DEFAULT_ENABLE_OOP} \
+		PEGASUS_ENABLE_DMTF_INDICATION_PROFILE_SUPPORT=${PEGASUS_ENABLE_DMTF_INDICATION_PROFILE_SUPPORT} \
+		PEGASUS_ENABLE_EMAIL_HANDLER=${PEGASUS_ENABLE_EMAIL_HANDLER} \
+		PEGASUS_ENABLE_SYSTEM_LOG_HANDLER=${PEGASUS_ENABLE_SYSTEM_LOG_HANDLER} \
+		PEGASUS_NET_SNMP_INCLUDE_DIR=${PEGASUS_NET_SNMP_INCLUDE_DIR} \
+		PEGASUS_NET_SNMP_LIB_DIR=${PEGASUS_NET_SNMP_LIB_DIR} \
+		PEGASUS_ENVVAR_FILE=${PEGASUS_ENVVAR_FILE}
+
+MAKE_ENV+=      PEGASUS_ROOT=${PEGASUS_ROOT} PEGASUS_HOME=${PEGASUS_HOME} \
+                PEGASUS_PLATFORM=${PEGASUS_PLATFORM} OPENSSL_HOME=${OPENSSL_HOME} \
+                PEGASUS_HAS_SSL=${PEGASUS_HAS_SSL} \
+		PEGASUS_ENABLE_SSLV2=${PEGASUS_ENABLE_SSLV2} \
+		PEGASUS_OPENSLP_HOME=${PEGASUS_OPENSLP_HOME} \
+                PEGASUS_ENABLE_SLP=${PEGASUS_ENABLE_SLP} \
+                PEGASUS_ENABLE_USERGROUP_AUTHORIZATION=${PEGASUS_ENABLE_USERGROUP_AUTHORIZATION} \
+                PEGASUS_PAM_AUTHENTICATION=${PEGASUS_PAM_AUTHENTICATION} \
+                PEGASUS_ENABLE_EXECQUERY=${PEGASUS_ENABLE_EXECQUERY} \
+                PEGASUS_ENABLE_CMPI_PROVIDER_MANAGER=${PEGASUS_ENABLE_CMPI_PROVIDER_MANAGER} \
+                PEGASUS_SUPPORTS_DYNLIB=${PEGASUS_SUPPORTS_DYNLIB} \
+                PEGASUS_USE_EXPERIMENTAL_INTERFACES=${PEGASUS_USE_EXPERIMENTAL_INTERFACES} \
+                PEGASUS_DISABLE_DEPRECATED_INTERFACES=${PEGASUS_DISABLE_DEPRECATED_INTERFACES} \
+                PEGASUS_REPOSITORY_MODE=${PEGASUS_REPOSITORY_MODE} \
+                PEGASUS_ADVANCED_CIMCLIENT=${PEGASUS_ADVANCED_CIMCLIENT} \
+                PEGASUS_ENABLE_PROTOCOL_BINARY=${PEGASUS_ENABLE_PROTOCOL_BINARY} \
+		PEGASUS_ENABLE_PROTOCOL_WSMAN=${PEGASUS_ENABLE_PROTOCOL_WSMAN} \
+		PEGASUS_CONFIG_DIR=${PEGASUS_CONFIG_DIR} \
+		PEGASUS_SSL_CERT_FILE_PATH=${PEGASUS_SSL_CERT_FILE_PATH} \
+		PEGASUS_SSL_KEY_FILE_PATH=${PEGASUS_SSL_KEY_FILE_PATH} \
+		PEGASUS_SSL_SERVER_TRUSTSTORE=${PEGASUS_SSL_SERVER_TRUSTSTORE} \
+		PEGASUS_CRL_VERIFICATION=${PEGASUS_CRL_VERIFICATION} \
+		PEGASUS_SSL_SERVER_CRL=${PEGASUS_SSL_SERVER_CRL} \
+		PEGASUS_REPOSITORY_DIR=${PEGASUS_REPOSITORY_DIR} \
+		PEGASUS_CIM_SCHEMA=${PEGASUS_CIM_SCHEMA} \
+		ALLOW_EXPERIMENTAL=${ALLOW_EXPERIMENTAL} \
+		PEGASUS_DEFAULT_ENABLE_OOP=${PEGASUS_DEFAULT_ENABLE_OOP} \
+		PEGASUS_ENABLE_DMTF_INDICATION_PROFILE_SUPPORT=${PEGASUS_ENABLE_DMTF_INDICATION_PROFILE_SUPPORT} \
+		PEGASUS_ENABLE_EMAIL_HANDLER=${PEGASUS_ENABLE_EMAIL_HANDLER} \
+		PEGASUS_ENABLE_SYSTEM_LOG_HANDLER=${PEGASUS_ENABLE_SYSTEM_LOG_HANDLER} \
+		PEGASUS_NET_SNMP_INCLUDE_DIR=${PEGASUS_NET_SNMP_INCLUDE_DIR} \
+		PEGASUS_NET_SNMP_LIB_DIR=${PEGASUS_NET_SNMP_LIB_DIR} \
+		PEGASUS_ENVVAR_FILE=${PEGASUS_ENVVAR_FILE} \
+		CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}" DEFINES="${CXXFLAGS}" \
+                LD_LIBRARY_PATH=${PEGASUS_HOME}/lib: \
+                PATH=${PEGASUS_HOME}/bin:${LOCALBASE}/bin:${LOCALBASE}/sbin:/sbin:/usr/bin:/bin
+
+SUB_FILES=	SampleCMPIInstanceClient \
+		TestAbstract \
+		TestAggregationOutputClient \
+		TestAnonymousPipe \
+		TestAnonymousPipeChild \
+		TestArray \
+		TestAssocClassCache \
+		TestAssocOperations \
+		TestAssocTable \
+		TestAssociationTestClient \
+		TestAsyncCallback \
+		TestAsyncQueue \
+		TestAtomicInt \
+		TestAttribute \
+		TestAuditLogger \
+		TestAuthenticationInfo \
+		TestAuthenticationManager \
+		TestAutoPtr \
+		TestBase64 \
+		TestBasicAuthenticationHandler \
+		TestBenchmark \
+		TestBinaryClient \
+		TestBuffer \
+		TestCIMBuffer \
+		TestCIMErrorClient \
+		TestCIMName \
+		TestCIMOMHandleTestProviderClient \
+		TestCIMOMStatData \
+		TestCIMQueryCap \
+		TestCIMxmlIndicationHandlerDestination \
+		TestCMPIAssociation \
+		TestCMPIBroker \
+		TestCMPIBrokerEnc \
+		TestCMPIEnumeration \
+		TestCMPIError \
+		TestCMPIIndicationSubscription \
+		TestCMPIInstance \
+		TestCMPIInstanceExecQuery \
+		TestCMPIKeyReturned \
+		TestCMPIMethod \
+		TestCMPIProperty \
+		TestCMPIThreadProvider \
+		TestCMPI_Fail_1 \
+		TestCMPI_Fail_2 \
+		TestCMPI_Fail_3 \
+		TestCMPI_Fail_5 \
+		TestCQL \
+		TestCQLChainedIdentifier \
+		TestCQLRegularExpression \
+		TestCQLValue \
+		TestCertClient \
+		TestChgdHosts \
+		TestChunkingStressProviderClient \
+		TestCimError \
+		TestCimsub \
+		TestCimsubInterOp \
+		TestClassDecl \
+		TestClassDeclRep \
+		TestClient \
+		TestCompAssoc \
+		TestCompare \
+		TestCompareRepositories \
+		TestConfig \
+		TestConfigFileHandler \
+		TestConfigManager \
+		TestDateTime \
+		TestDeliveryRetry \
+		TestDir \
+		TestDisableEnable \
+		TestDisableEnable2 \
+		TestDynListener \
+		TestDynamicLibrary \
+		TestEmbeddedInstance \
+		TestEnumerateClassNames \
+		TestExecutor \
+		TestExportClient \
+		TestFaultyInstanceProviderClient \
+		TestFileHandler \
+		TestFileLock \
+		TestFileSystem \
+		TestFlavor \
+		TestFormatter \
+		TestG11n \
+		TestGroupMethodProvider \
+		TestHTTPExportResponseDecoder \
+		TestHTTPMessage \
+		TestHandlerTable \
+		TestHashTable \
+		TestHostAddress \
+		TestHostLocator \
+		TestIDFactory \
+		TestIdleConnectionTimeout \
+		TestIndicationProcess \
+		TestIndicationService \
+		TestIndicationStressTest \
+		TestIndicationsCount \
+		TestInheritanceTree \
+		TestInst \
+		TestInstAlias \
+		TestInstanceDecl \
+		TestInstanceProviderClient \
+		TestInterop \
+		TestL10N \
+		TestList \
+		TestListenAddress \
+		TestListener \
+		TestLocalAuthFile \
+		TestLocalAuthenticationHandler \
+		TestLogger \
+		TestMCCATestClient \
+		TestMessageQueue \
+		TestMessageQueueService \
+		TestMessageSerializer \
+		TestMethod \
+		TestMethodTestProvider \
+		TestModelWalkStressClient \
+		TestModuleController \
+		TestMutex \
+		TestNameSpace \
+		TestNameSpaceManager \
+		TestOOPModuleFailure \
+		TestObject \
+		TestObjectNormalizer \
+		TestOperationContext \
+		TestOperationResponseHandler \
+		TestOptionManager \
+		TestOrderedSet \
+		TestParamValue \
+		TestParameter \
+		TestParser \
+		TestParserCLI \
+		TestPegClientAssociationClient \
+		TestPegClientClient \
+		TestPegClientClientStatistics \
+		TestPegClientDeleteNamespace \
+		TestPegClientEnumInstances \
+		TestPegClientInvokeMethod2 \
+		TestPegClientSLPClient \
+		TestPegClientSSLCipherVerification \
+		TestProcessIndication \
+		TestProperty \
+		TestProvidMgrModifyInstances \
+		TestProvidMgrPluginMap \
+		TestProviderLifecycleIndications \
+		TestProviderManager \
+		TestProviderMessageHandler \
+		TestProviderModule \
+		TestProviderName \
+		TestProviderStatus \
+		TestPrvRegMgrCreateInstances \
+		TestPrvRegMgrDeleteInstances \
+		TestPrvRegMgrLookupIndicationConsumer \
+		TestPrvRegMgrLookupIndicationProvider \
+		TestPrvRegMgrLookupInstanceProvider \
+		TestPrvRegMgrLookupMethodProvider \
+		TestPrvRegMgrWildCardNamespaceNames \
+		TestQualifier \
+		TestQualifierDecl \
+		TestQualifierDeclCompile \
+		TestQualifierDeclRep \
+		TestQualifierList \
+		TestQueryContext \
+		TestQueryExpression \
+		TestRT_Sample_Subscription \
+		TestReference \
+		TestRepository \
+		TestRepository2 \
+		TestRepositoryMix \
+		TestResolve \
+		TestResponseHandler \
+		TestSCMO \
+		TestSLP \
+		TestSLP_SA \
+		TestScope \
+		TestServerProfile \
+		TestSharedInheritanceTree \
+		TestSharedNameSpace \
+		TestSharedPtr \
+		TestSpinLock \
+		TestStack \
+		TestStaticClient \
+		TestStatisticalData \
+		TestStopwatch \
+		TestStrToInstName \
+		TestStressTestController \
+		TestString \
+		TestStringConversion \
+		TestSubscription \
+		TestSubscriptionKey \
+		TestSystem \
+		TestThread \
+		TestThreadPool \
+		TestTimeValue \
+		TestToMof \
+		TestTracer \
+		TestUintArgs \
+		TestUpgrade \
+		TestUserContext \
+		TestValidateClass \
+		TestValue \
+		TestWrapperStressClient \
+		TestXmlDump \
+		TestXmlParser \
+		TestXmlPrint \
+		TestXmlReader \
+		TestXmlWriter \
+		TestcreateRegistration \
+		TestmodifyRegistration \
+		chksrc \
+		cimauth \
+		cimcli \
+		cimconfig \
+		cimcrl \
+		cimlistener \
+		cimmof \
+		cimmofl \
+		cimperf \
+		cimprovagt \
+		cimprovider \
+		cimreparchive \
+		cimserver \
+		cimserverd \
+		cimsub \
+		cimtrust \
+		cnv2rootbundle \
+		insertcrs \
+		ipinfo \
+		loadxml \
+		osinfo \
+		repupgrade \
+		slp_attrreq \
+		slp_query \
+		slp_srvreg \
+		srv_reg \
+		stripcrs \
+		stripline \
+		testCQLExecQuery \
+		testExecQuery \
+		tomof \
+		wbemexec \
+		cimserver_planned.conf \
+
+SUB_LIST+=	COMMENT="${COMMENT}" \
+		PEGASUS_PREFIX=${PEGASUS_PREFIX}
+
+.include <bsd.port.pre.mk>
+
+configure: do-configure
+
+do-configure: patch
+	@(echo "Configuration done...")
+	touch ${WRKDIR}/.configure_done.openpegasus._usr_local
+
+REPOSITORY_TYPE=Experimental
+
+post-patch:
+	fetch http://dmtf.org/sites/default/files/cim/cim_schema_v2400/cim_schema_2.40.0${REPOSITORY_TYPE}-MOFs.zip
+	PEGASUS_ROOT=${WRKSRC} ${WRKSRC}/mak/CreateDmtfSchema 240 ${PWD}/cim_schema_2.40.0${REPOSITORY_TYPE}-MOFs.zip cim_schema_2.40.0
+	rm cim_schema_2.40.0${REPOSITORY_TYPE}-MOFs.zip
+	cd ${WRKSRC} && patch -b.orig < ${FILESDIR}/extra-CIM240-qualifiers
+	cd ${WRKSRC} && patch -b.orig < ${FILESDIR}/extra-CIM240-${REPOSITORY_TYPE}-CIM_Core.mof
+	cd ${WRKSRC} && patch -b.orig < ${FILESDIR}/extra-CIM240-${REPOSITORY_TYPE}-CIM_Interop.mof
+.if ${REPOSITORY_TYPE} == "Experimental"
+	cd ${WRKSRC} && patch -b.orig < ${FILESDIR}/extra-CIM240-${REPOSITORY_TYPE}-CIM_Event.mof
+	cd ${WRKSRC} && patch -b.orig < ${FILESDIR}/extra-CIM240-${REPOSITORY_TYPE}-DMTF__Core__CIM_AllocatedLogicalElement.mof
+	cd ${WRKSRC} && patch -b.orig < ${FILESDIR}/extra-CIM240-${REPOSITORY_TYPE}-DMTF__Core__CIM_LogicalDevice.mof
+	cd ${WRKSRC} && patch -b.orig < ${FILESDIR}/extra-CIM240-${REPOSITORY_TYPE}-DMTF__Network__CIM_IPSubinterface.mof
+.endif
+
+post-build: repository
+
+repository:
+	@(cd ${WRKSRC} && ${MAKE_ENV} ${GMAKE} repository)
+	@(cd ${WRKSRC} && ${MAKE_ENV} ${GMAKE} setupdevserver)
+
+
+COPYTREE_HEADER=/bin/sh -c '(/usr/bin/find -d $$0 -name "*.h"  -not -path "*/tests/*" | /usr/bin/cpio -dumpl $$1 >/dev/null  2>&1) &&  /usr/sbin/chown -Rh root:wheel $$1 && /usr/bin/find -d $$0 -name "*.h"  -not -path "*/tests/*" -type d -exec chmod 755 $$1/{} \; &&  /usr/bin/find -d $$0 -name "*.h"  -not -path "*/tests/*" -type f -exec chmod 444 $$1/{} \;' --
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pegasus
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pegasus/include
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/Client
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/Common
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/Config
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/Consumer
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/General
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/Provider
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/Query
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/Query/QueryCommon
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/Query/QueryExpression
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/CQL
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/FQL
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/WQL
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pegasus/bin
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pegasus/lib
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pegasus/lib/providers
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/pegasus
+	${MKDIR} ${STAGEDIR}${PREFIX}/www
+	${MKDIR} ${STAGEDIR}${PREFIX}/www/pegasus
+	cd ${PEGASUS_HOME}/lib && ${COPYTREE_BIN} . ${STAGEDIR}${PREFIX}/lib/pegasus/lib/
+	cd ${PEGASUS_HOME}/bin && ${COPYTREE_BIN} . ${STAGEDIR}${PREFIX}/lib/pegasus/bin/ "! -name Test*"
+	cd ${WRKSRC}/src/Pegasus/Client && ${COPYTREE_HEADER} . ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/Client/
+	cd ${WRKSRC}/src/Pegasus/Common && ${COPYTREE_HEADER} . ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/Common/
+	cd ${WRKSRC}/src/Pegasus/Config && ${COPYTREE_HEADER} . ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/Config/
+	cd ${WRKSRC}/src/Pegasus/Consumer && ${COPYTREE_HEADER} . ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/Consumer/
+	cd ${WRKSRC}/src/Pegasus/General && ${COPYTREE_HEADER} . ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/General/
+	cd ${WRKSRC}/src/Pegasus/Provider && ${COPYTREE_HEADER} . ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/Provider/
+	cd ${WRKSRC}/src/Pegasus/Query/QueryCommon && ${COPYTREE_HEADER} . ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/Query/QueryCommon
+	cd ${WRKSRC}/src/Pegasus/Query/QueryExpression && ${COPYTREE_HEADER} . ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/Query/QueryExpression
+	cd ${WRKSRC}/src/Pegasus/CQL && ${COPYTREE_HEADER} . ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/CQL
+	cd ${WRKSRC}/src/Pegasus/FQL && ${COPYTREE_HEADER} . ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/FQL
+	cd ${WRKSRC}/src/Pegasus/WQL && ${COPYTREE_HEADER} . ${STAGEDIR}${PREFIX}/lib/pegasus/include/Pegasus/WQL
+	${INSTALL_SCRIPT} ${WRKDIR}/chksrc ${STAGEDIR}${PREFIX}/bin/chksrc
+	${INSTALL_SCRIPT} ${WRKDIR}/cimauth ${STAGEDIR}${PREFIX}/bin/cimauth
+	${INSTALL_SCRIPT} ${WRKDIR}/cimcli ${STAGEDIR}${PREFIX}/bin/cimcli
+	${INSTALL_SCRIPT} ${WRKDIR}/cimconfig ${STAGEDIR}${PREFIX}/bin/cimconfig
+	${INSTALL_SCRIPT} ${WRKDIR}/cimcrl ${STAGEDIR}${PREFIX}/bin/cimcrl
+	${INSTALL_SCRIPT} ${WRKDIR}/cimlistener ${STAGEDIR}${PREFIX}/bin/cimlistener
+	${INSTALL_SCRIPT} ${WRKDIR}/cimmof ${STAGEDIR}${PREFIX}/bin/cimmof
+	${INSTALL_SCRIPT} ${WRKDIR}/cimmofl ${STAGEDIR}${PREFIX}/bin/cimmofl
+	${INSTALL_SCRIPT} ${WRKDIR}/cimperf ${STAGEDIR}${PREFIX}/bin/cimperf
+	${INSTALL_SCRIPT} ${WRKDIR}/cimprovagt ${STAGEDIR}${PREFIX}/bin/cimprovagt
+	${INSTALL_SCRIPT} ${WRKDIR}/cimprovider ${STAGEDIR}${PREFIX}/bin/cimprovider
+	${INSTALL_SCRIPT} ${WRKDIR}/cimreparchive ${STAGEDIR}${PREFIX}/bin/cimreparchive
+	${INSTALL_SCRIPT} ${WRKDIR}/cimserver ${STAGEDIR}${PREFIX}/bin/cimserver
+	${INSTALL_SCRIPT} ${WRKDIR}/cimsub ${STAGEDIR}${PREFIX}/bin/cimsub
+	${INSTALL_SCRIPT} ${WRKDIR}/cimtrust ${STAGEDIR}${PREFIX}/bin/cimtrust
+	${INSTALL_SCRIPT} ${WRKDIR}/cnv2rootbundle ${STAGEDIR}${PREFIX}/bin/cnv2rootbundle
+	${INSTALL_SCRIPT} ${WRKDIR}/insertcrs ${STAGEDIR}${PREFIX}/bin/insertcrs
+	${INSTALL_SCRIPT} ${WRKDIR}/ipinfo ${STAGEDIR}${PREFIX}/bin/cimipinfo
+	${INSTALL_SCRIPT} ${WRKDIR}/loadxml ${STAGEDIR}${PREFIX}/bin/cimloadxml
+	${INSTALL_SCRIPT} ${WRKDIR}/osinfo ${STAGEDIR}${PREFIX}/bin/cimosinfo
+	${INSTALL_SCRIPT} ${WRKDIR}/repupgrade ${STAGEDIR}${PREFIX}/bin/cimrepupgrade
+	${INSTALL_SCRIPT} ${WRKDIR}/slp_attrreq ${STAGEDIR}${PREFIX}/bin/slp_attrreq
+	${INSTALL_SCRIPT} ${WRKDIR}/slp_query ${STAGEDIR}${PREFIX}/bin/slp_query
+	${INSTALL_SCRIPT} ${WRKDIR}/slp_srvreg ${STAGEDIR}${PREFIX}/bin/slp_srvreg
+	${INSTALL_SCRIPT} ${WRKDIR}/srv_reg ${STAGEDIR}${PREFIX}/bin/srv_reg
+	${INSTALL_SCRIPT} ${WRKDIR}/stripcrs ${STAGEDIR}${PREFIX}/bin/stripcrs
+	${INSTALL_SCRIPT} ${WRKDIR}/stripline ${STAGEDIR}${PREFIX}/bin/cimstripline
+	${INSTALL_SCRIPT} ${WRKDIR}/testCQLExecQuery ${STAGEDIR}${PREFIX}/bin/testCQLExecQuery
+	${INSTALL_SCRIPT} ${WRKDIR}/testExecQuery ${STAGEDIR}${PREFIX}/bin/testExecQuery
+	${INSTALL_SCRIPT} ${WRKDIR}/tomof ${STAGEDIR}${PREFIX}/bin/tomof
+	${INSTALL_SCRIPT} ${WRKDIR}/wbemexec ${STAGEDIR}${PREFIX}/bin/wbemexec
+	${INSTALL_SCRIPT} ${WRKDIR}/wbemexec ${STAGEDIR}${PREFIX}/sbin/cimservermain
+	${INSTALL_SCRIPT} ${WRKDIR}/cimserverd ${STAGEDIR}${PREFIX}/etc/rc.d/cimserverd
+	${INSTALL_DATA} ${PEGASUS_HOME}/server.pem ${STAGEDIR}${PREFIX}/etc/pegasus/server.pem
+	${INSTALL_DATA} ${PEGASUS_HOME}/cert.pem ${STAGEDIR}${PREFIX}/etc/pegasus/cert.pem
+	${INSTALL_DATA} ${PEGASUS_HOME}/cimserver.rnd ${STAGEDIR}${PREFIX}/etc/pegasus/cimserver.rnd
+	${INSTALL_DATA} ${PEGASUS_HOME}/client.pem ${STAGEDIR}${PREFIX}/etc/pegasus/client.pem
+	${INSTALL_DATA} ${PEGASUS_HOME}/client_cert.pem ${STAGEDIR}${PREFIX}/etc/pegasus/client_cert.pem
+	${INSTALL_DATA} ${PEGASUS_HOME}/client_file.pem	${STAGEDIR}${PREFIX}/etc/pegasus/client_file.pem
+	${INSTALL_DATA} ${PEGASUS_HOME}/file.pem ${STAGEDIR}${PREFIX}/etc/pegasus/file.pem
+	${INSTALL_DATA} ${PEGASUS_HOME}/ssl.cnf ${STAGEDIR}${PREFIX}/etc/pegasus/ssl.cnf
+	${INSTALL_DATA} ${PEGASUS_HOME}/ssl.rnd ${STAGEDIR}${PREFIX}/etc/pegasus/ssl.rnd
+	${INSTALL_DATA}	${WRKDIR}/cimserver_planned.conf ${STAGEDIR}${PREFIX}/etc/pegasus/cimserver_planned.conf
+	${INSTALL_DATA} ${WRKDIR}/cimserver_planned.conf ${STAGEDIR}${PREFIX}/etc/pegasus/cimserver_current.conf
+	${INSTALL_DATA} ${WRKDIR}/cimserver_planned.conf ${STAGEDIR}${PREFIX}/etc/pegasus/cimserver.conf
+	@(cd ${PEGASUS_HOME} && ${TAR} pczf repository-${PEGASUS_CIM_SCHEMA}.tar.gz repository)
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/pegasus
+	${INSTALL_DATA} ${PEGASUS_HOME}/repository-${PEGASUS_CIM_SCHEMA}.tar.gz ${STAGEDIR}${PREFIX}/share/pegasus/repository-${PEGASUS_CIM_SCHEMA}.tar.gz
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/pegasus/providers
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/pegasus/scripts
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/pegasus/mof
+	@(cd ${PEGASUS_HOME}/www && ${CP} -R * ${STAGEDIR}${PREFIX}/www/pegasus)
+
+.include <bsd.port.post.mk>

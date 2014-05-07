@@ -1,0 +1,13 @@
+--- Schemas/CIM240/DMTF/qualifiers.mof.orig	2014-04-22 17:28:00.009614980 -0500
++++ Schemas/CIM240/DMTF/qualifiers.mof	2014-04-22 17:28:12.000614604 -0500
+@@ -152,8 +152,8 @@
+ Qualifier Read : boolean = true, 
+     Scope(property);
+ 
+-Qualifier Reference : string = null, 
+-    Scope(property);
++// Qualifier Reference : string = null, 
++//    Scope(property);
+ 
+ Qualifier Required : boolean = false, 
+     Scope(property, reference, method, parameter), 

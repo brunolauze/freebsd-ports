@@ -1,0 +1,9 @@
+--- Schemas/CIM240/CIM_Event.mof.orig	2014-04-23 10:58:47.742267806 -0500
++++ Schemas/CIM240/CIM_Event.mof	2014-04-23 10:59:16.906265767 -0500
+@@ -73,5 +73,6 @@
+ #pragma include ("DMTF/Event/CIM_IPNetworkSecurityIndication.mof")
+ #pragma include ("DMTF/Event/CIM_IPPacketFilterIndication.mof")
+ #pragma include ("DMTF/Event/CIM_IndicationService.mof")
++#pragma include ("DMTF/System/CIM_Log.mof")
+ #pragma include ("DMTF/Event/CIM_LogOfIndication.mof")
+  

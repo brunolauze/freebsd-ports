@@ -1,0 +1,12 @@
+--- Schemas/CIM240/DMTF/Core/CIM_AllocatedLogicalElement.mof.orig	2014-04-23 10:39:35.448347213 -0500
++++ Schemas/CIM240/DMTF/Core/CIM_AllocatedLogicalElement.mof	2014-04-23 10:43:22.196331581 -0500
+@@ -8,8 +8,7 @@
+ class CIM_AllocatedLogicalElement : CIM_EnabledLogicalElement {
+ 
+       [Experimental, Description ( 
+-          "Allocation state of the managed element." ), 
+-       EmbeddedInstance ( "CIM_SettingData" )]
++          "Allocation state of the managed element." )]
+    string AllocationState;
+ 
+ 
